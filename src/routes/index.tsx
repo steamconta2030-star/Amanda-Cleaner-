@@ -221,6 +221,12 @@ const dict = {
         "Bathroom · Deep Clean",
         "Living Room · Residential",
       ],
+      open: "Open",
+      close: "Close lightbox",
+      prev: "Previous image",
+      next: "Next image",
+      of: "of",
+      dialogHint: "Use left and right arrow keys to navigate. Press Escape to close.",
     },
     footer: {
       line: "Personalized home cleaning · Florida",

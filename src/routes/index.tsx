@@ -2,6 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import heroImage from "../assets/hero.jpg";
 import aboutImage from "../assets/amanda.jpg.asset.json";
+import before1 from "../assets/before-1.jpg";
+import after1 from "../assets/after-1.jpg";
+import before2 from "../assets/before-2.jpg";
+import after2 from "../assets/after-2.jpg";
+import before3 from "../assets/before-3.jpg";
+import after3 from "../assets/after-3.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,

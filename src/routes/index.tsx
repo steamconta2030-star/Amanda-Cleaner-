@@ -5,7 +5,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const WHATSAPP_URL = "https://wa.me/?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20limpeza.";
+const WHATSAPP_URL = "https://wa.me/?text=Hi%20Amanda%2C%20I%27d%20like%20to%20book%20a%20cleaning.";
 
 function Index() {
   return (
@@ -25,12 +25,12 @@ function Nav() {
     <header className="absolute top-0 left-0 right-0 z-20">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 md:px-10 md:py-8">
         <a href="#top" className="font-serif text-xl tracking-tight">
-          Casa <span className="italic text-primary">&amp;</span> Cuidado
+          Amanda <span className="italic text-primary">&amp;</span> Co.
         </a>
         <nav className="hidden items-center gap-10 text-sm text-muted-foreground md:flex">
-          <a href="#top" className="hover:text-foreground transition-colors">Início</a>
-          <a href="#servicos" className="hover:text-foreground transition-colors">Serviços</a>
-          <a href="#processo" className="hover:text-foreground transition-colors">Como funciona</a>
+          <a href="#top" className="hover:text-foreground transition-colors">Home</a>
+          <a href="#servicos" className="hover:text-foreground transition-colors">Services</a>
+          <a href="#processo" className="hover:text-foreground transition-colors">How it works</a>
         </nav>
         <a
           href={WHATSAPP_URL}
@@ -38,7 +38,7 @@ function Nav() {
           rel="noopener noreferrer"
           className="rounded-full border border-foreground/20 px-4 py-2 text-sm transition-colors hover:bg-foreground hover:text-background"
         >
-          Contactar
+          Contact
         </a>
       </div>
     </header>
@@ -51,13 +51,13 @@ function Hero() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pt-32 pb-20 md:grid-cols-2 md:gap-16 md:px-10 md:pt-40 md:pb-32">
         <div className="flex flex-col justify-center">
           <span className="mb-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            Serviços de limpeza · Boutique
+            Boutique home cleaning · Florida
           </span>
           <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
-            O cuidado que a sua casa <em className="italic text-primary">merece.</em>
+            The care your home <em className="italic text-primary">deserves.</em>
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-            Serviços de limpeza personalizados com o capricho e a confiança que procura.
+            Personalized cleaning services from Amanda — with the attention to detail and trust you're looking for.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
@@ -66,11 +66,11 @@ function Hero() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
             >
-              Agendar pelo WhatsApp
+              Book on WhatsApp
               <span aria-hidden>→</span>
             </a>
             <a href="#servicos" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
-              Ver serviços
+              See services
             </a>
           </div>
         </div>
@@ -78,7 +78,7 @@ function Hero() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
             <img
               src={heroImage}
-              alt="Interior calmo e luminoso"
+              alt="Calm, sunlit interior"
               width={1280}
               height={1600}
               className="h-full w-full object-cover"
@@ -86,9 +86,9 @@ function Hero() {
           </div>
           <div className="absolute -bottom-6 -left-6 hidden max-w-[16rem] rounded-sm bg-background p-5 shadow-sm ring-1 ring-border md:block">
             <p className="font-serif text-lg italic leading-snug">
-              "Sinto a casa a respirar quando ela sai."
+              "My home feels like it can finally breathe after Amanda leaves."
             </p>
-            <p className="mt-2 text-xs uppercase tracking-widest text-muted-foreground">— Cliente há 2 anos</p>
+            <p className="mt-2 text-xs uppercase tracking-widest text-muted-foreground">— Client of 2 years</p>
           </div>
         </div>
       </div>
@@ -99,25 +99,25 @@ function Hero() {
 function Concept() {
   const items = [
     {
-      title: "Atenção aos detalhes",
-      desc: "Cada canto, cada superfície. O trabalho é feito devagar, com método e olho crítico.",
+      title: "Attention to detail",
+      desc: "Every corner, every surface. The work is done slowly, with method and a critical eye.",
     },
     {
-      title: "Produtos cuidadosamente escolhidos",
-      desc: "Fórmulas suaves, eficazes e com bom aroma. Respeito pela sua casa, pela sua família e pelos animais.",
+      title: "Carefully chosen products",
+      desc: "Gentle, effective formulas with a beautiful scent. Respectful of your home, your family and your pets.",
     },
     {
-      title: "Confiança total",
-      desc: "Uma única pessoa a cuidar da sua casa. Sem rotatividade, sem estranhos — apenas alguém em quem pode confiar.",
+      title: "Complete trust",
+      desc: "One person taking care of your home. No rotating crews, no strangers — just someone you can rely on.",
     },
   ];
   return (
     <section className="border-t border-border bg-secondary/40">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 max-w-2xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">A minha abordagem</span>
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">My approach</span>
           <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            Não é apenas limpar. É <em className="italic text-primary">cuidar</em>.
+            It's not just cleaning. It's <em className="italic text-primary">caring</em>.
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
@@ -139,16 +139,16 @@ function Concept() {
 function Services() {
   const services = [
     {
-      name: "Manutenção Residencial",
-      desc: "Limpezas regulares — semanais ou quinzenais — para manter a sua casa impecável ao longo do tempo.",
+      name: "Residential Maintenance",
+      desc: "Regular weekly or bi-weekly cleanings to keep your home effortlessly spotless over time.",
     },
     {
-      name: "Limpeza Profunda",
-      desc: "Uma limpeza detalhada que chega onde a rotina não alcança. Ideal para mudanças, pós-obras ou reset sazonal.",
+      name: "Deep Cleaning",
+      desc: "A detailed, top-to-bottom clean that reaches where routine doesn't. Perfect for move-ins, post-renovation or a seasonal reset.",
     },
     {
-      name: "Organização de Espaços",
-      desc: "Roupeiros, despensas, gavetas. Um sistema simples e bonito, pensado para durar.",
+      name: "Space Organization",
+      desc: "Closets, pantries, drawers. A simple, beautiful system built to last.",
     },
   ];
   return (
@@ -156,13 +156,13 @@ function Services() {
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Serviços</span>
+            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Services</span>
             <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-              Escolha o que a sua casa precisa.
+              Choose what your home needs.
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Cada serviço é adaptado a si. Combinamos os detalhes por mensagem antes da primeira visita.
+            Every service is tailored to you. We go over the details by message before the first visit.
           </p>
         </div>
         <ul className="divide-y divide-border border-t border-b border-border">
@@ -180,7 +180,7 @@ function Services() {
                   rel="noopener noreferrer"
                   className="text-sm text-foreground underline underline-offset-4 opacity-70 transition-opacity hover:opacity-100"
                 >
-                  Pedir
+                  Request
                 </a>
               </div>
             </li>
@@ -193,17 +193,17 @@ function Services() {
 
 function Process() {
   const steps = [
-    { n: "1", title: "Escolha o dia", desc: "Envie uma mensagem com a data que lhe convém." },
-    { n: "2", title: "Combinamos os detalhes", desc: "Espaço, prioridades e preferências — tudo à sua medida." },
-    { n: "3", title: "Relaxe", desc: "Enquanto cuidamos de tudo, com discrição e capricho." },
+    { n: "1", title: "Pick a day", desc: "Send a message with the date that works best for you." },
+    { n: "2", title: "We go over the details", desc: "Space, priorities and preferences — all tailored to you." },
+    { n: "3", title: "Relax", desc: "While Amanda takes care of everything, quietly and with care." },
   ];
   return (
     <section id="processo" className="border-t border-border bg-accent/30">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 max-w-xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Como funciona</span>
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">How it works</span>
           <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            Simples, do início ao fim.
+            Simple, from start to finish.
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
@@ -217,7 +217,7 @@ function Process() {
         </div>
         <div className="mt-20 flex flex-col items-start gap-6 border-t border-foreground/15 pt-10 md:flex-row md:items-center md:justify-between">
           <p className="font-serif text-2xl italic md:text-3xl">
-            Pronta para receber a sua casa como nova?
+            Ready to come home to a fresh space?
           </p>
           <a
             href={WHATSAPP_URL}
@@ -225,7 +225,7 @@ function Process() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
           >
-            Agendar pelo WhatsApp
+            Book on WhatsApp
             <span aria-hidden>→</span>
           </a>
         </div>
@@ -239,10 +239,10 @@ function Footer() {
     <footer className="border-t border-border">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 py-10 md:flex-row md:items-center md:px-10">
         <p className="font-serif text-lg">
-          Casa <span className="italic text-primary">&amp;</span> Cuidado
+          Amanda <span className="italic text-primary">&amp;</span> Co.
         </p>
         <p className="text-xs uppercase tracking-widest text-muted-foreground">
-          © {new Date().getFullYear()} — Serviços de limpeza personalizados
+          © {new Date().getFullYear()} — Personalized home cleaning · Florida
         </p>
       </div>
     </footer>

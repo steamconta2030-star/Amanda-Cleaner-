@@ -485,6 +485,13 @@ function Contact() {
             </a>
           </div>
         </div>
+
+        <div className="mt-16 border-t border-foreground/15 pt-8 md:mt-20">
+          <span className="text-xs uppercase tracking-widest text-muted-foreground">Service area</span>
+          <p className="mt-4 max-w-xl font-serif text-xl leading-snug md:text-2xl">
+            Based in Tampa, Florida — serving Tampa and surrounding areas.
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -1177,7 +1177,7 @@ function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-16">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16">
           <div className="border-t border-foreground/20 pt-6">
             <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.phone}</span>
             <a
@@ -1219,7 +1219,34 @@ function Contact() {
               <span aria-hidden>→</span>
             </a>
           </div>
+
+          <div className="border-t border-foreground/20 pt-6">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">Instagram</span>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary break-all"
+            >
+              {INSTAGRAM_HANDLE}
+            </a>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-foreground/30 px-5 py-3 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+              Follow
+            </a>
+          </div>
         </div>
+
 
         <div className="mt-16 border-t border-foreground/15 pt-8 md:mt-20">
           <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.area}</span>

@@ -513,6 +513,7 @@ function Nav() {
           <a href="#about" className="hover:text-foreground transition-colors">{t.nav.about}</a>
           <a href="#servicos" className="hover:text-foreground transition-colors">{t.nav.services}</a>
           <a href="#pricing" className="hover:text-foreground transition-colors">{t.nav.pricing}</a>
+          <a href="#gallery" className="hover:text-foreground transition-colors">{t.nav.gallery}</a>
           <a href="#quote" className="hover:text-foreground transition-colors">{t.nav.quote}</a>
           <a href="#contact" className="hover:text-foreground transition-colors">{t.nav.contact}</a>
         </nav>

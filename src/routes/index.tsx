@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
-import heroImage from "../assets/hero.jpg";
+import heroImage from "../assets/hero.jpg.asset.json";
 import aboutImage from "../assets/amanda.jpg.asset.json";
 import before1 from "../assets/before-1.jpg";
 import after1 from "../assets/after-1.jpg";
@@ -525,7 +525,7 @@ function Hero() {
         <div className="relative">
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
             <img
-              src={heroImage}
+              src={heroImage.url}
               alt="Calm, sunlit interior"
               width={1280}
               height={1600}

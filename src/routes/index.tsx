@@ -827,6 +827,37 @@ function Gallery() {
     { before: before2, after: after2, caption: t.gallery.captions[1] },
     { before: before3, after: after3, caption: t.gallery.captions[2] },
   ];
+  // Flatten to a single sequence: [before1, after1, before2, after2, ...]
+  const slides = pairs.flatMap((p, i) => [
+    { src: p.before, label: t.gallery.before, caption: p.caption, pair: i },
+    { src: p.after, label: t.gallery.after, caption: p.caption, pair: i },
+  ]);
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const isOpen = openIndex !== null;
+
+  const close = () => setOpenIndex(null);
+  const next = () => setOpenIndex((i) => (i === null ? i : (i + 1) % slides.length));
+  const prev = () => setOpenIndex((i) => (i === null ? i : (i - 1 + slides.length) % slides.length));
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
+
+  const current = openIndex !== null ? slides[openIndex] : null;
+
   return (
     <section id="gallery" className="border-t border-border">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
@@ -843,32 +874,42 @@ function Gallery() {
         <div className="space-y-16 md:space-y-24">
           {pairs.map((p, i) => (
             <figure key={i} className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-              <div className="relative overflow-hidden rounded-sm">
+              <button
+                type="button"
+                onClick={() => setOpenIndex(i * 2)}
+                className="group relative overflow-hidden rounded-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label={`${t.gallery.before} — ${p.caption}`}
+              >
                 <img
                   src={p.before}
                   alt={`${t.gallery.before} — ${p.caption}`}
                   width={1200}
                   height={1200}
                   loading="lazy"
-                  className="h-full w-full object-cover aspect-square"
+                  className="h-full w-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs uppercase tracking-widest text-foreground shadow-sm">
                   {t.gallery.before}
                 </span>
-              </div>
-              <div className="relative overflow-hidden rounded-sm">
+              </button>
+              <button
+                type="button"
+                onClick={() => setOpenIndex(i * 2 + 1)}
+                className="group relative overflow-hidden rounded-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label={`${t.gallery.after} — ${p.caption}`}
+              >
                 <img
                   src={p.after}
                   alt={`${t.gallery.after} — ${p.caption}`}
                   width={1200}
                   height={1200}
                   loading="lazy"
-                  className="h-full w-full object-cover aspect-square"
+                  className="h-full w-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <span className="absolute left-4 top-4 rounded-full bg-foreground px-3 py-1 text-xs uppercase tracking-widest text-background shadow-sm">
                   {t.gallery.after}
                 </span>
-              </div>
+              </button>
               <figcaption className="md:col-span-2 border-t border-foreground/15 pt-4 text-xs uppercase tracking-widest text-muted-foreground">
                 0{i + 1} · {p.caption}
               </figcaption>
@@ -876,6 +917,70 @@ function Gallery() {
           ))}
         </div>
       </div>
+
+      {isOpen && current && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          onClick={close}
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); close(); }}
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+            aria-label="Close"
+          >
+            <span aria-hidden="true" className="text-xl leading-none">×</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); prev(); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:left-8"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true" className="text-2xl leading-none">‹</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); next(); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:right-8"
+            aria-label="Next"
+          >
+            <span aria-hidden="true" className="text-2xl leading-none">›</span>
+          </button>
+
+          <div
+            className="relative mx-6 flex max-h-[90vh] w-full max-w-5xl flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={current.src}
+              alt={`${current.label} — ${current.caption}`}
+              className="max-h-[75vh] w-auto max-w-full rounded-sm object-contain"
+            />
+            <div className="mt-4 flex w-full items-center justify-between gap-4 text-white">
+              <span
+                className={`rounded-full px-3 py-1 text-xs uppercase tracking-widest ${
+                  current.label === t.gallery.after
+                    ? "bg-white text-black"
+                    : "bg-white/15 text-white"
+                }`}
+              >
+                {current.label}
+              </span>
+              <span className="text-xs uppercase tracking-widest text-white/70">
+                {current.caption}
+              </span>
+              <span className="text-xs uppercase tracking-widest text-white/50">
+                {String(openIndex! + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

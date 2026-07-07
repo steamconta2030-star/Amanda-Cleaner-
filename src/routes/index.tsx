@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
 const PHONE_DISPLAY = "+1 (813) 364-9757";
 const PHONE_TEL = "+18133649757";
 const PHONE_E164 = "18133649757";
-const EMAIL = "hello@amandaandco.com";
+const EMAIL = "amandaanalaura19@gmail.com";
 const WHATSAPP_URL = `https://wa.me/${PHONE_E164}?text=${encodeURIComponent("Hi Amanda, I'd like to book a cleaning.")}`;
 
 function Index() {
@@ -20,6 +20,7 @@ function Index() {
       <Concept />
       <About />
       <Services />
+      <Pricing />
       <Process />
       <Testimonials />
       <Contact />
@@ -39,6 +40,7 @@ function Nav() {
           <a href="#top" className="hover:text-foreground transition-colors">Home</a>
           <a href="#about" className="hover:text-foreground transition-colors">About</a>
           <a href="#servicos" className="hover:text-foreground transition-colors">Services</a>
+          <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
           <a href="#processo" className="hover:text-foreground transition-colors">How it works</a>
           <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
         </nav>
@@ -149,16 +151,24 @@ function Concept() {
 function Services() {
   const services = [
     {
-      name: "Residential Maintenance",
-      desc: "Regular weekly or bi-weekly cleanings to keep your home effortlessly spotless over time.",
+      name: "Residential Cleaning",
+      desc: "Regular weekly or bi-weekly cleanings to keep your home effortlessly fresh and cared for.",
     },
     {
       name: "Deep Cleaning",
-      desc: "A detailed, top-to-bottom clean that reaches where routine doesn't. Perfect for move-ins, post-renovation or a seasonal reset.",
+      desc: "A detailed, top-to-bottom clean — inside the oven, fridge and every corner routine doesn't reach.",
     },
     {
-      name: "Space Organization",
-      desc: "Closets, pantries, drawers. A simple, beautiful system built to last.",
+      name: "Move In / Move Out",
+      desc: "Turnover cleaning for empty homes, ready for the next chapter — yours or your buyer's.",
+    },
+    {
+      name: "Post-Construction",
+      desc: "Dust, debris and film removed after renovation or new construction, safely and thoroughly.",
+    },
+    {
+      name: "Commercial Cleaning",
+      desc: "Offices, studios and small businesses in the Tampa area — kept spotless on your schedule.",
     },
   ];
   return (
@@ -196,6 +206,81 @@ function Services() {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+function Pricing() {
+  const plans = [
+    {
+      name: "Regular Cleaning",
+      price: "$150",
+      unit: "starting at",
+      desc: "2 bedrooms · 2 bathrooms · standard residential cleaning.",
+    },
+    {
+      name: "Deep Cleaning",
+      price: "$300",
+      unit: "starting at",
+      desc: "2 bedrooms · 2 bathrooms · includes inside oven and refrigerator.",
+      featured: true,
+    },
+    {
+      name: "Move In / Move Out",
+      price: "$250",
+      unit: "starting at",
+      desc: "2 bedrooms · 2 bathrooms · includes inside oven and refrigerator.",
+    },
+  ];
+  return (
+    <section id="pricing" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-xl">
+            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Pricing</span>
+            <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+              Honest, <em className="italic text-primary">up-front</em> pricing.
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+            Every home is different. I prefer to visit and give you an exact quote, but online estimates are welcome too.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+          {plans.map((p) => (
+            <div
+              key={p.name}
+              className={`flex flex-col justify-between rounded-sm border p-8 transition-colors ${
+                p.featured
+                  ? "border-primary/40 bg-primary/5"
+                  : "border-border bg-background"
+              }`}
+            >
+              <div>
+                <h3 className="font-serif text-2xl">{p.name}</h3>
+                <div className="mt-6 flex items-baseline gap-2">
+                  <span className="font-serif text-5xl">{p.price}</span>
+                  <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                    {p.unit}
+                  </span>
+                </div>
+                <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+              </div>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-10 inline-flex items-center gap-2 text-sm text-foreground underline underline-offset-4 opacity-80 hover:opacity-100"
+              >
+                Request a quote <span aria-hidden>→</span>
+              </a>
+            </div>
+          ))}
+        </div>
+        <p className="mt-10 text-xs uppercase tracking-widest text-muted-foreground">
+          Post-construction and commercial cleanings are quoted individually — message for details.
+        </p>
       </div>
     </section>
   );
@@ -399,6 +484,13 @@ function Contact() {
               <span aria-hidden>→</span>
             </a>
           </div>
+        </div>
+
+        <div className="mt-16 border-t border-foreground/15 pt-8 md:mt-20">
+          <span className="text-xs uppercase tracking-widest text-muted-foreground">Service area</span>
+          <p className="mt-4 max-w-xl font-serif text-xl leading-snug md:text-2xl">
+            Based in Tampa, Florida — serving Tampa and surrounding areas.
+          </p>
         </div>
       </div>
     </section>

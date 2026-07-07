@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import heroImage from "../assets/hero.jpg";
 import aboutImage from "../assets/amanda.jpg.asset.json";
 
@@ -10,79 +11,517 @@ const PHONE_DISPLAY = "+1 (813) 364-9757";
 const PHONE_TEL = "+18133649757";
 const PHONE_E164 = "18133649757";
 const EMAIL = "amandaanalaura19@gmail.com";
-const WHATSAPP_URL = `https://wa.me/${PHONE_E164}?text=${encodeURIComponent("Hi Amanda, I'd like to book a cleaning.")}`;
+
+const waLink = (text: string) =>
+  `https://wa.me/${PHONE_E164}?text=${encodeURIComponent(text)}`;
+
+/* ---------------- i18n ---------------- */
+
+type Lang = "en" | "pt";
+
+const dict = {
+  en: {
+    nav: {
+      home: "Home",
+      about: "About",
+      services: "Services",
+      pricing: "Pricing",
+      process: "How it works",
+      quote: "Get a quote",
+      contact: "Contact",
+    },
+    hero: {
+      tag: "Boutique home cleaning · Florida",
+      title1: "The care your home",
+      title2: "deserves.",
+      sub: "Personalized cleaning services from Amanda — with the attention to detail and trust you're looking for.",
+      book: "Book on WhatsApp",
+      see: "See services",
+      quote: "\"My home feels like it can finally breathe after Amanda leaves.\"",
+      quoteAuthor: "Client of 2 years",
+    },
+    concept: {
+      tag: "My approach",
+      title1: "It's not just cleaning. It's",
+      title2: "caring",
+      title3: ".",
+      items: [
+        {
+          title: "Attention to detail",
+          desc: "Every corner, every surface. The work is done slowly, with method and a critical eye.",
+        },
+        {
+          title: "Carefully chosen products",
+          desc: "Gentle, effective formulas with a beautiful scent. Respectful of your home, your family and your pets.",
+        },
+        {
+          title: "Complete trust",
+          desc: "One person taking care of your home. No rotating crews, no strangers — just someone you can rely on.",
+        },
+      ],
+    },
+    about: {
+      tag: "Meet Amanda",
+      title1: "A personal touch you can",
+      title2: "feel",
+      title3: ".",
+      p1: "I'm Amanda — the person behind every cleaning, from the first message to the moment you walk back into your fresh, quiet home.",
+      p2: "I built this small boutique service because I believe your home deserves more than a rushed checklist. It deserves attention, calm and honest care — the kind you'd give it yourself if you had the time.",
+      p3: "Working with a small handful of families across Florida means I know your space, your preferences and your routines. No surprises, just a home that feels like home again.",
+      stat1a: "5+",
+      stat1b: "Years of care",
+      stat2a: "40+",
+      stat2b: "Homes trusted",
+      stat3a: "1:1",
+      stat3b: "Personal service",
+      alt: "Amanda, founder of Amanda & Co.",
+    },
+    services: {
+      tag: "Services",
+      title: "Choose what your home needs.",
+      sub: "Every service is tailored to you. We go over the details by message before the first visit.",
+      request: "Request",
+      items: [
+        {
+          name: "Residential Cleaning",
+          desc: "Regular weekly or bi-weekly cleanings to keep your home effortlessly fresh and cared for.",
+        },
+        {
+          name: "Deep Cleaning",
+          desc: "A detailed, top-to-bottom clean — inside the oven, fridge and every corner routine doesn't reach.",
+        },
+        {
+          name: "Move In / Move Out",
+          desc: "Turnover cleaning for empty homes, ready for the next chapter — yours or your buyer's.",
+        },
+        {
+          name: "Post-Construction",
+          desc: "Dust, debris and film removed after renovation or new construction, safely and thoroughly.",
+        },
+        {
+          name: "Commercial Cleaning",
+          desc: "Offices, studios and small businesses in the Tampa area — kept spotless on your schedule.",
+        },
+      ],
+    },
+    pricing: {
+      tag: "Pricing",
+      title1: "Honest,",
+      title2: "up-front",
+      title3: "pricing.",
+      sub: "Every home is different. I prefer to visit and give you an exact quote, but online estimates are welcome too.",
+      startingAt: "starting at",
+      request: "Request a quote",
+      note: "Post-construction and commercial cleanings are quoted individually — message for details.",
+      plans: [
+        {
+          name: "Regular Cleaning",
+          price: "$150",
+          desc: "2 bedrooms · 2 bathrooms · standard residential cleaning.",
+        },
+        {
+          name: "Deep Cleaning",
+          price: "$300",
+          desc: "2 bedrooms · 2 bathrooms · includes inside oven and refrigerator.",
+        },
+        {
+          name: "Move In / Move Out",
+          price: "$250",
+          desc: "2 bedrooms · 2 bathrooms · includes inside oven and refrigerator.",
+        },
+      ],
+    },
+    process: {
+      tag: "How it works",
+      title: "Simple, from start to finish.",
+      steps: [
+        { n: "1", title: "Pick a day", desc: "Send a message with the date that works best for you." },
+        { n: "2", title: "We go over the details", desc: "Space, priorities and preferences — all tailored to you." },
+        { n: "3", title: "Relax", desc: "While Amanda takes care of everything, quietly and with care." },
+      ],
+      cta: "Ready to come home to a fresh space?",
+      book: "Book on WhatsApp",
+    },
+    testimonials: {
+      tag: "Kind words",
+      title1: "Trusted by families across",
+      title2: "Florida",
+      title3: ".",
+      role: "Client",
+      quotes: [
+        {
+          quote: "Amanda treats our home like it's her own. Coming back on a cleaning day is my favorite part of the week.",
+          name: "Isabela M.",
+          city: "Tampa",
+        },
+        {
+          quote: "The attention to detail is something else. Little touches everywhere — folded corners, fresh scent, everything in its place.",
+          name: "Rachel P.",
+          city: "Orlando",
+        },
+        {
+          quote: "Reliable, kind and incredibly thorough. I finally trust one person with the keys and I never worry.",
+          name: "Daniela R.",
+          city: "Clearwater",
+        },
+      ],
+    },
+    quote: {
+      tag: "Get a quote",
+      title1: "Tell me about your",
+      title2: "home",
+      title3: ".",
+      sub: "Fill out a few details and I'll get back to you on WhatsApp with a personalized quote.",
+      fName: "Your name",
+      fService: "Service",
+      fBedrooms: "Bedrooms",
+      fBathrooms: "Bathrooms",
+      fAddress: "Address or neighborhood",
+      fDate: "Preferred date",
+      fNotes: "Anything else I should know?",
+      fNotesPh: "Pets, priorities, access, etc.",
+      submit: "Send on WhatsApp",
+      required: "Please fill in the required fields.",
+      services: ["Residential Cleaning", "Deep Cleaning", "Move In / Move Out", "Post-Construction", "Commercial"],
+      msgTitle: "Hi Amanda! I'd like a quote.",
+    },
+    contact: {
+      tag: "Contact",
+      title1: "Let's",
+      title2: "talk",
+      title3: ".",
+      sub: "Send a quick message and Amanda will get back to you personally to plan the details of your visit.",
+      phone: "Phone",
+      phoneNote: "Available Mon–Sat, 8am – 6pm.",
+      email: "Email",
+      emailNote: "For quotes, questions and custom requests.",
+      wa: "WhatsApp",
+      waLine: "The easiest way.",
+      waBtn: "Message on WhatsApp",
+      area: "Service area",
+      areaLine: "Based in Tampa, Florida — serving Tampa and surrounding areas.",
+    },
+    footer: {
+      line: "Personalized home cleaning · Florida",
+    },
+    lang: { switchTo: "PT", label: "Português" },
+  },
+  pt: {
+    nav: {
+      home: "Início",
+      about: "Sobre",
+      services: "Serviços",
+      pricing: "Preços",
+      process: "Como funciona",
+      quote: "Pedir orçamento",
+      contact: "Contato",
+    },
+    hero: {
+      tag: "Limpeza residencial boutique · Flórida",
+      title1: "O cuidado que a sua casa",
+      title2: "merece.",
+      sub: "Serviços de limpeza personalizados da Amanda — com a atenção ao detalhe e a confiança que você procura.",
+      book: "Agendar pelo WhatsApp",
+      see: "Ver serviços",
+      quote: "\"Minha casa parece que finalmente consegue respirar depois que a Amanda vai embora.\"",
+      quoteAuthor: "Cliente há 2 anos",
+    },
+    concept: {
+      tag: "Minha abordagem",
+      title1: "Não é só limpeza. É",
+      title2: "cuidado",
+      title3: ".",
+      items: [
+        {
+          title: "Atenção aos detalhes",
+          desc: "Cada canto, cada superfície. O trabalho é feito com calma, método e olhar crítico.",
+        },
+        {
+          title: "Produtos escolhidos com cuidado",
+          desc: "Fórmulas suaves e eficazes, com um aroma agradável. Respeitosas com a casa, a família e os pets.",
+        },
+        {
+          title: "Confiança total",
+          desc: "Uma só pessoa cuidando da sua casa. Sem equipes rotativas, sem estranhos — só alguém em quem você pode confiar.",
+        },
+      ],
+    },
+    about: {
+      tag: "Conheça a Amanda",
+      title1: "Um toque pessoal que se",
+      title2: "sente",
+      title3: ".",
+      p1: "Eu sou a Amanda — a pessoa por trás de cada limpeza, da primeira mensagem até o momento em que você volta pra uma casa fresca e tranquila.",
+      p2: "Criei esse pequeno serviço boutique porque acredito que a sua casa merece mais do que uma checklist apressada. Merece atenção, calma e cuidado honesto — o tipo de cuidado que você mesma daria se tivesse tempo.",
+      p3: "Trabalhar com um pequeno grupo de famílias pela Flórida significa que eu conheço o seu espaço, as suas preferências e as suas rotinas. Sem surpresas — só uma casa que volta a parecer casa.",
+      stat1a: "5+",
+      stat1b: "Anos de cuidado",
+      stat2a: "40+",
+      stat2b: "Casas atendidas",
+      stat3a: "1:1",
+      stat3b: "Atendimento pessoal",
+      alt: "Amanda, fundadora da Amanda & Co.",
+    },
+    services: {
+      tag: "Serviços",
+      title: "Escolha o que a sua casa precisa.",
+      sub: "Cada serviço é adaptado a você. Combinamos os detalhes por mensagem antes da primeira visita.",
+      request: "Pedir",
+      items: [
+        {
+          name: "Limpeza Residencial",
+          desc: "Limpezas regulares, semanais ou quinzenais, para manter a sua casa fresca e cuidada sem esforço.",
+        },
+        {
+          name: "Limpeza Profunda",
+          desc: "Limpeza detalhada de cima a baixo — dentro do forno, geladeira e cada canto que a rotina não alcança.",
+        },
+        {
+          name: "Move In / Move Out",
+          desc: "Limpeza de mudança para casas vazias — prontas pro próximo capítulo, seu ou de quem chega.",
+        },
+        {
+          name: "Pós-obra",
+          desc: "Pó, entulho e resíduos removidos com segurança e minúcia depois de reforma ou construção nova.",
+        },
+        {
+          name: "Limpeza Comercial",
+          desc: "Escritórios, estúdios e pequenos negócios na região de Tampa — impecáveis no seu horário.",
+        },
+      ],
+    },
+    pricing: {
+      tag: "Preços",
+      title1: "Preços",
+      title2: "honestos",
+      title3: "e transparentes.",
+      sub: "Cada casa é diferente. Prefiro visitar e passar um orçamento exato, mas estimativas online também são bem-vindas.",
+      startingAt: "a partir de",
+      request: "Pedir orçamento",
+      note: "Limpezas pós-obra e comerciais são orçadas individualmente — envie mensagem para detalhes.",
+      plans: [
+        {
+          name: "Limpeza Regular",
+          price: "$150",
+          desc: "2 quartos · 2 banheiros · limpeza residencial padrão.",
+        },
+        {
+          name: "Limpeza Profunda",
+          price: "$300",
+          desc: "2 quartos · 2 banheiros · inclui parte interna do forno e da geladeira.",
+        },
+        {
+          name: "Move In / Move Out",
+          price: "$250",
+          desc: "2 quartos · 2 banheiros · inclui parte interna do forno e da geladeira.",
+        },
+      ],
+    },
+    process: {
+      tag: "Como funciona",
+      title: "Simples, do início ao fim.",
+      steps: [
+        { n: "1", title: "Escolha o dia", desc: "Envie uma mensagem com a data que funcionar melhor pra você." },
+        { n: "2", title: "Combinamos os detalhes", desc: "Espaço, prioridades e preferências — tudo personalizado." },
+        { n: "3", title: "Relaxe", desc: "Enquanto a Amanda cuida de tudo, com discrição e carinho." },
+      ],
+      cta: "Pronta pra voltar pra uma casa fresca?",
+      book: "Agendar pelo WhatsApp",
+    },
+    testimonials: {
+      tag: "Palavras gentis",
+      title1: "Famílias que confiam pela",
+      title2: "Flórida",
+      title3: ".",
+      role: "Cliente",
+      quotes: [
+        {
+          quote: "A Amanda trata a nossa casa como se fosse dela. Voltar num dia de limpeza é a minha parte favorita da semana.",
+          name: "Isabela M.",
+          city: "Tampa",
+        },
+        {
+          quote: "A atenção aos detalhes é outra coisa. Pequenos toques em todo lugar — cantos dobrados, aroma fresco, tudo no seu lugar.",
+          name: "Rachel P.",
+          city: "Orlando",
+        },
+        {
+          quote: "Confiável, gentil e incrivelmente minuciosa. Finalmente confio numa só pessoa com as chaves e nunca me preocupo.",
+          name: "Daniela R.",
+          city: "Clearwater",
+        },
+      ],
+    },
+    quote: {
+      tag: "Pedir orçamento",
+      title1: "Me conte sobre a sua",
+      title2: "casa",
+      title3: ".",
+      sub: "Preencha alguns detalhes e eu retorno pelo WhatsApp com um orçamento personalizado.",
+      fName: "Seu nome",
+      fService: "Serviço",
+      fBedrooms: "Quartos",
+      fBathrooms: "Banheiros",
+      fAddress: "Endereço ou bairro",
+      fDate: "Data preferida",
+      fNotes: "Algo mais que eu deva saber?",
+      fNotesPh: "Pets, prioridades, acesso, etc.",
+      submit: "Enviar pelo WhatsApp",
+      required: "Por favor, preencha os campos obrigatórios.",
+      services: ["Limpeza Residencial", "Limpeza Profunda", "Move In / Move Out", "Pós-obra", "Comercial"],
+      msgTitle: "Oi Amanda! Gostaria de um orçamento.",
+    },
+    contact: {
+      tag: "Contato",
+      title1: "Vamos",
+      title2: "conversar",
+      title3: ".",
+      sub: "Envie uma mensagem rápida e a Amanda responde pessoalmente pra combinar os detalhes da visita.",
+      phone: "Telefone",
+      phoneNote: "Disponível de segunda a sábado, das 8h às 18h.",
+      email: "E-mail",
+      emailNote: "Para orçamentos, dúvidas e pedidos personalizados.",
+      wa: "WhatsApp",
+      waLine: "O jeito mais fácil.",
+      waBtn: "Enviar mensagem no WhatsApp",
+      area: "Área de atendimento",
+      areaLine: "Baseada em Tampa, Flórida — atendemos Tampa e região.",
+    },
+    footer: {
+      line: "Limpeza residencial personalizada · Flórida",
+    },
+    lang: { switchTo: "EN", label: "English" },
+  },
+};
+
+type Dict = typeof dict.en;
+
+const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void; t: Dict }>({
+  lang: "en",
+  setLang: () => {},
+  t: dict.en,
+});
+
+function LangProvider({ children }: { children: React.ReactNode }) {
+  const [lang, setLangState] = useState<Lang>("en");
+
+  useEffect(() => {
+    const stored = typeof window !== "undefined" ? window.localStorage.getItem("lang") : null;
+    if (stored === "pt" || stored === "en") setLangState(stored);
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      lang,
+      setLang: (l: Lang) => {
+        setLangState(l);
+        if (typeof window !== "undefined") window.localStorage.setItem("lang", l);
+      },
+      t: dict[lang],
+    }),
+    [lang]
+  );
+
+  return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
+}
+
+const useT = () => useContext(LangContext);
+
+/* ---------------- Page ---------------- */
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Nav />
-      <Hero />
-      <Concept />
-      <About />
-      <Services />
-      <Pricing />
-      <Process />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </div>
+    <LangProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <Nav />
+        <Hero />
+        <Concept />
+        <About />
+        <Services />
+        <Pricing />
+        <Process />
+        <Testimonials />
+        <QuoteForm />
+        <Contact />
+        <Footer />
+      </div>
+    </LangProvider>
+  );
+}
+
+function LangToggle({ className = "" }: { className?: string }) {
+  const { lang, setLang, t } = useT();
+  return (
+    <button
+      type="button"
+      onClick={() => setLang(lang === "en" ? "pt" : "en")}
+      aria-label={t.lang.label}
+      className={`text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground ${className}`}
+    >
+      {lang === "en" ? "EN" : "PT"} <span className="opacity-40">·</span> {t.lang.switchTo}
+    </button>
   );
 }
 
 function Nav() {
+  const { t } = useT();
   return (
     <header className="absolute top-0 left-0 right-0 z-20">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 md:px-10 md:py-8">
         <a href="#top" className="font-serif text-xl tracking-tight">
           Amanda <span className="italic text-primary">&amp;</span> Co.
         </a>
-        <nav className="hidden items-center gap-10 text-sm text-muted-foreground md:flex">
-          <a href="#top" className="hover:text-foreground transition-colors">Home</a>
-          <a href="#about" className="hover:text-foreground transition-colors">About</a>
-          <a href="#servicos" className="hover:text-foreground transition-colors">Services</a>
-          <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
-          <a href="#processo" className="hover:text-foreground transition-colors">How it works</a>
-          <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
+        <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
+          <a href="#top" className="hover:text-foreground transition-colors">{t.nav.home}</a>
+          <a href="#about" className="hover:text-foreground transition-colors">{t.nav.about}</a>
+          <a href="#servicos" className="hover:text-foreground transition-colors">{t.nav.services}</a>
+          <a href="#pricing" className="hover:text-foreground transition-colors">{t.nav.pricing}</a>
+          <a href="#quote" className="hover:text-foreground transition-colors">{t.nav.quote}</a>
+          <a href="#contact" className="hover:text-foreground transition-colors">{t.nav.contact}</a>
         </nav>
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full border border-foreground/20 px-4 py-2 text-sm transition-colors hover:bg-foreground hover:text-background"
-        >
-          Contact
-        </a>
+        <div className="flex items-center gap-4">
+          <LangToggle />
+          <a
+            href={waLink("Hi Amanda!")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden rounded-full border border-foreground/20 px-4 py-2 text-sm transition-colors hover:bg-foreground hover:text-background sm:inline-block"
+          >
+            {t.nav.contact}
+          </a>
+        </div>
       </div>
     </header>
   );
 }
 
 function Hero() {
+  const { t } = useT();
   return (
     <section id="top" className="relative overflow-hidden">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pt-32 pb-20 md:grid-cols-2 md:gap-16 md:px-10 md:pt-40 md:pb-32">
         <div className="flex flex-col justify-center">
           <span className="mb-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            Boutique home cleaning · Florida
+            {t.hero.tag}
           </span>
           <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
-            The care your home <em className="italic text-primary">deserves.</em>
+            {t.hero.title1} <em className="italic text-primary">{t.hero.title2}</em>
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-            Personalized cleaning services from Amanda — with the attention to detail and trust you're looking for.
+            {t.hero.sub}
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
-              href={WHATSAPP_URL}
+              href={waLink(t.quote.msgTitle)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
             >
-              Book on WhatsApp
+              {t.hero.book}
               <span aria-hidden>→</span>
             </a>
             <a href="#servicos" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
-              See services
+              {t.hero.see}
             </a>
           </div>
         </div>
@@ -98,9 +537,9 @@ function Hero() {
           </div>
           <div className="absolute -bottom-6 -left-6 hidden max-w-[16rem] rounded-sm bg-background p-5 shadow-sm ring-1 ring-border md:block">
             <p className="font-serif text-lg italic leading-snug">
-              "My home feels like it can finally breathe after Amanda leaves."
+              {t.hero.quote}
             </p>
-            <p className="mt-2 text-xs uppercase tracking-widest text-muted-foreground">— Client of 2 years</p>
+            <p className="mt-2 text-xs uppercase tracking-widest text-muted-foreground">— {t.hero.quoteAuthor}</p>
           </div>
         </div>
       </div>
@@ -109,35 +548,20 @@ function Hero() {
 }
 
 function Concept() {
-  const items = [
-    {
-      title: "Attention to detail",
-      desc: "Every corner, every surface. The work is done slowly, with method and a critical eye.",
-    },
-    {
-      title: "Carefully chosen products",
-      desc: "Gentle, effective formulas with a beautiful scent. Respectful of your home, your family and your pets.",
-    },
-    {
-      title: "Complete trust",
-      desc: "One person taking care of your home. No rotating crews, no strangers — just someone you can rely on.",
-    },
-  ];
+  const { t } = useT();
   return (
     <section className="border-t border-border bg-secondary/40">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 max-w-2xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">My approach</span>
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.concept.tag}</span>
           <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            It's not just cleaning. It's <em className="italic text-primary">caring</em>.
+            {t.concept.title1} <em className="italic text-primary">{t.concept.title2}</em>{t.concept.title3}
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
-          {items.map((item, i) => (
+          {t.concept.items.map((item, i) => (
             <div key={item.title} className="border-t border-foreground/20 pt-6">
-              <span className="font-serif text-sm italic text-muted-foreground">
-                0{i + 1}
-              </span>
+              <span className="font-serif text-sm italic text-muted-foreground">0{i + 1}</span>
               <h3 className="mt-4 font-serif text-2xl leading-snug">{item.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
             </div>
@@ -148,45 +572,71 @@ function Concept() {
   );
 }
 
+function About() {
+  const { t } = useT();
+  return (
+    <section id="about" className="border-t border-border">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-12 md:gap-16 md:px-10 md:py-32">
+        <div className="md:col-span-5">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+            <img
+              src={aboutImage.url}
+              alt={t.about.alt}
+              width={1200}
+              height={1500}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center md:col-span-7">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.about.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.about.title1} <em className="italic text-primary">{t.about.title2}</em>{t.about.title3}
+          </h2>
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
+            <p>{t.about.p1}</p>
+            <p>{t.about.p2}</p>
+            <p>{t.about.p3}</p>
+          </div>
+          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-foreground/15 pt-8 text-sm">
+            <div>
+              <div className="font-serif text-3xl">{t.about.stat1a}</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat1b}</div>
+            </div>
+            <div>
+              <div className="font-serif text-3xl">{t.about.stat2a}</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat2b}</div>
+            </div>
+            <div>
+              <div className="font-serif text-3xl">{t.about.stat3a}</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat3b}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Services() {
-  const services = [
-    {
-      name: "Residential Cleaning",
-      desc: "Regular weekly or bi-weekly cleanings to keep your home effortlessly fresh and cared for.",
-    },
-    {
-      name: "Deep Cleaning",
-      desc: "A detailed, top-to-bottom clean — inside the oven, fridge and every corner routine doesn't reach.",
-    },
-    {
-      name: "Move In / Move Out",
-      desc: "Turnover cleaning for empty homes, ready for the next chapter — yours or your buyer's.",
-    },
-    {
-      name: "Post-Construction",
-      desc: "Dust, debris and film removed after renovation or new construction, safely and thoroughly.",
-    },
-    {
-      name: "Commercial Cleaning",
-      desc: "Offices, studios and small businesses in the Tampa area — kept spotless on your schedule.",
-    },
-  ];
+  const { t } = useT();
   return (
     <section id="servicos">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Services</span>
+            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.services.tag}</span>
             <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-              Choose what your home needs.
+              {t.services.title}
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Every service is tailored to you. We go over the details by message before the first visit.
+            {t.services.sub}
           </p>
         </div>
         <ul className="divide-y divide-border border-t border-b border-border">
-          {services.map((s, i) => (
+          {t.services.items.map((s, i) => (
             <li key={s.name} className="group grid grid-cols-1 gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10">
               <div className="text-xs uppercase tracking-widest text-muted-foreground md:col-span-1">
                 0{i + 1}
@@ -195,12 +645,10 @@ function Services() {
               <p className="text-sm leading-relaxed text-muted-foreground md:col-span-6">{s.desc}</p>
               <div className="md:col-span-1 md:text-right">
                 <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#quote"
                   className="text-sm text-foreground underline underline-offset-4 opacity-70 transition-opacity hover:opacity-100"
                 >
-                  Request
+                  {t.services.request}
                 </a>
               </div>
             </li>
@@ -212,49 +660,27 @@ function Services() {
 }
 
 function Pricing() {
-  const plans = [
-    {
-      name: "Regular Cleaning",
-      price: "$150",
-      unit: "starting at",
-      desc: "2 bedrooms · 2 bathrooms · standard residential cleaning.",
-    },
-    {
-      name: "Deep Cleaning",
-      price: "$300",
-      unit: "starting at",
-      desc: "2 bedrooms · 2 bathrooms · includes inside oven and refrigerator.",
-      featured: true,
-    },
-    {
-      name: "Move In / Move Out",
-      price: "$250",
-      unit: "starting at",
-      desc: "2 bedrooms · 2 bathrooms · includes inside oven and refrigerator.",
-    },
-  ];
+  const { t } = useT();
   return (
     <section id="pricing" className="border-t border-border">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-xl">
-            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Pricing</span>
+            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.pricing.tag}</span>
             <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-              Honest, <em className="italic text-primary">up-front</em> pricing.
+              {t.pricing.title1} <em className="italic text-primary">{t.pricing.title2}</em> {t.pricing.title3}
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Every home is different. I prefer to visit and give you an exact quote, but online estimates are welcome too.
+            {t.pricing.sub}
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-          {plans.map((p) => (
+          {t.pricing.plans.map((p, i) => (
             <div
               key={p.name}
               className={`flex flex-col justify-between rounded-sm border p-8 transition-colors ${
-                p.featured
-                  ? "border-primary/40 bg-primary/5"
-                  : "border-border bg-background"
+                i === 1 ? "border-primary/40 bg-primary/5" : "border-border bg-background"
               }`}
             >
               <div>
@@ -262,24 +688,22 @@ function Pricing() {
                 <div className="mt-6 flex items-baseline gap-2">
                   <span className="font-serif text-5xl">{p.price}</span>
                   <span className="text-xs uppercase tracking-widest text-muted-foreground">
-                    {p.unit}
+                    {t.pricing.startingAt}
                   </span>
                 </div>
                 <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
               </div>
               <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#quote"
                 className="mt-10 inline-flex items-center gap-2 text-sm text-foreground underline underline-offset-4 opacity-80 hover:opacity-100"
               >
-                Request a quote <span aria-hidden>→</span>
+                {t.pricing.request} <span aria-hidden>→</span>
               </a>
             </div>
           ))}
         </div>
         <p className="mt-10 text-xs uppercase tracking-widest text-muted-foreground">
-          Post-construction and commercial cleanings are quoted individually — message for details.
+          {t.pricing.note}
         </p>
       </div>
     </section>
@@ -287,22 +711,18 @@ function Pricing() {
 }
 
 function Process() {
-  const steps = [
-    { n: "1", title: "Pick a day", desc: "Send a message with the date that works best for you." },
-    { n: "2", title: "We go over the details", desc: "Space, priorities and preferences — all tailored to you." },
-    { n: "3", title: "Relax", desc: "While Amanda takes care of everything, quietly and with care." },
-  ];
+  const { t } = useT();
   return (
     <section id="processo" className="border-t border-border bg-accent/30">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 max-w-xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">How it works</span>
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.process.tag}</span>
           <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            Simple, from start to finish.
+            {t.process.title}
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          {steps.map((s) => (
+          {t.process.steps.map((s) => (
             <div key={s.n} className="relative">
               <div className="font-serif text-6xl italic text-primary/70 md:text-7xl">{s.n}</div>
               <h3 className="mt-4 font-serif text-2xl">{s.title}</h3>
@@ -312,15 +732,15 @@ function Process() {
         </div>
         <div className="mt-20 flex flex-col items-start gap-6 border-t border-foreground/15 pt-10 md:flex-row md:items-center md:justify-between">
           <p className="font-serif text-2xl italic md:text-3xl">
-            Ready to come home to a fresh space?
+            {t.process.cta}
           </p>
           <a
-            href={WHATSAPP_URL}
+            href={waLink(t.quote.msgTitle)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
           >
-            Book on WhatsApp
+            {t.process.book}
             <span aria-hidden>→</span>
           </a>
         </div>
@@ -329,87 +749,19 @@ function Process() {
   );
 }
 
-function About() {
-  return (
-    <section id="about" className="border-t border-border">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-12 md:gap-16 md:px-10 md:py-32">
-        <div className="md:col-span-5">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
-            <img
-              src={aboutImage.url}
-              alt="Amanda preparing fresh linens by a sunlit window"
-              width={1200}
-              height={1500}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col justify-center md:col-span-7">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Meet Amanda</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            A personal touch you can <em className="italic text-primary">feel</em>.
-          </h2>
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
-            <p>
-              I'm Amanda — the person behind every cleaning, from the first message to the moment you walk back into your fresh, quiet home.
-            </p>
-            <p>
-              I built this small boutique service because I believe your home deserves more than a rushed checklist. It deserves attention, calm and honest care — the kind you'd give it yourself if you had the time.
-            </p>
-            <p>
-              Working with a small handful of families across Florida means I know your space, your preferences and your routines. No surprises, just a home that feels like home again.
-            </p>
-          </div>
-          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-foreground/15 pt-8 text-sm">
-            <div>
-              <div className="font-serif text-3xl">5+</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">Years of care</div>
-            </div>
-            <div>
-              <div className="font-serif text-3xl">40+</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">Homes trusted</div>
-            </div>
-            <div>
-              <div className="font-serif text-3xl">1:1</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">Personal service</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Testimonials() {
-  const quotes = [
-    {
-      quote: "Amanda treats our home like it's her own. Coming back on a cleaning day is my favorite part of the week.",
-      name: "Isabela M.",
-      role: "Client · Tampa",
-    },
-    {
-      quote: "The attention to detail is something else. Little touches everywhere — folded corners, fresh scent, everything in its place.",
-      name: "Rachel P.",
-      role: "Client · Orlando",
-    },
-    {
-      quote: "Reliable, kind and incredibly thorough. I finally trust one person with the keys and I never worry.",
-      name: "Daniela R.",
-      role: "Client · Clearwater",
-    },
-  ];
+  const { t } = useT();
   return (
     <section id="testimonials" className="border-t border-border bg-secondary/40">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 max-w-2xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Kind words</span>
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.testimonials.tag}</span>
           <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            Trusted by families across <em className="italic text-primary">Florida</em>.
+            {t.testimonials.title1} <em className="italic text-primary">{t.testimonials.title2}</em>{t.testimonials.title3}
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
-          {quotes.map((q) => (
+          {t.testimonials.quotes.map((q) => (
             <figure key={q.name} className="flex flex-col border-t border-foreground/20 pt-6">
               <blockquote className="font-serif text-xl leading-snug md:text-2xl">
                 <span className="text-primary">"</span>
@@ -418,7 +770,9 @@ function Testimonials() {
               </blockquote>
               <figcaption className="mt-6 text-sm">
                 <div className="font-medium text-foreground">{q.name}</div>
-                <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{q.role}</div>
+                <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
+                  {t.testimonials.role} · {q.city}
+                </div>
               </figcaption>
             </figure>
           ))}
@@ -428,23 +782,193 @@ function Testimonials() {
   );
 }
 
+function QuoteForm() {
+  const { t, lang } = useT();
+  const [name, setName] = useState("");
+  const [service, setService] = useState(t.quote.services[0]);
+  const [bedrooms, setBedrooms] = useState("2");
+  const [bathrooms, setBathrooms] = useState("2");
+  const [address, setAddress] = useState("");
+  const [date, setDate] = useState("");
+  const [notes, setNotes] = useState("");
+  const [error, setError] = useState("");
+
+  // Keep the selected service label in sync with language switches (best-effort).
+  useEffect(() => {
+    setService(t.quote.services[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !address.trim()) {
+      setError(t.quote.required);
+      return;
+    }
+    setError("");
+    const lines = [
+      t.quote.msgTitle,
+      "",
+      `${t.quote.fName}: ${name.trim()}`,
+      `${t.quote.fService}: ${service}`,
+      `${t.quote.fBedrooms}: ${bedrooms}`,
+      `${t.quote.fBathrooms}: ${bathrooms}`,
+      `${t.quote.fAddress}: ${address.trim()}`,
+    ];
+    if (date) lines.push(`${t.quote.fDate}: ${date}`);
+    if (notes.trim()) lines.push(`${t.quote.fNotes} ${notes.trim()}`);
+    const url = waLink(lines.join("\n"));
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const inputCls =
+    "w-full rounded-sm border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none";
+  const labelCls = "block text-xs uppercase tracking-widest text-muted-foreground mb-2";
+
+  return (
+    <section id="quote" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.quote.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.quote.title1} <em className="italic text-primary">{t.quote.title2}</em>{t.quote.title3}
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+            {t.quote.sub}
+          </p>
+        </div>
+
+        <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          <div className="md:col-span-1">
+            <label className={labelCls} htmlFor="q-name">{t.quote.fName} *</label>
+            <input
+              id="q-name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              maxLength={80}
+              required
+              className={inputCls}
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className={labelCls} htmlFor="q-service">{t.quote.fService}</label>
+            <select
+              id="q-service"
+              value={service}
+              onChange={(e) => setService(e.target.value)}
+              className={inputCls}
+            >
+              {t.quote.services.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="md:col-span-1">
+            <label className={labelCls} htmlFor="q-bed">{t.quote.fBedrooms}</label>
+            <select
+              id="q-bed"
+              value={bedrooms}
+              onChange={(e) => setBedrooms(e.target.value)}
+              className={inputCls}
+            >
+              {["1", "2", "3", "4", "5+"].map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="md:col-span-1">
+            <label className={labelCls} htmlFor="q-bath">{t.quote.fBathrooms}</label>
+            <select
+              id="q-bath"
+              value={bathrooms}
+              onChange={(e) => setBathrooms(e.target.value)}
+              className={inputCls}
+            >
+              {["1", "2", "3", "4", "5+"].map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="md:col-span-1">
+            <label className={labelCls} htmlFor="q-addr">{t.quote.fAddress} *</label>
+            <input
+              id="q-addr"
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              maxLength={120}
+              required
+              className={inputCls}
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className={labelCls} htmlFor="q-date">{t.quote.fDate}</label>
+            <input
+              id="q-date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className={inputCls}
+            />
+          </div>
+
+          <div className="md:col-span-2">
+            <label className={labelCls} htmlFor="q-notes">{t.quote.fNotes}</label>
+            <textarea
+              id="q-notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              maxLength={500}
+              rows={4}
+              placeholder={t.quote.fNotesPh}
+              className={inputCls}
+            />
+          </div>
+
+          <div className="md:col-span-2 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            {error && (
+              <p role="alert" className="text-sm text-destructive">
+                {error}
+              </p>
+            )}
+            <button
+              type="submit"
+              className="ml-auto inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+            >
+              {t.quote.submit}
+              <span aria-hidden>→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
+  const { t } = useT();
   return (
     <section id="contact" className="border-t border-border">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 max-w-xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Contact</span>
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.contact.tag}</span>
           <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            Let's <em className="italic text-primary">talk</em>.
+            {t.contact.title1} <em className="italic text-primary">{t.contact.title2}</em>{t.contact.title3}
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Send a quick message and Amanda will get back to you personally to plan the details of your visit.
+            {t.contact.sub}
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-16">
           <div className="border-t border-foreground/20 pt-6">
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.phone}</span>
             <a
               href={`tel:${PHONE_TEL}`}
               className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary"
@@ -452,12 +976,12 @@ function Contact() {
               {PHONE_DISPLAY}
             </a>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Available Mon–Sat, 8am – 6pm.
+              {t.contact.phoneNote}
             </p>
           </div>
 
           <div className="border-t border-foreground/20 pt-6">
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">Email</span>
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.email}</span>
             <a
               href={`mailto:${EMAIL}`}
               className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary break-all"
@@ -465,31 +989,31 @@ function Contact() {
               {EMAIL}
             </a>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              For quotes, questions and custom requests.
+              {t.contact.emailNote}
             </p>
           </div>
 
           <div className="border-t border-foreground/20 pt-6">
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">WhatsApp</span>
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.wa}</span>
             <p className="mt-4 font-serif text-2xl leading-snug">
-              The easiest way.
+              {t.contact.waLine}
             </p>
             <a
-              href={WHATSAPP_URL}
+              href={waLink(t.quote.msgTitle)}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
             >
-              Message on WhatsApp
+              {t.contact.waBtn}
               <span aria-hidden>→</span>
             </a>
           </div>
         </div>
 
         <div className="mt-16 border-t border-foreground/15 pt-8 md:mt-20">
-          <span className="text-xs uppercase tracking-widest text-muted-foreground">Service area</span>
+          <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.area}</span>
           <p className="mt-4 max-w-xl font-serif text-xl leading-snug md:text-2xl">
-            Based in Tampa, Florida — serving Tampa and surrounding areas.
+            {t.contact.areaLine}
           </p>
         </div>
       </div>
@@ -498,6 +1022,7 @@ function Contact() {
 }
 
 function Footer() {
+  const { t } = useT();
   return (
     <footer className="border-t border-border">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 py-10 md:flex-row md:items-center md:px-10">
@@ -505,7 +1030,7 @@ function Footer() {
           Amanda <span className="italic text-primary">&amp;</span> Co.
         </p>
         <p className="text-xs uppercase tracking-widest text-muted-foreground">
-          © {new Date().getFullYear()} — Personalized home cleaning · Florida
+          © {new Date().getFullYear()} — {t.footer.line}
         </p>
       </div>
     </footer>

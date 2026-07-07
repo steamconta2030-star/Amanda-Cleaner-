@@ -525,7 +525,7 @@ function Hero() {
         <div className="relative">
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
             <img
-              src={heroImage}
+              src={heroImage.url}
               alt="Calm, sunlit interior"
               width={1280}
               height={1600}

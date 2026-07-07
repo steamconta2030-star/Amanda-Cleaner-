@@ -17,6 +17,8 @@ const PHONE_DISPLAY = "+1 (813) 364-9757";
 const PHONE_TEL = "+18133649757";
 const PHONE_E164 = "18133649757";
 const EMAIL = "amandaanalaura19@gmail.com";
+const INSTAGRAM_HANDLE = "@amandas_elite_services_";
+const INSTAGRAM_URL = "https://www.instagram.com/amandas_elite_services_";
 
 const waLink = (text: string) =>
   `https://wa.me/${PHONE_E164}?text=${encodeURIComponent(text)}`;

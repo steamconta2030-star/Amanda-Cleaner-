@@ -407,6 +407,20 @@ const dict = {
       area: "Área de atendimento",
       areaLine: "Baseada em Tampa, Flórida — atendemos Tampa e região.",
     },
+    gallery: {
+      tag: "Antes e Depois",
+      title1: "A",
+      title2: "diferença",
+      title3: "está nos detalhes.",
+      sub: "Um pouco do trabalho real — do dia a dia ao cuidado com carinho.",
+      before: "Antes",
+      after: "Depois",
+      captions: [
+        "Cozinha · Limpeza Profunda",
+        "Banheiro · Limpeza Profunda",
+        "Sala · Residencial",
+      ],
+    },
     footer: {
       line: "Limpeza residencial personalizada · Flórida",
     },

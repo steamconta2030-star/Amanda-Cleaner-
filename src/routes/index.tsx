@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
 const PHONE_DISPLAY = "+1 (813) 364-9757";
 const PHONE_TEL = "+18133649757";
 const PHONE_E164 = "18133649757";
-const EMAIL = "hello@amandaandco.com";
+const EMAIL = "amandaanalaura19@gmail.com";
 const WHATSAPP_URL = `https://wa.me/${PHONE_E164}?text=${encodeURIComponent("Hi Amanda, I'd like to book a cleaning.")}`;
 
 function Index() {
@@ -149,16 +149,24 @@ function Concept() {
 function Services() {
   const services = [
     {
-      name: "Residential Maintenance",
-      desc: "Regular weekly or bi-weekly cleanings to keep your home effortlessly spotless over time.",
+      name: "Residential Cleaning",
+      desc: "Regular weekly or bi-weekly cleanings to keep your home effortlessly fresh and cared for.",
     },
     {
       name: "Deep Cleaning",
-      desc: "A detailed, top-to-bottom clean that reaches where routine doesn't. Perfect for move-ins, post-renovation or a seasonal reset.",
+      desc: "A detailed, top-to-bottom clean — inside the oven, fridge and every corner routine doesn't reach.",
     },
     {
-      name: "Space Organization",
-      desc: "Closets, pantries, drawers. A simple, beautiful system built to last.",
+      name: "Move In / Move Out",
+      desc: "Turnover cleaning for empty homes, ready for the next chapter — yours or your buyer's.",
+    },
+    {
+      name: "Post-Construction",
+      desc: "Dust, debris and film removed after renovation or new construction, safely and thoroughly.",
+    },
+    {
+      name: "Commercial Cleaning",
+      desc: "Offices, studios and small businesses in the Tampa area — kept spotless on your schedule.",
     },
   ];
   return (

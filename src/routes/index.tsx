@@ -40,6 +40,7 @@ function Nav() {
           <a href="#top" className="hover:text-foreground transition-colors">Home</a>
           <a href="#about" className="hover:text-foreground transition-colors">About</a>
           <a href="#servicos" className="hover:text-foreground transition-colors">Services</a>
+          <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
           <a href="#processo" className="hover:text-foreground transition-colors">How it works</a>
           <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
         </nav>

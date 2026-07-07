@@ -217,8 +217,8 @@ const dict = {
       before: "Before",
       after: "After",
       captions: [
-        "Oven · Deep Clean",
-        "Laundry Area · Deep Clean",
+        "Bedroom · Deep Clean",
+        "Toaster Oven · Deep Clean",
         "Bathtub · Deep Clean",
       ],
       open: "Open",
@@ -424,8 +424,8 @@ const dict = {
       before: "Antes",
       after: "Depois",
       captions: [
-        "Forno · Limpeza Profunda",
-        "Área de Serviço · Limpeza Profunda",
+        "Quarto · Limpeza Profunda",
+        "Forno Elétrico · Limpeza Profunda",
         "Banheira · Limpeza Profunda",
       ],
       open: "Abrir",

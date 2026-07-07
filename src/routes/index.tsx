@@ -392,7 +392,7 @@ const dict = {
     },
     lang: { switchTo: "EN", label: "English" },
   },
-} as const;
+};
 
 type Dict = typeof dict.en;
 

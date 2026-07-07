@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import heroImage from "../assets/hero.jpg";
+import aboutImage from "../assets/about.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -17,8 +18,10 @@ function Index() {
       <Nav />
       <Hero />
       <Concept />
+      <About />
       <Services />
       <Process />
+      <Testimonials />
       <Contact />
       <Footer />
     </div>
@@ -34,6 +37,7 @@ function Nav() {
         </a>
         <nav className="hidden items-center gap-10 text-sm text-muted-foreground md:flex">
           <a href="#top" className="hover:text-foreground transition-colors">Home</a>
+          <a href="#about" className="hover:text-foreground transition-colors">About</a>
           <a href="#servicos" className="hover:text-foreground transition-colors">Services</a>
           <a href="#processo" className="hover:text-foreground transition-colors">How it works</a>
           <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>

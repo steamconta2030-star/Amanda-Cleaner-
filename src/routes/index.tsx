@@ -2,6 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import heroImage from "../assets/hero.jpg";
 import aboutImage from "../assets/amanda.jpg.asset.json";
+import before1 from "../assets/before-1.jpg";
+import after1 from "../assets/after-1.jpg";
+import before2 from "../assets/before-2.jpg";
+import after2 from "../assets/after-2.jpg";
+import before3 from "../assets/before-3.jpg";
+import after3 from "../assets/after-3.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -27,6 +33,7 @@ const dict = {
       services: "Services",
       pricing: "Pricing",
       process: "How it works",
+      gallery: "Gallery",
       quote: "Get a quote",
       contact: "Contact",
     },
@@ -201,6 +208,20 @@ const dict = {
       area: "Service area",
       areaLine: "Based in Tampa, Florida — serving Tampa and surrounding areas.",
     },
+    gallery: {
+      tag: "Before & After",
+      title1: "The",
+      title2: "difference",
+      title3: "is in the details.",
+      sub: "A glimpse of real work — from lived-in to lovingly cared for.",
+      before: "Before",
+      after: "After",
+      captions: [
+        "Kitchen · Deep Clean",
+        "Bathroom · Deep Clean",
+        "Living Room · Residential",
+      ],
+    },
     footer: {
       line: "Personalized home cleaning · Florida",
     },
@@ -213,6 +234,7 @@ const dict = {
       services: "Serviços",
       pricing: "Preços",
       process: "Como funciona",
+      gallery: "Galeria",
       quote: "Pedir orçamento",
       contact: "Contato",
     },
@@ -387,6 +409,20 @@ const dict = {
       area: "Área de atendimento",
       areaLine: "Baseada em Tampa, Flórida — atendemos Tampa e região.",
     },
+    gallery: {
+      tag: "Antes e Depois",
+      title1: "A",
+      title2: "diferença",
+      title3: "está nos detalhes.",
+      sub: "Um pouco do trabalho real — do dia a dia ao cuidado com carinho.",
+      before: "Antes",
+      after: "Depois",
+      captions: [
+        "Cozinha · Limpeza Profunda",
+        "Banheiro · Limpeza Profunda",
+        "Sala · Residencial",
+      ],
+    },
     footer: {
       line: "Limpeza residencial personalizada · Flórida",
     },
@@ -441,6 +477,7 @@ function Index() {
         <Pricing />
         <Process />
         <Testimonials />
+        <Gallery />
         <QuoteForm />
         <Contact />
         <Footer />
@@ -476,6 +513,7 @@ function Nav() {
           <a href="#about" className="hover:text-foreground transition-colors">{t.nav.about}</a>
           <a href="#servicos" className="hover:text-foreground transition-colors">{t.nav.services}</a>
           <a href="#pricing" className="hover:text-foreground transition-colors">{t.nav.pricing}</a>
+          <a href="#gallery" className="hover:text-foreground transition-colors">{t.nav.gallery}</a>
           <a href="#quote" className="hover:text-foreground transition-colors">{t.nav.quote}</a>
           <a href="#contact" className="hover:text-foreground transition-colors">{t.nav.contact}</a>
         </nav>
@@ -773,6 +811,66 @@ function Testimonials() {
                 <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
                   {t.testimonials.role} · {q.city}
                 </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Gallery() {
+  const { t } = useT();
+  const pairs = [
+    { before: before1, after: after1, caption: t.gallery.captions[0] },
+    { before: before2, after: after2, caption: t.gallery.captions[1] },
+    { before: before3, after: after3, caption: t.gallery.captions[2] },
+  ];
+  return (
+    <section id="gallery" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.gallery.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.gallery.title1} <em className="italic text-primary">{t.gallery.title2}</em> {t.gallery.title3}
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+            {t.gallery.sub}
+          </p>
+        </div>
+
+        <div className="space-y-16 md:space-y-24">
+          {pairs.map((p, i) => (
+            <figure key={i} className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+              <div className="relative overflow-hidden rounded-sm">
+                <img
+                  src={p.before}
+                  alt={`${t.gallery.before} — ${p.caption}`}
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  className="h-full w-full object-cover aspect-square"
+                />
+                <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs uppercase tracking-widest text-foreground shadow-sm">
+                  {t.gallery.before}
+                </span>
+              </div>
+              <div className="relative overflow-hidden rounded-sm">
+                <img
+                  src={p.after}
+                  alt={`${t.gallery.after} — ${p.caption}`}
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  className="h-full w-full object-cover aspect-square"
+                />
+                <span className="absolute left-4 top-4 rounded-full bg-foreground px-3 py-1 text-xs uppercase tracking-widest text-background shadow-sm">
+                  {t.gallery.after}
+                </span>
+              </div>
+              <figcaption className="md:col-span-2 border-t border-foreground/15 pt-4 text-xs uppercase tracking-widest text-muted-foreground">
+                0{i + 1} · {p.caption}
               </figcaption>
             </figure>
           ))}

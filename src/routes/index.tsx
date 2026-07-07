@@ -5,7 +5,11 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const WHATSAPP_URL = "https://wa.me/?text=Hi%20Amanda%2C%20I%27d%20like%20to%20book%20a%20cleaning.";
+const PHONE_DISPLAY = "+1 (813) 364-9757";
+const PHONE_TEL = "+18133649757";
+const PHONE_E164 = "18133649757";
+const EMAIL = "hello@amandaandco.com";
+const WHATSAPP_URL = `https://wa.me/${PHONE_E164}?text=${encodeURIComponent("Hi Amanda, I'd like to book a cleaning.")}`;
 
 function Index() {
   return (
@@ -15,6 +19,7 @@ function Index() {
       <Concept />
       <Services />
       <Process />
+      <Contact />
       <Footer />
     </div>
   );
@@ -31,6 +36,7 @@ function Nav() {
           <a href="#top" className="hover:text-foreground transition-colors">Home</a>
           <a href="#servicos" className="hover:text-foreground transition-colors">Services</a>
           <a href="#processo" className="hover:text-foreground transition-colors">How it works</a>
+          <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
         </nav>
         <a
           href={WHATSAPP_URL}

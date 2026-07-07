@@ -44,8 +44,6 @@ const dict = {
       sub: "Personalized cleaning services from Amanda — with the attention to detail and trust you're looking for.",
       book: "Book on WhatsApp",
       see: "See services",
-      quote: "\"My home feels like it can finally breathe after Amanda leaves.\"",
-      quoteAuthor: "Client of 2 years",
     },
     concept: {
       tag: "My approach",
@@ -149,30 +147,6 @@ const dict = {
       cta: "Ready to come home to a fresh space?",
       book: "Book on WhatsApp",
     },
-    testimonials: {
-      tag: "Kind words",
-      title1: "Trusted by families across",
-      title2: "Florida",
-      title3: ".",
-      role: "Client",
-      quotes: [
-        {
-          quote: "Amanda treats our home like it's her own. Coming back on a cleaning day is my favorite part of the week.",
-          name: "Isabela M.",
-          city: "Tampa",
-        },
-        {
-          quote: "The attention to detail is something else. Little touches everywhere — folded corners, fresh scent, everything in its place.",
-          name: "Rachel P.",
-          city: "Orlando",
-        },
-        {
-          quote: "Reliable, kind and incredibly thorough. I finally trust one person with the keys and I never worry.",
-          name: "Daniela R.",
-          city: "Clearwater",
-        },
-      ],
-    },
     quote: {
       tag: "Get a quote",
       title1: "Tell me about your",
@@ -251,8 +225,6 @@ const dict = {
       sub: "Serviços de limpeza personalizados da Amanda — com a atenção ao detalhe e a confiança que você procura.",
       book: "Agendar pelo WhatsApp",
       see: "Ver serviços",
-      quote: "\"Minha casa parece que finalmente consegue respirar depois que a Amanda vai embora.\"",
-      quoteAuthor: "Cliente há 2 anos",
     },
     concept: {
       tag: "Minha abordagem",
@@ -355,30 +327,6 @@ const dict = {
       ],
       cta: "Pronta pra voltar pra uma casa fresca?",
       book: "Agendar pelo WhatsApp",
-    },
-    testimonials: {
-      tag: "Palavras gentis",
-      title1: "Famílias que confiam pela",
-      title2: "Flórida",
-      title3: ".",
-      role: "Cliente",
-      quotes: [
-        {
-          quote: "A Amanda trata a nossa casa como se fosse dela. Voltar num dia de limpeza é a minha parte favorita da semana.",
-          name: "Isabela M.",
-          city: "Tampa",
-        },
-        {
-          quote: "A atenção aos detalhes é outra coisa. Pequenos toques em todo lugar — cantos dobrados, aroma fresco, tudo no seu lugar.",
-          name: "Rachel P.",
-          city: "Orlando",
-        },
-        {
-          quote: "Confiável, gentil e incrivelmente minuciosa. Finalmente confio numa só pessoa com as chaves e nunca me preocupo.",
-          name: "Daniela R.",
-          city: "Clearwater",
-        },
-      ],
     },
     quote: {
       tag: "Pedir orçamento",
@@ -488,7 +436,6 @@ function Index() {
         <Services />
         <Pricing />
         <Process />
-        <Testimonials />
         <Gallery />
         <QuoteForm />
         <Contact />
@@ -584,12 +531,6 @@ function Hero() {
               height={1600}
               className="h-full w-full object-cover"
             />
-          </div>
-          <div className="absolute -bottom-6 -left-6 hidden max-w-[16rem] rounded-sm bg-background p-5 shadow-sm ring-1 ring-border md:block">
-            <p className="font-serif text-lg italic leading-snug">
-              {t.hero.quote}
-            </p>
-            <p className="mt-2 text-xs uppercase tracking-widest text-muted-foreground">— {t.hero.quoteAuthor}</p>
           </div>
         </div>
       </div>
@@ -793,39 +734,6 @@ function Process() {
             {t.process.book}
             <span aria-hidden>→</span>
           </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Testimonials() {
-  const { t } = useT();
-  return (
-    <section id="testimonials" className="border-t border-border bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
-        <div className="mb-16 max-w-2xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.testimonials.tag}</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            {t.testimonials.title1} <em className="italic text-primary">{t.testimonials.title2}</em>{t.testimonials.title3}
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
-          {t.testimonials.quotes.map((q) => (
-            <figure key={q.name} className="flex flex-col border-t border-foreground/20 pt-6">
-              <blockquote className="font-serif text-xl leading-snug md:text-2xl">
-                <span className="text-primary">"</span>
-                {q.quote}
-                <span className="text-primary">"</span>
-              </blockquote>
-              <figcaption className="mt-6 text-sm">
-                <div className="font-medium text-foreground">{q.name}</div>
-                <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
-                  {t.testimonials.role} · {q.city}
-                </div>
-              </figcaption>
-            </figure>
-          ))}
         </div>
       </div>
     </section>

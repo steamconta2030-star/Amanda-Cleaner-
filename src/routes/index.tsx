@@ -336,7 +336,7 @@ function About() {
         <div className="md:col-span-5">
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
             <img
-              src={aboutImage}
+              src={aboutImage.url}
               alt="Amanda preparing fresh linens by a sunlit window"
               width={1200}
               height={1500}

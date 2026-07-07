@@ -244,6 +244,105 @@ function Process() {
   );
 }
 
+function About() {
+  return (
+    <section id="about" className="border-t border-border">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-12 md:gap-16 md:px-10 md:py-32">
+        <div className="md:col-span-5">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+            <img
+              src={aboutImage}
+              alt="Amanda preparing fresh linens by a sunlit window"
+              width={1200}
+              height={1500}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center md:col-span-7">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Meet Amanda</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            A personal touch you can <em className="italic text-primary">feel</em>.
+          </h2>
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
+            <p>
+              I'm Amanda — the person behind every cleaning, from the first message to the moment you walk back into your fresh, quiet home.
+            </p>
+            <p>
+              I built this small boutique service because I believe your home deserves more than a rushed checklist. It deserves attention, calm and honest care — the kind you'd give it yourself if you had the time.
+            </p>
+            <p>
+              Working with a small handful of families across Florida means I know your space, your preferences and your routines. No surprises, just a home that feels like home again.
+            </p>
+          </div>
+          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-foreground/15 pt-8 text-sm">
+            <div>
+              <div className="font-serif text-3xl">5+</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">Years of care</div>
+            </div>
+            <div>
+              <div className="font-serif text-3xl">40+</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">Homes trusted</div>
+            </div>
+            <div>
+              <div className="font-serif text-3xl">1:1</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">Personal service</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  const quotes = [
+    {
+      quote: "Amanda treats our home like it's her own. Coming back on a cleaning day is my favorite part of the week.",
+      name: "Isabela M.",
+      role: "Client · Tampa",
+    },
+    {
+      quote: "The attention to detail is something else. Little touches everywhere — folded corners, fresh scent, everything in its place.",
+      name: "Rachel P.",
+      role: "Client · Orlando",
+    },
+    {
+      quote: "Reliable, kind and incredibly thorough. I finally trust one person with the keys and I never worry.",
+      name: "Daniela R.",
+      role: "Client · Clearwater",
+    },
+  ];
+  return (
+    <section id="testimonials" className="border-t border-border bg-secondary/40">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Kind words</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            Trusted by families across <em className="italic text-primary">Florida</em>.
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
+          {quotes.map((q) => (
+            <figure key={q.name} className="flex flex-col border-t border-foreground/20 pt-6">
+              <blockquote className="font-serif text-xl leading-snug md:text-2xl">
+                <span className="text-primary">"</span>
+                {q.quote}
+                <span className="text-primary">"</span>
+              </blockquote>
+              <figcaption className="mt-6 text-sm">
+                <div className="font-medium text-foreground">{q.name}</div>
+                <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{q.role}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return (
     <section id="contact" className="border-t border-border">

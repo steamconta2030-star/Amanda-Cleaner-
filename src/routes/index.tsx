@@ -836,16 +836,40 @@ function Gallery() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const isOpen = openIndex !== null;
 
+  const titleId = useId();
+  const descId = useId();
+  const liveMsg = useMemo(() => {
+    if (openIndex === null) return "";
+    const s = slides[openIndex];
+    return `${s.label}. ${s.caption}. ${openIndex + 1} ${t.gallery.of ?? "of"} ${slides.length}.`;
+  }, [openIndex, slides, t.gallery]);
+
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  const openAt = (index: number, e: React.MouseEvent<HTMLButtonElement>) => {
+    openerRef.current = e.currentTarget;
+    setOpenIndex(index);
+  };
   const close = () => setOpenIndex(null);
   const next = () => setOpenIndex((i) => (i === null ? i : (i + 1) % slides.length));
   const prev = () => setOpenIndex((i) => (i === null ? i : (i - 1 + slides.length) % slides.length));
 
+  // Global keyboard shortcuts + body scroll lock while open.
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowRight") next();
-      else if (e.key === "ArrowLeft") prev();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        next();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        prev();
+      }
     };
     document.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
@@ -856,14 +880,51 @@ function Gallery() {
     };
   }, [isOpen]);
 
+  // Focus management: move focus into the dialog on open, restore on close.
+  useEffect(() => {
+    if (!isOpen) {
+      openerRef.current?.focus?.();
+      return;
+    }
+    // Defer so the dialog is in the DOM.
+    const id = window.setTimeout(() => closeBtnRef.current?.focus(), 0);
+    return () => window.clearTimeout(id);
+  }, [isOpen]);
+
+  // Focus trap: keep Tab / Shift+Tab inside the dialog.
+  const onDialogKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Tab" || !dialogRef.current) return;
+    const focusables = dialogRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement as HTMLElement | null;
+    if (e.shiftKey) {
+      if (active === first || !dialogRef.current.contains(active)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  };
+
   const current = openIndex !== null ? slides[openIndex] : null;
+  const closeLabel = t.gallery.close ?? "Close";
+  const prevLabel = t.gallery.prev ?? "Previous image";
+  const nextLabel = t.gallery.next ?? "Next image";
 
   return (
-    <section id="gallery" className="border-t border-border">
+    <section id="gallery" className="border-t border-border" aria-labelledby="gallery-heading">
       <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
         <div className="mb-16 max-w-2xl">
           <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.gallery.tag}</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+          <h2 id="gallery-heading" className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
             {t.gallery.title1} <em className="italic text-primary">{t.gallery.title2}</em> {t.gallery.title3}
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
@@ -871,65 +932,88 @@ function Gallery() {
           </p>
         </div>
 
-        <div className="space-y-16 md:space-y-24">
+        <ul className="space-y-16 md:space-y-24" role="list">
           {pairs.map((p, i) => (
-            <figure key={i} className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-              <button
-                type="button"
-                onClick={() => setOpenIndex(i * 2)}
-                className="group relative overflow-hidden rounded-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                aria-label={`${t.gallery.before} — ${p.caption}`}
-              >
-                <img
-                  src={p.before}
-                  alt={`${t.gallery.before} — ${p.caption}`}
-                  width={1200}
-                  height={1200}
-                  loading="lazy"
-                  className="h-full w-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs uppercase tracking-widest text-foreground shadow-sm">
-                  {t.gallery.before}
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setOpenIndex(i * 2 + 1)}
-                className="group relative overflow-hidden rounded-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                aria-label={`${t.gallery.after} — ${p.caption}`}
-              >
-                <img
-                  src={p.after}
-                  alt={`${t.gallery.after} — ${p.caption}`}
-                  width={1200}
-                  height={1200}
-                  loading="lazy"
-                  className="h-full w-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <span className="absolute left-4 top-4 rounded-full bg-foreground px-3 py-1 text-xs uppercase tracking-widest text-background shadow-sm">
-                  {t.gallery.after}
-                </span>
-              </button>
-              <figcaption className="md:col-span-2 border-t border-foreground/15 pt-4 text-xs uppercase tracking-widest text-muted-foreground">
-                0{i + 1} · {p.caption}
-              </figcaption>
-            </figure>
+            <li key={i}>
+              <figure className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+                <button
+                  type="button"
+                  onClick={(e) => openAt(i * 2, e)}
+                  className="group relative overflow-hidden rounded-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  aria-label={`${t.gallery.open ?? "Open"}: ${t.gallery.before} — ${p.caption}`}
+                  aria-haspopup="dialog"
+                >
+                  <img
+                    src={p.before}
+                    alt={`${t.gallery.before} — ${p.caption}`}
+                    width={1200}
+                    height={1200}
+                    loading="lazy"
+                    className="h-full w-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs uppercase tracking-widest text-foreground shadow-sm">
+                    {t.gallery.before}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => openAt(i * 2 + 1, e)}
+                  className="group relative overflow-hidden rounded-sm text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  aria-label={`${t.gallery.open ?? "Open"}: ${t.gallery.after} — ${p.caption}`}
+                  aria-haspopup="dialog"
+                >
+                  <img
+                    src={p.after}
+                    alt={`${t.gallery.after} — ${p.caption}`}
+                    width={1200}
+                    height={1200}
+                    loading="lazy"
+                    className="h-full w-full object-cover aspect-square transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <span className="absolute left-4 top-4 rounded-full bg-foreground px-3 py-1 text-xs uppercase tracking-widest text-background shadow-sm">
+                    {t.gallery.after}
+                  </span>
+                </button>
+                <figcaption className="md:col-span-2 border-t border-foreground/15 pt-4 text-xs uppercase tracking-widest text-muted-foreground">
+                  0{i + 1} · {p.caption}
+                </figcaption>
+              </figure>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
       {isOpen && current && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          ref={dialogRef}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm focus:outline-none"
           role="dialog"
           aria-modal="true"
+          aria-labelledby={titleId}
+          aria-describedby={descId}
+          tabIndex={-1}
           onClick={close}
+          onKeyDown={onDialogKeyDown}
         >
+          {/* Live region announces the current slide for screen readers. */}
+          <div className="sr-only" aria-live="polite" aria-atomic="true">
+            {liveMsg}
+          </div>
+
+          <h2 id={titleId} className="sr-only">
+            {current.label} — {current.caption}
+          </h2>
+          <p id={descId} className="sr-only">
+            {t.gallery.dialogHint ??
+              "Use left and right arrow keys to navigate. Press Escape to close."}
+          </p>
+
           <button
+            ref={closeBtnRef}
             type="button"
             onClick={(e) => { e.stopPropagation(); close(); }}
-            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
-            aria-label="Close"
+            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            aria-label={closeLabel}
           >
             <span aria-hidden="true" className="text-xl leading-none">×</span>
           </button>
@@ -937,8 +1021,9 @@ function Gallery() {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:left-8"
-            aria-label="Previous"
+            className="absolute left-4 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:left-8"
+            aria-label={prevLabel}
+            aria-controls={titleId}
           >
             <span aria-hidden="true" className="text-2xl leading-none">‹</span>
           </button>
@@ -946,8 +1031,9 @@ function Gallery() {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); next(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 md:right-8"
-            aria-label="Next"
+            className="absolute right-4 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:right-8"
+            aria-label={nextLabel}
+            aria-controls={titleId}
           >
             <span aria-hidden="true" className="text-2xl leading-none">›</span>
           </button>
@@ -974,7 +1060,7 @@ function Gallery() {
               <span className="text-xs uppercase tracking-widest text-white/70">
                 {current.caption}
               </span>
-              <span className="text-xs uppercase tracking-widest text-white/50">
+              <span className="text-xs uppercase tracking-widest text-white/50" aria-hidden="true">
                 {String(openIndex! + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
               </span>
             </div>

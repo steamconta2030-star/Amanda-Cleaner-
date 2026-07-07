@@ -428,6 +428,12 @@ const dict = {
         "Banheiro · Limpeza Profunda",
         "Sala · Residencial",
       ],
+      open: "Abrir",
+      close: "Fechar visualização",
+      prev: "Imagem anterior",
+      next: "Próxima imagem",
+      of: "de",
+      dialogHint: "Use as setas esquerda e direita para navegar. Pressione Esc para fechar.",
     },
     footer: {
       line: "Limpeza residencial personalizada · Flórida",

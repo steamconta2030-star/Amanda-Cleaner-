@@ -475,6 +475,7 @@ function Index() {
         <Pricing />
         <Process />
         <Testimonials />
+        <Gallery />
         <QuoteForm />
         <Contact />
         <Footer />
@@ -807,6 +808,66 @@ function Testimonials() {
                 <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
                   {t.testimonials.role} · {q.city}
                 </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Gallery() {
+  const { t } = useT();
+  const pairs = [
+    { before: before1, after: after1, caption: t.gallery.captions[0] },
+    { before: before2, after: after2, caption: t.gallery.captions[1] },
+    { before: before3, after: after3, caption: t.gallery.captions[2] },
+  ];
+  return (
+    <section id="gallery" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.gallery.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.gallery.title1} <em className="italic text-primary">{t.gallery.title2}</em> {t.gallery.title3}
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+            {t.gallery.sub}
+          </p>
+        </div>
+
+        <div className="space-y-16 md:space-y-24">
+          {pairs.map((p, i) => (
+            <figure key={i} className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+              <div className="relative overflow-hidden rounded-sm">
+                <img
+                  src={p.before}
+                  alt={`${t.gallery.before} — ${p.caption}`}
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  className="h-full w-full object-cover aspect-square"
+                />
+                <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs uppercase tracking-widest text-foreground shadow-sm">
+                  {t.gallery.before}
+                </span>
+              </div>
+              <div className="relative overflow-hidden rounded-sm">
+                <img
+                  src={p.after}
+                  alt={`${t.gallery.after} — ${p.caption}`}
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  className="h-full w-full object-cover aspect-square"
+                />
+                <span className="absolute left-4 top-4 rounded-full bg-foreground px-3 py-1 text-xs uppercase tracking-widest text-background shadow-sm">
+                  {t.gallery.after}
+                </span>
+              </div>
+              <figcaption className="md:col-span-2 border-t border-foreground/15 pt-4 text-xs uppercase tracking-widest text-muted-foreground">
+                0{i + 1} · {p.caption}
               </figcaption>
             </figure>
           ))}

@@ -207,6 +207,20 @@ const dict = {
       area: "Service area",
       areaLine: "Based in Tampa, Florida — serving Tampa and surrounding areas.",
     },
+    gallery: {
+      tag: "Before & After",
+      title1: "The",
+      title2: "difference",
+      title3: "is in the details.",
+      sub: "A glimpse of real work — from lived-in to lovingly cared for.",
+      before: "Before",
+      after: "After",
+      captions: [
+        "Kitchen · Deep Clean",
+        "Bathroom · Deep Clean",
+        "Living Room · Residential",
+      ],
+    },
     footer: {
       line: "Personalized home cleaning · Florida",
     },

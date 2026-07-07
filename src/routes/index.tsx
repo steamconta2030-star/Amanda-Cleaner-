@@ -240,6 +240,68 @@ function Process() {
   );
 }
 
+function Contact() {
+  return (
+    <section id="contact" className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 max-w-xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Contact</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            Let's <em className="italic text-primary">talk</em>.
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+            Send a quick message and Amanda will get back to you personally to plan the details of your visit.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-16">
+          <div className="border-t border-foreground/20 pt-6">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">Phone</span>
+            <a
+              href={`tel:${PHONE_TEL}`}
+              className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary"
+            >
+              {PHONE_DISPLAY}
+            </a>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Available Mon–Sat, 8am – 6pm.
+            </p>
+          </div>
+
+          <div className="border-t border-foreground/20 pt-6">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">Email</span>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary break-all"
+            >
+              {EMAIL}
+            </a>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              For quotes, questions and custom requests.
+            </p>
+          </div>
+
+          <div className="border-t border-foreground/20 pt-6">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground">WhatsApp</span>
+            <p className="mt-4 font-serif text-2xl leading-snug">
+              The easiest way.
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+            >
+              Message on WhatsApp
+              <span aria-hidden>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="border-t border-border">

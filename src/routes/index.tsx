@@ -472,7 +472,7 @@ const dict = {
       waLine: "O jeito mais fácil.",
       waBtn: "Enviar mensagem no WhatsApp",
       area: "Área de atendimento",
-      areaLine: "Baseada em Tampa, Flórida — atendemos Tampa e região.",
+      areaLine: "Baseada em 6429 Wilshire Dr, Tampa, FL 33615 — atendemos Tampa e região.",
     },
     gallery: {
       tag: "Antes e Depois",

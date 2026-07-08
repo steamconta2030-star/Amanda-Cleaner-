@@ -45,6 +45,29 @@ const STATUS_META: Record<ConversationStatus, { label: string; color: string }> 
 };
 const STATUS_ORDER: ConversationStatus[] = ["new", "in_progress", "quoted", "scheduled", "won", "lost"];
 
+const QUICK_REPLIES: { label: string; text: string }[] = [
+  {
+    label: "👋 Boas-vindas",
+    text: "Oi! Aqui é a Amanda 😊 Obrigada pelo contato! Pode me passar o endereço, a metragem aproximada e o tipo de limpeza que precisa?",
+  },
+  {
+    label: "💰 Orçamento",
+    text: "Baseado no que você me contou, o orçamento fica em R$ ___. Inclui produtos e equipamentos. Posso agendar pra você?",
+  },
+  {
+    label: "📅 Confirmar horário",
+    text: "Perfeito! Confirmando: dia ___ às ___h no endereço ___. Qualquer imprevisto, é só me avisar 💙",
+  },
+  {
+    label: "🔄 Reagendar",
+    text: "Sem problema! Que dia e horário funcionam melhor pra você essa semana?",
+  },
+  {
+    label: "🙏 Follow-up",
+    text: "Oi! Passando pra saber se você ainda tem interesse no orçamento que enviei. Posso ajudar em algo?",
+  },
+];
+
 const LAST_SEEN_KEY = "admin.lastSeen.v1";
 
 function loadLastSeen(): Record<string, string> {

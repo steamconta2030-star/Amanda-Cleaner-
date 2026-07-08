@@ -21,6 +21,7 @@ export type Database = {
           id: string
           is_lead: boolean
           message_count: number
+          quoted_value: number | null
           session_id: string
           status: Database["public"]["Enums"]["conversation_status"]
           updated_at: string
@@ -33,6 +34,7 @@ export type Database = {
           id?: string
           is_lead?: boolean
           message_count?: number
+          quoted_value?: number | null
           session_id: string
           status?: Database["public"]["Enums"]["conversation_status"]
           updated_at?: string
@@ -45,6 +47,7 @@ export type Database = {
           id?: string
           is_lead?: boolean
           message_count?: number
+          quoted_value?: number | null
           session_id?: string
           status?: Database["public"]["Enums"]["conversation_status"]
           updated_at?: string

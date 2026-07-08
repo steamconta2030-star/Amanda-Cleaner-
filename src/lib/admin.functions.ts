@@ -111,7 +111,7 @@ export const getStats = createServerFn({ method: "GET" })
         .gte("created_at", sevenDaysAgoIso),
       (supabaseAdmin as any)
         .from("conversations")
-        .select("status"),
+        .select("status, quoted_value"),
     ]);
 
     // Bucket recent conversations by day (YYYY-MM-DD)
@@ -127,20 +127,32 @@ export const getStats = createServerFn({ method: "GET" })
     }
     const daily = Object.entries(dayBuckets).map(([date, count]) => ({ date, count }));
 
-    // Bucket by status
+    // Bucket by status + revenue math
     const statusCounts: Record<string, number> = {
       new: 0, in_progress: 0, quoted: 0, scheduled: 0, won: 0, lost: 0,
     };
-    for (const row of (statusRes.data ?? []) as { status: string }[]) {
+    let revenueWon = 0;
+    let pipelineValue = 0; // quoted/scheduled/in_progress
+    for (const row of (statusRes.data ?? []) as { status: string; quoted_value: number | null }[]) {
       if (row.status in statusCounts) statusCounts[row.status]++;
+      const v = Number(row.quoted_value ?? 0);
+      if (row.status === "won") revenueWon += v;
+      else if (row.status === "quoted" || row.status === "scheduled" || row.status === "in_progress") pipelineValue += v;
     }
+
+    const totalLeads = leadsRes.count ?? 0;
+    const wonCount = wonRes.count ?? 0;
+    const conversionRate = totalLeads > 0 ? Math.round((wonCount / totalLeads) * 100) : 0;
 
     return {
       totalConversations: totalRes.count ?? 0,
       conversationsThisWeek: weekRes.count ?? 0,
-      leads: leadsRes.count ?? 0,
+      leads: totalLeads,
       totalMessages: msgsRes.count ?? 0,
-      won: wonRes.count ?? 0,
+      won: wonCount,
+      conversionRate,
+      revenueWon,
+      pipelineValue,
       daily,
       statusCounts,
     };

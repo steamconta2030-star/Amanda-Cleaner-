@@ -117,6 +117,7 @@ function AdminPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<ConversationStatus | "all" | "leads" | "unread">("all");
   const [notes, setNotes] = useState("");
+  const [quotedInput, setQuotedInput] = useState("");
   const [search, setSearch] = useState("");
   const [soundOn, setSoundOn] = useState(true);
   const [lastSeen, setLastSeen] = useState<Record<string, string>>(() => loadLastSeen());

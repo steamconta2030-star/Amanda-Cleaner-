@@ -21,7 +21,7 @@ const INSTAGRAM_HANDLE = "@amandas_elite_services_";
 const INSTAGRAM_URL = "https://www.instagram.com/amandas_elite_services_";
 
 const waLink = (text: string) =>
-  `https://wa.me/${PHONE_E164}?text=${encodeURIComponent(text)}`;
+  `/obrigado?msg=${encodeURIComponent(text)}`;
 
 /* ---------------- i18n ---------------- */
 

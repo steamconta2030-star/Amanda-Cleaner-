@@ -573,9 +573,12 @@ function Index() {
         <Pricing />
         <Process />
         <Gallery />
+        <Testimonials />
         <QuoteForm />
+        <FAQ />
         <Contact />
         <Footer />
+        <MobileCta />
         <ChatWidget />
       </div>
     </LangProvider>

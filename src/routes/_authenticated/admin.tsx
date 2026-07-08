@@ -541,6 +541,7 @@ function AdminPage() {
                               <span className="flex items-center gap-1.5 truncate text-sm font-medium">
                                 {unread && <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-primary" />}
                                 {c.is_lead && <span>🔥</span>}
+                                {isStale(c) && <span title="Sem resposta há +24h">⏰</span>}
                                 <span className="truncate">{new Date(c.updated_at).toLocaleString()}</span>
                               </span>
                               <span className="shrink-0 text-xs text-muted-foreground">{c.message_count} msgs</span>

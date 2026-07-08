@@ -68,11 +68,6 @@ export const Route = createFileRoute("/")({
             closes: "18:00",
           }],
           sameAs: ["https://www.instagram.com/amandas_elite_services_"],
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "5.0",
-            reviewCount: "24",
-          },
           hasOfferCatalog: {
             "@type": "OfferCatalog",
             name: "Cleaning services",
@@ -573,7 +568,7 @@ function Index() {
         <Pricing />
         <Process />
         <Gallery />
-        <Testimonials />
+        {/* <Testimonials /> — removed until real reviews are collected */}
         <QuoteForm />
         <FAQ />
         <Contact />

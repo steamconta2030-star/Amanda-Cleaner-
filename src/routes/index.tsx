@@ -1451,3 +1451,100 @@ function Footer() {
     </footer>
   );
 }
+
+function Stars({ n }: { n: number }) {
+  return (
+    <div className="flex gap-0.5" aria-label={`${n} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < n ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" className="text-primary" aria-hidden>
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function Testimonials() {
+  const { t } = useT();
+  return (
+    <section id="testimonials" className="border-t border-border bg-secondary/30">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.testimonials.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.testimonials.title1} <em className="italic text-primary">{t.testimonials.title2}</em> {t.testimonials.title3}
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10">
+          {t.testimonials.items.map((it) => (
+            <figure key={it.name} className="flex flex-col rounded-sm border border-border bg-background p-8">
+              <Stars n={it.rating} />
+              <blockquote className="mt-6 flex-1 font-serif text-lg leading-snug md:text-xl">
+                “{it.quote}”
+              </blockquote>
+              <figcaption className="mt-6 border-t border-foreground/10 pt-4 text-sm">
+                <div className="font-medium">{it.name}</div>
+                <div className="text-xs uppercase tracking-widest text-muted-foreground">{it.role}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQ() {
+  const { t } = useT();
+  return (
+    <section id="faq" className="border-t border-border">
+      <div className="mx-auto max-w-4xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-14 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.faq.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.faq.title1} <em className="italic text-primary">{t.faq.title2}</em>{t.faq.title3}
+          </h2>
+        </div>
+        <div className="divide-y divide-border border-t border-b border-border">
+          {t.faq.items.map((it, i) => (
+            <details key={i} className="group py-6">
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
+                <span className="font-serif text-lg leading-snug md:text-xl">{it.q}</span>
+                <span aria-hidden className="mt-1 shrink-0 text-2xl leading-none text-muted-foreground transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                {it.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileCta() {
+  const { t } = useT();
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 py-3 backdrop-blur md:hidden">
+      <div className="flex items-center gap-2 pb-[env(safe-area-inset-bottom)]">
+        <a
+          href="#quote"
+          className="flex-1 rounded-full border border-foreground/25 px-4 py-3 text-center text-sm font-medium"
+        >
+          {t.stickyCta.quote}
+        </a>
+        <a
+          href={waLink(t.quote.msgTitle)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 rounded-full bg-foreground px-4 py-3 text-center text-sm font-medium text-background"
+        >
+          {t.stickyCta.wa}
+        </a>
+      </div>
+    </div>
+  );
+}

@@ -357,6 +357,20 @@ function AdminPage() {
           </div>
           <div className="flex items-center gap-2">
             <button
+              onClick={() => setShowHelp((v) => !v)}
+              title="Atalhos (?)"
+              className="rounded-lg border border-border px-2.5 py-1.5 text-xs hover:bg-muted"
+            >
+              ⌨️
+            </button>
+            <button
+              onClick={exportCsv}
+              title="Exportar CSV"
+              className="rounded-lg border border-border px-2.5 py-1.5 text-xs hover:bg-muted"
+            >
+              ⬇ CSV
+            </button>
+            <button
               onClick={() => setSoundOn((v) => !v)}
               title={soundOn ? "Som ligado" : "Som desligado"}
               className="rounded-lg border border-border px-2.5 py-1.5 text-xs hover:bg-muted"
@@ -375,6 +389,21 @@ function AdminPage() {
           </div>
         </div>
       </header>
+
+      {showHelp && (
+        <div className="mx-auto mt-3 max-w-6xl px-6">
+          <div className="rounded-lg border border-border bg-muted/40 p-3 text-xs">
+            <p className="mb-1 font-medium">Atalhos de teclado</p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-0.5 md:grid-cols-4">
+              <span><kbd className="rounded border border-border px-1">J</kbd> / <kbd className="rounded border border-border px-1">K</kbd> — próxima/anterior</span>
+              <span><kbd className="rounded border border-border px-1">1</kbd>–<kbd className="rounded border border-border px-1">6</kbd> — mudar status</span>
+              <span><kbd className="rounded border border-border px-1">W</kbd> — abrir WhatsApp</span>
+              <span><kbd className="rounded border border-border px-1">C</kbd> — copiar contato</span>
+              <span><kbd className="rounded border border-border px-1">?</kbd> — mostrar/esconder ajuda</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="mx-auto max-w-6xl px-6 py-8">
         {forbidden ? (

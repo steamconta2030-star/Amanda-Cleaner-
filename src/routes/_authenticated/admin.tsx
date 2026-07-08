@@ -504,6 +504,9 @@ function AdminPage() {
               <FilterChip active={filter === "leads"} onClick={() => setFilter("leads")}>
                 🔥 Leads ({convs.filter((c) => c.is_lead).length})
               </FilterChip>
+              <FilterChip active={filter === "stale"} onClick={() => setFilter("stale")}>
+                ⏰ Aguardando +24h ({staleCount})
+              </FilterChip>
               {STATUS_ORDER.map((s) => (
                 <FilterChip key={s} active={filter === s} onClick={() => setFilter(s)}>
                   {STATUS_META[s].label}

@@ -483,6 +483,12 @@ function Nav() {
         <div className="flex items-center gap-4">
           <LangToggle />
           <a
+            href="/auth"
+            className="inline-flex items-center rounded-full border border-foreground/25 px-3 py-2 text-xs uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background md:hidden"
+          >
+            Staff
+          </a>
+          <a
             href={waLink("Hi Amanda!")}
             target="_blank"
             rel="noopener noreferrer"
@@ -1282,15 +1288,15 @@ function Footer() {
           </svg>
           {INSTAGRAM_HANDLE}
         </a>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
             © {new Date().getFullYear()} — {t.footer.line}
           </p>
           <a
             href="/auth"
-            className="text-xs uppercase tracking-widest text-muted-foreground/70 transition-colors hover:text-foreground"
+            className="inline-flex rounded-full border border-foreground/20 px-3 py-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:border-foreground hover:text-foreground sm:border-0 sm:p-0"
           >
-            · Staff
+            Staff
           </a>
         </div>
       </div>

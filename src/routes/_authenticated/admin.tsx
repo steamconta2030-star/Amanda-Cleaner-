@@ -138,7 +138,8 @@ function AdminPage() {
   const qc = useQueryClient();
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [filter, setFilter] = useState<ConversationStatus | "all" | "leads" | "unread">("all");
+  const [filter, setFilter] = useState<ConversationStatus | "all" | "leads" | "unread" | "stale">("all");
+  const [showHelp, setShowHelp] = useState(false);
   const [notes, setNotes] = useState("");
   const [quotedInput, setQuotedInput] = useState("");
   const [search, setSearch] = useState("");

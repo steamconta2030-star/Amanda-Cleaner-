@@ -49,9 +49,16 @@ export const Route = createFileRoute("/")({
           priceRange: "$$",
           address: {
             "@type": "PostalAddress",
+            streetAddress: "6429 Wilshire Dr",
             addressLocality: "Tampa",
             addressRegion: "FL",
+            postalCode: "33615",
             addressCountry: "US",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 27.9931,
+            longitude: -82.5731,
           },
           areaServed: [
             { "@type": "City", name: "Tampa" },
@@ -262,7 +269,7 @@ const dict = {
       waLine: "The easiest way.",
       waBtn: "Message on WhatsApp",
       area: "Service area",
-      areaLine: "Based in Tampa, Florida — serving Tampa and surrounding areas.",
+      areaLine: "Based at 6429 Wilshire Dr, Tampa, FL 33615 — serving Tampa and surrounding areas.",
     },
     gallery: {
       tag: "Before & After",
@@ -465,7 +472,7 @@ const dict = {
       waLine: "O jeito mais fácil.",
       waBtn: "Enviar mensagem no WhatsApp",
       area: "Área de atendimento",
-      areaLine: "Baseada em Tampa, Flórida — atendemos Tampa e região.",
+      areaLine: "Baseada em 6429 Wilshire Dr, Tampa, FL 33615 — atendemos Tampa e região.",
     },
     gallery: {
       tag: "Antes e Depois",

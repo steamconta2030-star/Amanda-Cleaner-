@@ -1284,6 +1284,10 @@ function Footer() {
         </a>
         <p className="text-xs uppercase tracking-widest text-muted-foreground">
           © {new Date().getFullYear()} — {t.footer.line}
+          {" · "}
+          <a href="/auth" className="opacity-40 transition-opacity hover:opacity-100">
+            Staff
+          </a>
         </p>
       </div>
     </footer>

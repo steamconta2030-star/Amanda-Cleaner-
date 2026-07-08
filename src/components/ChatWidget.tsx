@@ -1,15 +1,33 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+function getSessionId(): string {
+  if (typeof window === "undefined") return "ssr";
+  const KEY = "amandaChatSessionId";
+  let id = window.localStorage.getItem(KEY);
+  if (!id) {
+    id = (crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+    window.localStorage.setItem(KEY, id);
+  }
+  return id;
+}
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const sessionId = useMemo(getSessionId, []);
+  const lang = typeof document !== "undefined"
+    ? (document.documentElement.lang || (navigator.language?.startsWith("pt") ? "pt" : "en"))
+    : "en";
 
   const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+      body: { sessionId, lang },
+    }),
   });
 
   const busy = status === "submitted" || status === "streaming";

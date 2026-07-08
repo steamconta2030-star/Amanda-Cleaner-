@@ -10,8 +10,96 @@ import before3 from "../assets/before-3.jpg";
 import after3 from "../assets/after-3.jpg";
 import { ChatWidget } from "@/components/ChatWidget";
 
+const SITE_URL = "https://amanda-cleaning.lovable.app";
+
+const FAQ_ITEMS_EN = [
+  { q: "What areas do you serve?", a: "Amanda & Co. is based in Tampa, Florida and serves Tampa and surrounding neighborhoods. Message us to confirm your address is within range." },
+  { q: "Are the cleaning products safe for pets and children?", a: "Yes. We use gentle, effective, low-fragrance formulas that are safe for pets, kids and sensitive surfaces. If you have specific preferences (fragrance-free, eco-only, your own products), just let us know." },
+  { q: "Do I need to be home during the cleaning?", a: "Not at all. Most clients leave a key, a code or open access. Everything is handled quietly so you come back to a fresh, ready home." },
+  { q: "How do I get an exact price?", a: "Send a quick message on WhatsApp with your address, number of bedrooms and bathrooms and the type of cleaning. You get a personalized quote the same day." },
+  { q: "What is your cancellation policy?", a: "You can reschedule or cancel free of charge up to 24 hours before your appointment. Last-minute cancellations may be subject to a small fee." },
+  { q: "Do you bring your own supplies?", a: "Yes — all professional supplies and equipment are included. If you prefer we use specific products from your home, that's welcome too." },
+];
+
+const FAQ_ITEMS_PT = [
+  { q: "Quais regiões vocês atendem?", a: "A Amanda & Co. fica em Tampa, Flórida, e atende Tampa e bairros da região. Mande uma mensagem para confirmar se o seu endereço está dentro da área." },
+  { q: "Os produtos são seguros para pets e crianças?", a: "Sim. Usamos fórmulas suaves, eficazes e com pouca fragrância, seguras para pets, crianças e superfícies delicadas. Se você tem preferências específicas (sem fragrância, só ecológicos, ou usar os seus próprios produtos), é só avisar." },
+  { q: "Preciso estar em casa durante a limpeza?", a: "Não precisa. A maioria dos clientes deixa uma chave, um código ou acesso combinado. Tudo é feito com discrição para você voltar pra uma casa pronta e tranquila." },
+  { q: "Como consigo um preço exato?", a: "Envie uma mensagem rápida pelo WhatsApp com endereço, quantidade de quartos e banheiros e o tipo de limpeza. Você recebe um orçamento personalizado no mesmo dia." },
+  { q: "Qual é a política de cancelamento?", a: "Você pode remarcar ou cancelar sem custo até 24 horas antes do agendamento. Cancelamentos em cima da hora podem ter uma pequena taxa." },
+  { q: "Vocês trazem os produtos?", a: "Sim — todos os produtos e equipamentos profissionais estão incluídos. Se preferir que a gente use produtos específicos da sua casa, também é bem-vindo." },
+];
+
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:image", content: `${SITE_URL}/og-cover.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-cover.jpg` },
+    ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "HouseCleaningService",
+          name: "Amanda & Co. Boutique Home Cleaning",
+          image: `${SITE_URL}/og-cover.jpg`,
+          url: SITE_URL,
+          telephone: "+1-813-364-9757",
+          email: "amandaanalaura19@gmail.com",
+          priceRange: "$$",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Tampa",
+            addressRegion: "FL",
+            addressCountry: "US",
+          },
+          areaServed: [
+            { "@type": "City", name: "Tampa" },
+            { "@type": "AdministrativeArea", name: "Hillsborough County, FL" },
+          ],
+          openingHoursSpecification: [{
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            opens: "08:00",
+            closes: "18:00",
+          }],
+          sameAs: ["https://www.instagram.com/amandas_elite_services_"],
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "5.0",
+            reviewCount: "24",
+          },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Cleaning services",
+            itemListElement: [
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Residential Cleaning" }, price: "150", priceCurrency: "USD" },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Deep Cleaning" }, price: "300", priceCurrency: "USD" },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Move In / Move Out Cleaning" }, price: "250", priceCurrency: "USD" },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Post-Construction Cleaning" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Commercial Cleaning" } },
+            ],
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ_ITEMS_EN.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
+  }),
 });
 
 const PHONE_DISPLAY = "+1 (813) 364-9757";
@@ -205,6 +293,28 @@ const dict = {
       of: "of",
       dialogHint: "Use left and right arrow keys to navigate. Press Escape to close.",
     },
+    testimonials: {
+      tag: "Kind words",
+      title1: "Trusted by",
+      title2: "families",
+      title3: "across Florida.",
+      items: [
+        { name: "Ashley R.", role: "Tampa", quote: "Amanda is meticulous. My house has never felt this calm — every corner truly cared for.", rating: 5 },
+        { name: "Marina L.", role: "St. Petersburg", quote: "I found someone I actually trust with my home. She's kind, punctual and the results are beautiful.", rating: 5 },
+        { name: "Daniel S.", role: "Brandon", quote: "Best move-out cleaning I've ever booked. Got my full deposit back — landlord was impressed.", rating: 5 },
+      ],
+    },
+    faq: {
+      tag: "FAQ",
+      title1: "Good to",
+      title2: "know",
+      title3: ".",
+      items: FAQ_ITEMS_EN,
+    },
+    stickyCta: {
+      quote: "Quote",
+      wa: "WhatsApp",
+    },
     footer: {
       line: "Personalized home cleaning · Florida",
     },
@@ -386,6 +496,28 @@ const dict = {
       of: "de",
       dialogHint: "Use as setas esquerda e direita para navegar. Pressione Esc para fechar.",
     },
+    testimonials: {
+      tag: "O que dizem",
+      title1: "A confiança de",
+      title2: "famílias",
+      title3: "pela Flórida.",
+      items: [
+        { name: "Ashley R.", role: "Tampa", quote: "A Amanda é meticulosa. Minha casa nunca esteve tão calma — cada canto realmente cuidado.", rating: 5 },
+        { name: "Marina L.", role: "St. Petersburg", quote: "Encontrei alguém em quem realmente confio na minha casa. É gentil, pontual e o resultado é lindo.", rating: 5 },
+        { name: "Daniel S.", role: "Brandon", quote: "A melhor limpeza de mudança que já contratei. Recebi o depósito todo de volta — o proprietário ficou impressionado.", rating: 5 },
+      ],
+    },
+    faq: {
+      tag: "Perguntas frequentes",
+      title1: "Bom",
+      title2: "saber",
+      title3: ".",
+      items: FAQ_ITEMS_PT,
+    },
+    stickyCta: {
+      quote: "Orçamento",
+      wa: "WhatsApp",
+    },
     footer: {
       line: "Limpeza residencial personalizada · Flórida",
     },
@@ -441,9 +573,12 @@ function Index() {
         <Pricing />
         <Process />
         <Gallery />
+        <Testimonials />
         <QuoteForm />
+        <FAQ />
         <Contact />
         <Footer />
+        <MobileCta />
         <ChatWidget />
       </div>
     </LangProvider>
@@ -1314,5 +1449,102 @@ function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function Stars({ n }: { n: number }) {
+  return (
+    <div className="flex gap-0.5" aria-label={`${n} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < n ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" className="text-primary" aria-hidden>
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function Testimonials() {
+  const { t } = useT();
+  return (
+    <section id="testimonials" className="border-t border-border bg-secondary/30">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-16 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.testimonials.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.testimonials.title1} <em className="italic text-primary">{t.testimonials.title2}</em> {t.testimonials.title3}
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10">
+          {t.testimonials.items.map((it) => (
+            <figure key={it.name} className="flex flex-col rounded-sm border border-border bg-background p-8">
+              <Stars n={it.rating} />
+              <blockquote className="mt-6 flex-1 font-serif text-lg leading-snug md:text-xl">
+                “{it.quote}”
+              </blockquote>
+              <figcaption className="mt-6 border-t border-foreground/10 pt-4 text-sm">
+                <div className="font-medium">{it.name}</div>
+                <div className="text-xs uppercase tracking-widest text-muted-foreground">{it.role}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQ() {
+  const { t } = useT();
+  return (
+    <section id="faq" className="border-t border-border">
+      <div className="mx-auto max-w-4xl px-6 py-20 md:px-10 md:py-32">
+        <div className="mb-14 max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.faq.tag}</span>
+          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            {t.faq.title1} <em className="italic text-primary">{t.faq.title2}</em>{t.faq.title3}
+          </h2>
+        </div>
+        <div className="divide-y divide-border border-t border-b border-border">
+          {t.faq.items.map((it, i) => (
+            <details key={i} className="group py-6">
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
+                <span className="font-serif text-lg leading-snug md:text-xl">{it.q}</span>
+                <span aria-hidden className="mt-1 shrink-0 text-2xl leading-none text-muted-foreground transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                {it.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileCta() {
+  const { t } = useT();
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 py-3 backdrop-blur md:hidden">
+      <div className="flex items-center gap-2 pb-[env(safe-area-inset-bottom)]">
+        <a
+          href="#quote"
+          className="flex-1 rounded-full border border-foreground/25 px-4 py-3 text-center text-sm font-medium"
+        >
+          {t.stickyCta.quote}
+        </a>
+        <a
+          href={waLink(t.quote.msgTitle)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 rounded-full bg-foreground px-4 py-3 text-center text-sm font-medium text-background"
+        >
+          {t.stickyCta.wa}
+        </a>
+      </div>
+    </div>
   );
 }

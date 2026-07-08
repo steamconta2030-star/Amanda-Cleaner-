@@ -8,6 +8,7 @@ import before2 from "../assets/before-2.jpg";
 import after2 from "../assets/after-2.jpg";
 import before3 from "../assets/before-3.jpg";
 import after3 from "../assets/after-3.jpg";
+import { ChatWidget } from "@/components/ChatWidget";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -442,6 +443,7 @@ function Index() {
         <QuoteForm />
         <Contact />
         <Footer />
+        <ChatWidget />
       </div>
     </LangProvider>
   );

@@ -538,7 +538,11 @@ function AdminPage() {
   );
 }
 
-function StatCard({ label, value, highlight }: { label: string; value: number | string; highlight?: boolean }) {
+function formatBRL(v: number): string {
+  return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+}
+
+function StatCard({ label, value, sub, highlight }: { label: string; value: number | string; sub?: string; highlight?: boolean }) {
   return (
     <div
       className={`rounded-xl border p-4 ${
@@ -547,6 +551,7 @@ function StatCard({ label, value, highlight }: { label: string; value: number | 
     >
       <p className="text-xs uppercase tracking-widest text-muted-foreground">{label}</p>
       <p className="mt-1 font-serif text-3xl">{value}</p>
+      {sub && <p className="mt-0.5 text-[10px] text-muted-foreground">{sub}</p>}
     </div>
   );
 }

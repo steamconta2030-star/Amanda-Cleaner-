@@ -269,7 +269,7 @@ const dict = {
       waLine: "The easiest way.",
       waBtn: "Message on WhatsApp",
       area: "Service area",
-      areaLine: "Based in Tampa, Florida — serving Tampa and surrounding areas.",
+      areaLine: "Based at 6429 Wilshire Dr, Tampa, FL 33615 — serving Tampa and surrounding areas.",
     },
     gallery: {
       tag: "Before & After",

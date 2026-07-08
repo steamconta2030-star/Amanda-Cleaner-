@@ -42,7 +42,7 @@ export const listConversations = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await (supabaseAdmin as any)
       .from("conversations")
-      .select("id, session_id, created_at, updated_at, message_count, is_lead, visitor_lang, status, admin_notes")
+      .select("id, session_id, created_at, updated_at, message_count, is_lead, visitor_lang, status, admin_notes, quoted_value")
       .order("updated_at", { ascending: false })
       .limit(200);
     if (error) throw new Error(error.message);
@@ -66,13 +66,14 @@ export const getConversation = createServerFn({ method: "POST" })
 
 export const updateConversation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { conversationId: string; status?: ConversationStatus; admin_notes?: string | null }) => input)
+  .inputValidator((input: { conversationId: string; status?: ConversationStatus; admin_notes?: string | null; quoted_value?: number | null }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const patch: Record<string, unknown> = {};
     if (data.status !== undefined) patch.status = data.status;
     if (data.admin_notes !== undefined) patch.admin_notes = data.admin_notes;
+    if (data.quoted_value !== undefined) patch.quoted_value = data.quoted_value;
     const { error } = await (supabaseAdmin as any)
       .from("conversations")
       .update(patch)
@@ -110,7 +111,7 @@ export const getStats = createServerFn({ method: "GET" })
         .gte("created_at", sevenDaysAgoIso),
       (supabaseAdmin as any)
         .from("conversations")
-        .select("status"),
+        .select("status, quoted_value"),
     ]);
 
     // Bucket recent conversations by day (YYYY-MM-DD)
@@ -126,20 +127,32 @@ export const getStats = createServerFn({ method: "GET" })
     }
     const daily = Object.entries(dayBuckets).map(([date, count]) => ({ date, count }));
 
-    // Bucket by status
+    // Bucket by status + revenue math
     const statusCounts: Record<string, number> = {
       new: 0, in_progress: 0, quoted: 0, scheduled: 0, won: 0, lost: 0,
     };
-    for (const row of (statusRes.data ?? []) as { status: string }[]) {
+    let revenueWon = 0;
+    let pipelineValue = 0; // quoted/scheduled/in_progress
+    for (const row of (statusRes.data ?? []) as { status: string; quoted_value: number | null }[]) {
       if (row.status in statusCounts) statusCounts[row.status]++;
+      const v = Number(row.quoted_value ?? 0);
+      if (row.status === "won") revenueWon += v;
+      else if (row.status === "quoted" || row.status === "scheduled" || row.status === "in_progress") pipelineValue += v;
     }
+
+    const totalLeads = leadsRes.count ?? 0;
+    const wonCount = wonRes.count ?? 0;
+    const conversionRate = totalLeads > 0 ? Math.round((wonCount / totalLeads) * 100) : 0;
 
     return {
       totalConversations: totalRes.count ?? 0,
       conversationsThisWeek: weekRes.count ?? 0,
-      leads: leadsRes.count ?? 0,
+      leads: totalLeads,
       totalMessages: msgsRes.count ?? 0,
-      won: wonRes.count ?? 0,
+      won: wonCount,
+      conversionRate,
+      revenueWon,
+      pipelineValue,
       daily,
       statusCounts,
     };

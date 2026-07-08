@@ -568,7 +568,7 @@ function Index() {
         <Pricing />
         <Process />
         <Gallery />
-        <Testimonials />
+        {/* <Testimonials /> — removed until real reviews are collected */}
         <QuoteForm />
         <FAQ />
         <Contact />

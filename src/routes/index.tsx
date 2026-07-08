@@ -49,9 +49,16 @@ export const Route = createFileRoute("/")({
           priceRange: "$$",
           address: {
             "@type": "PostalAddress",
+            streetAddress: "6429 Wilshire Dr",
             addressLocality: "Tampa",
             addressRegion: "FL",
+            postalCode: "33615",
             addressCountry: "US",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 27.9931,
+            longitude: -82.5731,
           },
           areaServed: [
             { "@type": "City", name: "Tampa" },

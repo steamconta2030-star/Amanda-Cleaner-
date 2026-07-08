@@ -1282,13 +1282,17 @@ function Footer() {
           </svg>
           {INSTAGRAM_HANDLE}
         </a>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">
-          © {new Date().getFullYear()} — {t.footer.line}
-          {" · "}
-          <a href="/auth" className="opacity-40 transition-opacity hover:opacity-100">
-            Staff
+        <div className="flex items-center gap-4">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">
+            © {new Date().getFullYear()} — {t.footer.line}
+          </p>
+          <a
+            href="/auth"
+            className="text-xs uppercase tracking-widest text-muted-foreground/70 transition-colors hover:text-foreground"
+          >
+            · Staff
           </a>
-        </p>
+        </div>
       </div>
     </footer>
   );

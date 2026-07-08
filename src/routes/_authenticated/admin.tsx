@@ -25,6 +25,7 @@ type Conv = {
   visitor_lang: string | null;
   status: ConversationStatus;
   admin_notes: string | null;
+  quoted_value: number | null;
 };
 
 type Msg = {

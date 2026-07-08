@@ -903,9 +903,11 @@ function Process() {
 function Gallery() {
   const { t } = useT();
   const pairs = [
-    { before: before1, after: after1, caption: t.gallery.captions[0] },
-    { before: before2, after: after2, caption: t.gallery.captions[1] },
-    { before: before3, after: after3, caption: t.gallery.captions[2] },
+    { before: beforePantry.url, after: afterPantry.url, caption: t.gallery.captions[0] },
+    { before: beforeCooktop.url, after: afterCooktop.url, caption: t.gallery.captions[1] },
+    { before: beforeSink.url, after: afterSink.url, caption: t.gallery.captions[2] },
+    { before: beforeMaster.url, after: afterMaster.url, caption: t.gallery.captions[3] },
+    { before: beforeKids.url, after: afterKids.url, caption: t.gallery.captions[4] },
   ];
   // Flatten to a single sequence: [before1, after1, before2, after2, ...]
   const slides = pairs.flatMap((p, i) => [

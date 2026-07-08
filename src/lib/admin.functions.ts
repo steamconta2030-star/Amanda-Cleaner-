@@ -66,13 +66,14 @@ export const getConversation = createServerFn({ method: "POST" })
 
 export const updateConversation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { conversationId: string; status?: ConversationStatus; admin_notes?: string | null }) => input)
+  .inputValidator((input: { conversationId: string; status?: ConversationStatus; admin_notes?: string | null; quoted_value?: number | null }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const patch: Record<string, unknown> = {};
     if (data.status !== undefined) patch.status = data.status;
     if (data.admin_notes !== undefined) patch.admin_notes = data.admin_notes;
+    if (data.quoted_value !== undefined) patch.quoted_value = data.quoted_value;
     const { error } = await (supabaseAdmin as any)
       .from("conversations")
       .update(patch)

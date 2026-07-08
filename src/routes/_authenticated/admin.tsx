@@ -132,7 +132,7 @@ function AdminPage() {
   });
 
   const mutate = useMutation({
-    mutationFn: (input: { conversationId: string; status?: ConversationStatus; admin_notes?: string | null }) =>
+    mutationFn: (input: { conversationId: string; status?: ConversationStatus; admin_notes?: string | null; quoted_value?: number | null }) =>
       updateConv({ data: input }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["convs"] });

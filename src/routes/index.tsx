@@ -10,8 +10,96 @@ import before3 from "../assets/before-3.jpg";
 import after3 from "../assets/after-3.jpg";
 import { ChatWidget } from "@/components/ChatWidget";
 
+const SITE_URL = "https://amanda-cleaning.lovable.app";
+
+const FAQ_ITEMS_EN = [
+  { q: "What areas do you serve?", a: "Amanda & Co. is based in Tampa, Florida and serves Tampa and surrounding neighborhoods. Message us to confirm your address is within range." },
+  { q: "Are the cleaning products safe for pets and children?", a: "Yes. We use gentle, effective, low-fragrance formulas that are safe for pets, kids and sensitive surfaces. If you have specific preferences (fragrance-free, eco-only, your own products), just let us know." },
+  { q: "Do I need to be home during the cleaning?", a: "Not at all. Most clients leave a key, a code or open access. Everything is handled quietly so you come back to a fresh, ready home." },
+  { q: "How do I get an exact price?", a: "Send a quick message on WhatsApp with your address, number of bedrooms and bathrooms and the type of cleaning. You get a personalized quote the same day." },
+  { q: "What is your cancellation policy?", a: "You can reschedule or cancel free of charge up to 24 hours before your appointment. Last-minute cancellations may be subject to a small fee." },
+  { q: "Do you bring your own supplies?", a: "Yes — all professional supplies and equipment are included. If you prefer we use specific products from your home, that's welcome too." },
+];
+
+const FAQ_ITEMS_PT = [
+  { q: "Quais regiões vocês atendem?", a: "A Amanda & Co. fica em Tampa, Flórida, e atende Tampa e bairros da região. Mande uma mensagem para confirmar se o seu endereço está dentro da área." },
+  { q: "Os produtos são seguros para pets e crianças?", a: "Sim. Usamos fórmulas suaves, eficazes e com pouca fragrância, seguras para pets, crianças e superfícies delicadas. Se você tem preferências específicas (sem fragrância, só ecológicos, ou usar os seus próprios produtos), é só avisar." },
+  { q: "Preciso estar em casa durante a limpeza?", a: "Não precisa. A maioria dos clientes deixa uma chave, um código ou acesso combinado. Tudo é feito com discrição para você voltar pra uma casa pronta e tranquila." },
+  { q: "Como consigo um preço exato?", a: "Envie uma mensagem rápida pelo WhatsApp com endereço, quantidade de quartos e banheiros e o tipo de limpeza. Você recebe um orçamento personalizado no mesmo dia." },
+  { q: "Qual é a política de cancelamento?", a: "Você pode remarcar ou cancelar sem custo até 24 horas antes do agendamento. Cancelamentos em cima da hora podem ter uma pequena taxa." },
+  { q: "Vocês trazem os produtos?", a: "Sim — todos os produtos e equipamentos profissionais estão incluídos. Se preferir que a gente use produtos específicos da sua casa, também é bem-vindo." },
+];
+
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:image", content: `${SITE_URL}/og-cover.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-cover.jpg` },
+    ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "HouseCleaningService",
+          name: "Amanda & Co. Boutique Home Cleaning",
+          image: `${SITE_URL}/og-cover.jpg`,
+          url: SITE_URL,
+          telephone: "+1-813-364-9757",
+          email: "amandaanalaura19@gmail.com",
+          priceRange: "$$",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Tampa",
+            addressRegion: "FL",
+            addressCountry: "US",
+          },
+          areaServed: [
+            { "@type": "City", name: "Tampa" },
+            { "@type": "AdministrativeArea", name: "Hillsborough County, FL" },
+          ],
+          openingHoursSpecification: [{
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            opens: "08:00",
+            closes: "18:00",
+          }],
+          sameAs: ["https://www.instagram.com/amandas_elite_services_"],
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "5.0",
+            reviewCount: "24",
+          },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Cleaning services",
+            itemListElement: [
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Residential Cleaning" }, price: "150", priceCurrency: "USD" },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Deep Cleaning" }, price: "300", priceCurrency: "USD" },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Move In / Move Out Cleaning" }, price: "250", priceCurrency: "USD" },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Post-Construction Cleaning" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Commercial Cleaning" } },
+            ],
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ_ITEMS_EN.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
+  }),
 });
 
 const PHONE_DISPLAY = "+1 (813) 364-9757";

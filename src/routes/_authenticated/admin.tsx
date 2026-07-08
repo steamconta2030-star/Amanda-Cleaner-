@@ -186,7 +186,8 @@ function AdminPage() {
 
   useEffect(() => {
     setNotes(selected?.admin_notes ?? "");
-  }, [selectedId, selected?.admin_notes]);
+    setQuotedInput(selected?.quoted_value != null ? String(selected.quoted_value) : "");
+  }, [selectedId, selected?.admin_notes, selected?.quoted_value]);
 
   // Mark as seen when a conversation is opened
   useEffect(() => {

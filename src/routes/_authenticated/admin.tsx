@@ -275,6 +275,78 @@ function AdminPage() {
     }
   };
 
+  const exportCsv = () => {
+    const header = ["session_id", "created_at", "updated_at", "status", "is_lead", "message_count", "quoted_value", "visitor_lang", "admin_notes"];
+    const escape = (v: unknown) => {
+      const s = v == null ? "" : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const rows = convs.map((c) => [
+      c.session_id,
+      c.created_at,
+      c.updated_at,
+      c.status,
+      c.is_lead,
+      c.message_count,
+      c.quoted_value ?? "",
+      c.visitor_lang ?? "",
+      c.admin_notes ?? "",
+    ]);
+    const csv = [header, ...rows].map((r) => r.map(escape).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `amanda-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      // ? — help
+      if (e.key === "?") { setShowHelp((v) => !v); return; }
+
+      // J/K navigate
+      if (e.key === "j" || e.key === "k") {
+        e.preventDefault();
+        if (filtered.length === 0) return;
+        const idx = filtered.findIndex((c) => c.id === selectedId);
+        const nextIdx = e.key === "j"
+          ? Math.min(filtered.length - 1, idx < 0 ? 0 : idx + 1)
+          : Math.max(0, idx < 0 ? 0 : idx - 1);
+        setSelectedId(filtered[nextIdx].id);
+        return;
+      }
+
+      // 1-6 status change
+      if (selected && /^[1-6]$/.test(e.key)) {
+        const s = STATUS_ORDER[Number(e.key) - 1];
+        if (s) mutate.mutate({ conversationId: selected.id, status: s });
+        return;
+      }
+
+      // W — WhatsApp
+      if (e.key === "w" && selected && selectedPhone) {
+        window.open(`https://wa.me/${selectedPhone}`, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      // C — copy
+      if (e.key === "c" && selected) {
+        copyContact();
+        return;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [filtered, selectedId, selected, selectedPhone, mutate]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">

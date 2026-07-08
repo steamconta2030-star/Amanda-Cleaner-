@@ -67,20 +67,93 @@ The audience is mostly people living in the Tampa Bay area: American families an
 - Never ask for sensitive info (credit card, SSN, ID, etc.).
 `;
 
-type ChatRequestBody = { messages?: unknown };
+// Cheap heuristic to flag conversations with buying intent for Amanda's inbox.
+const LEAD_PATTERNS = [
+  /\bwhatsapp\b/i,
+  /\bbook(ing)?\b/i,
+  /\bschedule\b/i,
+  /\bquote\b/i,
+  /\bappointment\b/i,
+  /\bavailable\b/i,
+  /\bavailability\b/i,
+  /\bhire\b/i,
+  /agend(ar|amento|ei)/i,
+  /or[çc]amento/i,
+  /marcar/i,
+  /contratar/i,
+  /disponibilidade/i,
+  /quero/i,
+  /\+?\d[\d\s().-]{7,}/,
+];
+
+function looksLikeLead(text: string): boolean {
+  return LEAD_PATTERNS.some((r) => r.test(text));
+}
+
+type ChatRequestBody = {
+  messages?: unknown;
+  sessionId?: unknown;
+  lang?: unknown;
+};
 
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const { messages } = (await request.json()) as ChatRequestBody;
-        if (!Array.isArray(messages)) {
-          return new Response("Messages are required", { status: 400 });
+        const body = (await request.json()) as ChatRequestBody;
+        const messages = body.messages;
+        const sessionId = typeof body.sessionId === "string" ? body.sessionId : null;
+        const lang = typeof body.lang === "string" ? body.lang : null;
+        if (!Array.isArray(messages) || !sessionId) {
+          return new Response("Invalid payload", { status: 400 });
         }
 
         const key = process.env.LOVABLE_API_KEY;
-        if (!key) {
-          return new Response("Missing LOVABLE_API_KEY", { status: 500 });
+        if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
+
+        // Persist the latest user message before streaming (fire-and-forget style, but awaited so
+        // errors surface in logs).
+        const uiMessages = messages as UIMessage[];
+        const lastUser = [...uiMessages].reverse().find((m) => m.role === "user");
+        const lastUserText = lastUser
+          ? lastUser.parts.map((p) => (p.type === "text" ? p.text : "")).join("").trim()
+          : "";
+
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const userAgent = request.headers.get("user-agent") ?? null;
+
+        // Upsert conversation
+        let conversationId: string | null = null;
+        {
+          const { data: existing } = await supabaseAdmin
+            .from("conversations")
+            .select("id")
+            .eq("session_id", sessionId)
+            .maybeSingle();
+          if (existing?.id) {
+            conversationId = existing.id;
+          } else {
+            const { data: inserted, error } = await supabaseAdmin
+              .from("conversations")
+              .insert({
+                session_id: sessionId,
+                visitor_lang: lang,
+                visitor_user_agent: userAgent,
+              })
+              .select("id")
+              .single();
+            if (error) console.error("conversation insert error", error);
+            conversationId = inserted?.id ?? null;
+          }
+        }
+
+        if (conversationId && lastUserText) {
+          const { error: msgErr } = await supabaseAdmin.from("messages").insert({
+            conversation_id: conversationId,
+            role: "user",
+            content: lastUserText,
+          });
+          if (msgErr) console.error("user message insert error", msgErr);
         }
 
         const gateway = createLovableAiGatewayProvider(key);
@@ -89,11 +162,32 @@ export const Route = createFileRoute("/api/chat")({
         const result = streamText({
           model,
           system: SYSTEM_PROMPT,
-          messages: await convertToModelMessages(messages as UIMessage[]),
+          messages: await convertToModelMessages(uiMessages),
+          onFinish: async ({ text }) => {
+            if (!conversationId) return;
+            try {
+              await supabaseAdmin.from("messages").insert({
+                conversation_id: conversationId,
+                role: "assistant",
+                content: text,
+              });
+              const isLead = looksLikeLead(lastUserText);
+              await supabaseAdmin
+                .from("conversations")
+                .update({
+                  updated_at: new Date().toISOString(),
+                  message_count: uiMessages.length + 1,
+                  ...(isLead ? { is_lead: true } : {}),
+                })
+                .eq("id", conversationId);
+            } catch (e) {
+              console.error("onFinish persistence error", e);
+            }
+          },
         });
 
         return result.toUIMessageStreamResponse({
-          originalMessages: messages as UIMessage[],
+          originalMessages: uiMessages,
         });
       },
     },

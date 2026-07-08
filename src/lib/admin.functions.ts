@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-async function assertAdmin(supabase: any, userId: string) {
+async function assertAdmin(_supabase: any, userId: string) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin
     .from("user_roles")
@@ -10,7 +10,21 @@ async function assertAdmin(supabase: any, userId: string) {
     .eq("role", "admin")
     .maybeSingle();
   if (error) throw new Error(error.message);
-  if (!data) throw new Error("Forbidden — you are not an admin yet. Ask Lovable to grant admin.");
+  if (data) return;
+
+  // Bootstrap: if no admin exists yet, claim admin for the first authenticated user.
+  const { count } = await supabaseAdmin
+    .from("user_roles")
+    .select("id", { count: "exact", head: true })
+    .eq("role", "admin");
+  if ((count ?? 0) === 0) {
+    const { error: insErr } = await supabaseAdmin
+      .from("user_roles")
+      .insert({ user_id: userId, role: "admin" });
+    if (insErr) throw new Error(insErr.message);
+    return;
+  }
+  throw new Error("Forbidden — you are not an admin yet. Ask Lovable to grant admin.");
 }
 
 export const listConversations = createServerFn({ method: "GET" })

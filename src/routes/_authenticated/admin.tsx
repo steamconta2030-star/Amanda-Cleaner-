@@ -138,7 +138,8 @@ function AdminPage() {
   const qc = useQueryClient();
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [filter, setFilter] = useState<ConversationStatus | "all" | "leads" | "unread">("all");
+  const [filter, setFilter] = useState<ConversationStatus | "all" | "leads" | "unread" | "stale">("all");
+  const [showHelp, setShowHelp] = useState(false);
   const [notes, setNotes] = useState("");
   const [quotedInput, setQuotedInput] = useState("");
   const [search, setSearch] = useState("");
@@ -187,10 +188,18 @@ function AdminPage() {
   };
   const unreadCount = convs.filter(isUnread).length;
 
+  const STALE_STATUSES: ConversationStatus[] = ["in_progress", "quoted", "scheduled"];
+  const isStale = (c: Conv) => {
+    if (!STALE_STATUSES.includes(c.status)) return false;
+    return Date.now() - new Date(c.updated_at).getTime() > 24 * 60 * 60 * 1000;
+  };
+  const staleCount = convs.filter(isStale).length;
+
   const filtered = useMemo(() => {
     let list = convs;
     if (filter === "leads") list = list.filter((c) => c.is_lead);
     else if (filter === "unread") list = list.filter(isUnread);
+    else if (filter === "stale") list = list.filter(isStale);
     else if (filter !== "all") list = list.filter((c) => c.status === filter);
 
     const q = search.trim().toLowerCase();
@@ -266,6 +275,78 @@ function AdminPage() {
     }
   };
 
+  const exportCsv = () => {
+    const header = ["session_id", "created_at", "updated_at", "status", "is_lead", "message_count", "quoted_value", "visitor_lang", "admin_notes"];
+    const escape = (v: unknown) => {
+      const s = v == null ? "" : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const rows = convs.map((c) => [
+      c.session_id,
+      c.created_at,
+      c.updated_at,
+      c.status,
+      c.is_lead,
+      c.message_count,
+      c.quoted_value ?? "",
+      c.visitor_lang ?? "",
+      c.admin_notes ?? "",
+    ]);
+    const csv = [header, ...rows].map((r) => r.map(escape).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `amanda-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      // ? — help
+      if (e.key === "?") { setShowHelp((v) => !v); return; }
+
+      // J/K navigate
+      if (e.key === "j" || e.key === "k") {
+        e.preventDefault();
+        if (filtered.length === 0) return;
+        const idx = filtered.findIndex((c) => c.id === selectedId);
+        const nextIdx = e.key === "j"
+          ? Math.min(filtered.length - 1, idx < 0 ? 0 : idx + 1)
+          : Math.max(0, idx < 0 ? 0 : idx - 1);
+        setSelectedId(filtered[nextIdx].id);
+        return;
+      }
+
+      // 1-6 status change
+      if (selected && /^[1-6]$/.test(e.key)) {
+        const s = STATUS_ORDER[Number(e.key) - 1];
+        if (s) mutate.mutate({ conversationId: selected.id, status: s });
+        return;
+      }
+
+      // W — WhatsApp
+      if (e.key === "w" && selected && selectedPhone) {
+        window.open(`https://wa.me/${selectedPhone}`, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      // C — copy
+      if (e.key === "c" && selected) {
+        copyContact();
+        return;
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [filtered, selectedId, selected, selectedPhone, mutate]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
@@ -275,6 +356,20 @@ function AdminPage() {
             <h1 className="font-serif text-xl">Chat Inbox</h1>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowHelp((v) => !v)}
+              title="Atalhos (?)"
+              className="rounded-lg border border-border px-2.5 py-1.5 text-xs hover:bg-muted"
+            >
+              ⌨️
+            </button>
+            <button
+              onClick={exportCsv}
+              title="Exportar CSV"
+              className="rounded-lg border border-border px-2.5 py-1.5 text-xs hover:bg-muted"
+            >
+              ⬇ CSV
+            </button>
             <button
               onClick={() => setSoundOn((v) => !v)}
               title={soundOn ? "Som ligado" : "Som desligado"}
@@ -294,6 +389,21 @@ function AdminPage() {
           </div>
         </div>
       </header>
+
+      {showHelp && (
+        <div className="mx-auto mt-3 max-w-6xl px-6">
+          <div className="rounded-lg border border-border bg-muted/40 p-3 text-xs">
+            <p className="mb-1 font-medium">Atalhos de teclado</p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-0.5 md:grid-cols-4">
+              <span><kbd className="rounded border border-border px-1">J</kbd> / <kbd className="rounded border border-border px-1">K</kbd> — próxima/anterior</span>
+              <span><kbd className="rounded border border-border px-1">1</kbd>–<kbd className="rounded border border-border px-1">6</kbd> — mudar status</span>
+              <span><kbd className="rounded border border-border px-1">W</kbd> — abrir WhatsApp</span>
+              <span><kbd className="rounded border border-border px-1">C</kbd> — copiar contato</span>
+              <span><kbd className="rounded border border-border px-1">?</kbd> — mostrar/esconder ajuda</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="mx-auto max-w-6xl px-6 py-8">
         {forbidden ? (
@@ -394,6 +504,9 @@ function AdminPage() {
               <FilterChip active={filter === "leads"} onClick={() => setFilter("leads")}>
                 🔥 Leads ({convs.filter((c) => c.is_lead).length})
               </FilterChip>
+              <FilterChip active={filter === "stale"} onClick={() => setFilter("stale")}>
+                ⏰ Aguardando +24h ({staleCount})
+              </FilterChip>
               {STATUS_ORDER.map((s) => (
                 <FilterChip key={s} active={filter === s} onClick={() => setFilter(s)}>
                   {STATUS_META[s].label}
@@ -428,6 +541,7 @@ function AdminPage() {
                               <span className="flex items-center gap-1.5 truncate text-sm font-medium">
                                 {unread && <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-primary" />}
                                 {c.is_lead && <span>🔥</span>}
+                                {isStale(c) && <span title="Sem resposta há +24h">⏰</span>}
                                 <span className="truncate">{new Date(c.updated_at).toLocaleString()}</span>
                               </span>
                               <span className="shrink-0 text-xs text-muted-foreground">{c.message_count} msgs</span>

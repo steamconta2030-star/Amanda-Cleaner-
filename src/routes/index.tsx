@@ -537,8 +537,8 @@ function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? window.localStorage.getItem("lang") : null;
-    if (stored === "pt" || stored === "en") setLangState(stored);
+    // Always default to English on load. Toggle still switches to PT for the session.
+    if (typeof window !== "undefined") window.localStorage.removeItem("lang");
   }, []);
 
   const value = useMemo(

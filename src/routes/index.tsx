@@ -455,7 +455,7 @@ function StaffAccess() {
     <a
       href="/auth"
       aria-label="Abrir acesso Staff"
-      className="fixed top-4 right-4 z-50 inline-flex min-h-12 items-center rounded-full border border-foreground/25 bg-primary px-5 text-sm font-semibold uppercase tracking-widest text-primary-foreground shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background md:top-6 md:right-6"
+      className="fixed top-3 right-3 z-50 inline-flex items-center rounded-full border border-foreground/25 bg-primary/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary-foreground shadow-sm transition-opacity hover:opacity-100 opacity-70 focus:outline-none focus:ring-2 focus:ring-ring"
     >
       Staff
     </a>

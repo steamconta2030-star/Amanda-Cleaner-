@@ -433,6 +433,7 @@ function Index() {
     <LangProvider>
       <div className="min-h-screen bg-background text-foreground">
         <Nav />
+        <StaffAccess />
         <Hero />
         <Concept />
         <About />
@@ -446,6 +447,18 @@ function Index() {
         <ChatWidget />
       </div>
     </LangProvider>
+  );
+}
+
+function StaffAccess() {
+  return (
+    <a
+      href="/auth"
+      aria-label="Abrir acesso Staff"
+      className="fixed bottom-4 left-4 z-50 inline-flex min-h-12 items-center rounded-full border border-foreground/25 bg-primary px-5 text-sm font-semibold uppercase tracking-widest text-primary-foreground shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background md:bottom-6 md:left-6"
+    >
+      Staff
+    </a>
   );
 }
 

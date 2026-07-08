@@ -2,12 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
 import heroImage from "../assets/hero.jpg.asset.json";
 import aboutImage from "../assets/amanda.jpg.asset.json";
-import before1 from "../assets/before-1.jpg";
-import after1 from "../assets/after-1.jpg";
-import before2 from "../assets/before-2.jpg";
-import after2 from "../assets/after-2.jpg";
-import before3 from "../assets/before-3.jpg";
-import after3 from "../assets/after-3.jpg";
+import beforePantry from "../assets/before-pantry.jpg.asset.json";
+import afterPantry from "../assets/after-pantry.jpg.asset.json";
+import beforeCooktop from "../assets/before-cooktop.jpg.asset.json";
+import afterCooktop from "../assets/after-cooktop.jpg.asset.json";
+import beforeSink from "../assets/before-sink.jpg.asset.json";
+import afterSink from "../assets/after-sink.jpg.asset.json";
+import beforeMaster from "../assets/before-master-bedroom.jpg.asset.json";
+import afterMaster from "../assets/after-master-bedroom.jpg.asset.json";
+import beforeKids from "../assets/before-kids-bedroom.jpg.asset.json";
+import afterKids from "../assets/after-kids-bedroom.jpg.asset.json";
 import { ChatWidget } from "@/components/ChatWidget";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
@@ -280,9 +284,11 @@ const dict = {
       before: "Before",
       after: "After",
       captions: [
-        "Bedroom · Deep Clean",
-        "Toaster Oven · Deep Clean",
-        "Bathtub · Deep Clean",
+        "Pantry · Deep Clean",
+        "Cooktop · Deep Clean",
+        "Kitchen Sink · Deep Clean",
+        "Master Bedroom · Residential",
+        "Kids Bedroom · Residential",
       ],
       open: "Open",
       close: "Close lightbox",
@@ -483,9 +489,11 @@ const dict = {
       before: "Antes",
       after: "Depois",
       captions: [
-        "Quarto · Limpeza Profunda",
-        "Forno Elétrico · Limpeza Profunda",
-        "Banheira · Limpeza Profunda",
+        "Despensa · Limpeza Profunda",
+        "Cooktop · Limpeza Profunda",
+        "Pia da Cozinha · Limpeza Profunda",
+        "Quarto Principal · Residencial",
+        "Quarto Infantil · Residencial",
       ],
       open: "Abrir",
       close: "Fechar visualização",
@@ -899,9 +907,11 @@ function Process() {
 function Gallery() {
   const { t } = useT();
   const pairs = [
-    { before: before1, after: after1, caption: t.gallery.captions[0] },
-    { before: before2, after: after2, caption: t.gallery.captions[1] },
-    { before: before3, after: after3, caption: t.gallery.captions[2] },
+    { before: beforePantry.url, after: afterPantry.url, caption: t.gallery.captions[0] },
+    { before: beforeCooktop.url, after: afterCooktop.url, caption: t.gallery.captions[1] },
+    { before: beforeSink.url, after: afterSink.url, caption: t.gallery.captions[2] },
+    { before: beforeMaster.url, after: afterMaster.url, caption: t.gallery.captions[3] },
+    { before: beforeKids.url, after: afterKids.url, caption: t.gallery.captions[4] },
   ];
   // Flatten to a single sequence: [before1, after1, before2, after2, ...]
   const slides = pairs.flatMap((p, i) => [

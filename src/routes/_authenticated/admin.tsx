@@ -494,7 +494,7 @@ function AdminPage() {
                         </button>
                       ))}
                     </div>
-                    <div>
+                    <div className="grid gap-2 md:grid-cols-[1fr_auto]">
                       <textarea
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
@@ -503,10 +503,68 @@ function AdminPage() {
                             mutate.mutate({ conversationId: selected.id, admin_notes: notes || null });
                           }
                         }}
-                        placeholder="Notas internas (WhatsApp do cliente, endereço, valor cotado…)"
+                        placeholder="Notas internas (endereço, detalhes, observações…)"
                         rows={2}
                         className="w-full resize-none rounded-md border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary"
                       />
+                      <div className="flex flex-col gap-1">
+                        <label className="text-[10px] uppercase tracking-widest text-muted-foreground">Valor cotado (R$)</label>
+                        <input
+                          type="number"
+                          inputMode="decimal"
+                          step="0.01"
+                          min="0"
+                          value={quotedInput}
+                          onChange={(e) => setQuotedInput(e.target.value)}
+                          onBlur={() => {
+                            const parsed = quotedInput.trim() === "" ? null : Number(quotedInput);
+                            const current = selected.quoted_value ?? null;
+                            if (parsed !== current && !(parsed !== null && Number.isNaN(parsed))) {
+                              mutate.mutate({ conversationId: selected.id, quoted_value: parsed });
+                            }
+                          }}
+                          placeholder="0,00"
+                          className="w-28 rounded-md border border-border bg-background px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Quick reply templates */}
+                    <div>
+                      <p className="mb-1 text-[10px] uppercase tracking-widest text-muted-foreground">Respostas rápidas</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {QUICK_REPLIES.map((r) => {
+                          const waHref = selectedPhone
+                            ? `https://wa.me/${selectedPhone}?text=${encodeURIComponent(r.text)}`
+                            : null;
+                          return (
+                            <div key={r.label} className="inline-flex overflow-hidden rounded-md border border-border">
+                              {waHref ? (
+                                <a
+                                  href={waHref}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="px-2 py-1 text-[11px] hover:bg-muted"
+                                  title="Abrir no WhatsApp com esse texto"
+                                >
+                                  {r.label}
+                                </a>
+                              ) : (
+                                <span className="px-2 py-1 text-[11px] text-muted-foreground" title="Sem telefone detectado">
+                                  {r.label}
+                                </span>
+                              )}
+                              <button
+                                onClick={() => navigator.clipboard.writeText(r.text).catch(() => {})}
+                                className="border-l border-border px-1.5 py-1 text-[11px] hover:bg-muted"
+                                title="Copiar texto"
+                              >
+                                📋
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 )}

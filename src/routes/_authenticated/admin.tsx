@@ -303,11 +303,26 @@ function AdminPage() {
         ) : (
           <>
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+              <StatCard label="Leads 🔥" value={stats?.leads ?? "–"} highlight />
+              <StatCard
+                label="Conversão"
+                value={stats ? `${stats.conversionRate ?? 0}%` : "–"}
+                sub={stats ? `${stats.won}/${stats.leads} ganhos` : undefined}
+              />
+              <StatCard
+                label="Receita ganha"
+                value={stats ? formatBRL(stats.revenueWon ?? 0) : "–"}
+              />
+              <StatCard
+                label="Pipeline"
+                value={stats ? formatBRL(stats.pipelineValue ?? 0) : "–"}
+                sub="cotado + agendado"
+              />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
               <StatCard label="Conversas" value={stats?.totalConversations ?? "–"} />
               <StatCard label="Últimos 7 dias" value={stats?.conversationsThisWeek ?? "–"} />
-              <StatCard label="Leads 🔥" value={stats?.leads ?? "–"} highlight />
-              <StatCard label="Ganhos ✓" value={stats?.won ?? "–"} />
               <StatCard label="Mensagens" value={stats?.totalMessages ?? "–"} />
             </div>
 

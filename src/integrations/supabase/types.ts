@@ -16,31 +16,37 @@ export type Database = {
     Tables: {
       conversations: {
         Row: {
+          admin_notes: string | null
           created_at: string
           id: string
           is_lead: boolean
           message_count: number
           session_id: string
+          status: Database["public"]["Enums"]["conversation_status"]
           updated_at: string
           visitor_lang: string | null
           visitor_user_agent: string | null
         }
         Insert: {
+          admin_notes?: string | null
           created_at?: string
           id?: string
           is_lead?: boolean
           message_count?: number
           session_id: string
+          status?: Database["public"]["Enums"]["conversation_status"]
           updated_at?: string
           visitor_lang?: string | null
           visitor_user_agent?: string | null
         }
         Update: {
+          admin_notes?: string | null
           created_at?: string
           id?: string
           is_lead?: boolean
           message_count?: number
           session_id?: string
+          status?: Database["public"]["Enums"]["conversation_status"]
           updated_at?: string
           visitor_lang?: string | null
           visitor_user_agent?: string | null
@@ -115,6 +121,13 @@ export type Database = {
     }
     Enums: {
       app_role: "admin"
+      conversation_status:
+        | "new"
+        | "in_progress"
+        | "quoted"
+        | "scheduled"
+        | "won"
+        | "lost"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -243,6 +256,14 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin"],
+      conversation_status: [
+        "new",
+        "in_progress",
+        "quoted",
+        "scheduled",
+        "won",
+        "lost",
+      ],
     },
   },
 } as const

@@ -188,10 +188,18 @@ function AdminPage() {
   };
   const unreadCount = convs.filter(isUnread).length;
 
+  const STALE_STATUSES: ConversationStatus[] = ["in_progress", "quoted", "scheduled"];
+  const isStale = (c: Conv) => {
+    if (!STALE_STATUSES.includes(c.status)) return false;
+    return Date.now() - new Date(c.updated_at).getTime() > 24 * 60 * 60 * 1000;
+  };
+  const staleCount = convs.filter(isStale).length;
+
   const filtered = useMemo(() => {
     let list = convs;
     if (filter === "leads") list = list.filter((c) => c.is_lead);
     else if (filter === "unread") list = list.filter(isUnread);
+    else if (filter === "stale") list = list.filter(isStale);
     else if (filter !== "all") list = list.filter((c) => c.status === filter);
 
     const q = search.trim().toLowerCase();

@@ -571,15 +571,11 @@ function Index() {
     <LangProvider>
       <div className="min-h-screen bg-background text-foreground">
         <Nav />
-        <StaffAccess />
         <Hero />
-        <Concept />
         <About />
         <Services />
         <Pricing />
-        <Process />
         <Gallery />
-        {/* <Testimonials /> — removed until real reviews are collected */}
         <QuoteForm />
         <FAQ />
         <Contact />

@@ -282,6 +282,12 @@ export const dict = {
     stickyCta: { quote: "Orçamento", wa: "WhatsApp" },
     footer: { line: "Limpeza residencial personalizada · Flórida" },
     lang: { switchTo: "EN", label: "English" },
+    common: {
+      exploreServices: "Ver serviços",
+      seeAllServices: "Ver todos os serviços",
+      seeAllQuestions: "Ver todas as perguntas",
+      readMore: "Ler mais",
+    },
   },
 };
 

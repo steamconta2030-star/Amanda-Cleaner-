@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicosRouteImport } from './routes/servicos'
 import { Route as PerguntasFrequentesRouteImport } from './routes/perguntas-frequentes'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/servicos'
     | '/sitemap.xml'
+    | '/sobre'
     | '/admin'
     | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/servicos'
     | '/sitemap.xml'
+    | '/sobre'
     | '/admin'
     | '/api/chat'
   id:
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/servicos'
     | '/sitemap.xml'
+    | '/sobre'
     | '/_authenticated/admin'
     | '/api/chat'
   fileRoutesById: FileRoutesById
@@ -164,11 +176,19 @@ export interface RootRouteChildren {
   PerguntasFrequentesRoute: typeof PerguntasFrequentesRoute
   ServicosRoute: typeof ServicosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreRoute: typeof SobreRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -270,6 +290,7 @@ const rootRouteChildren: RootRouteChildren = {
   PerguntasFrequentesRoute: PerguntasFrequentesRoute,
   ServicosRoute: ServicosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreRoute: SobreRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport

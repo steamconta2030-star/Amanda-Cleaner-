@@ -14,6 +14,128 @@ export type Database = {
   }
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          address_line1: string
+          address_line2: string | null
+          audience: string
+          bathrooms: number | null
+          bedrooms: number | null
+          chat_session_id: string | null
+          city: string
+          created_at: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string | null
+          duration_minutes: number
+          id: string
+          notes: string | null
+          price_cents: number
+          scheduled_at: string
+          service_slug: string
+          square_feet: number | null
+          state: string
+          status: string
+          updated_at: string
+          user_id: string
+          zip: string
+        }
+        Insert: {
+          address_line1: string
+          address_line2?: string | null
+          audience: string
+          bathrooms?: number | null
+          bedrooms?: number | null
+          chat_session_id?: string | null
+          city?: string
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          customer_phone?: string | null
+          duration_minutes: number
+          id?: string
+          notes?: string | null
+          price_cents: number
+          scheduled_at: string
+          service_slug: string
+          square_feet?: number | null
+          state?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+          zip: string
+        }
+        Update: {
+          address_line1?: string
+          address_line2?: string | null
+          audience?: string
+          bathrooms?: number | null
+          bedrooms?: number | null
+          chat_session_id?: string | null
+          city?: string
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          customer_phone?: string | null
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          price_cents?: number
+          scheduled_at?: string
+          service_slug?: string
+          square_feet?: number | null
+          state?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+          zip?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_chat_session_id_fkey"
+            columns: ["chat_session_id"]
+            isOneToOne: false
+            referencedRelation: "chat_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_sessions: {
+        Row: {
+          audience: string | null
+          created_at: string
+          id: string
+          lang: string | null
+          messages: Json
+          quote: Json | null
+          session_token: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          audience?: string | null
+          created_at?: string
+          id?: string
+          lang?: string | null
+          messages?: Json
+          quote?: Json | null
+          session_token: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          audience?: string | null
+          created_at?: string
+          id?: string
+          lang?: string | null
+          messages?: Json
+          quote?: Json | null
+          session_token?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           admin_notes: string | null
@@ -90,6 +212,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      services_catalog: {
+        Row: {
+          active: boolean
+          audience: string
+          base_price_cents: number
+          created_at: string
+          description: string
+          duration_minutes: number
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          audience: string
+          base_price_cents: number
+          created_at?: string
+          description: string
+          duration_minutes: number
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          audience?: string
+          base_price_cents?: number
+          created_at?: string
+          description?: string
+          duration_minutes?: number
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {

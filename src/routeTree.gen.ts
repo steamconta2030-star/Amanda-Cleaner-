@@ -9,59 +9,27 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ServicosRouteImport } from './routes/servicos'
-import { Route as PerguntasFrequentesRouteImport } from './routes/perguntas-frequentes'
-import { Route as ObrigadoRouteImport } from './routes/obrigado'
-import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AreasAtendidasRouteImport } from './routes/areas-atendidas'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BlogIndexRouteImport } from './routes/blog.index'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 
-const SobreRoute = SobreRouteImport.update({
-  id: '/sobre',
-  path: '/sobre',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicosRoute = ServicosRouteImport.update({
-  id: '/servicos',
-  path: '/servicos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PerguntasFrequentesRoute = PerguntasFrequentesRouteImport.update({
-  id: '/perguntas-frequentes',
-  path: '/perguntas-frequentes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ObrigadoRoute = ObrigadoRouteImport.update({
-  id: '/obrigado',
-  path: '/obrigado',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContatoRoute = ContatoRouteImport.update({
-  id: '/contato',
-  path: '/contato',
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AreasAtendidasRoute = AreasAtendidasRouteImport.update({
-  id: '/areas-atendidas',
-  path: '/areas-atendidas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -73,148 +41,76 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/blog/$slug',
-  path: '/blog/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedBookingsRoute = AuthenticatedBookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
-  '/contato': typeof ContatoRoute
-  '/obrigado': typeof ObrigadoRoute
-  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
-  '/servicos': typeof ServicosRoute
+  '/chat': typeof ChatRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/sobre': typeof SobreRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/bookings': typeof AuthenticatedBookingsRoute
   '/api/chat': typeof ApiChatRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
-  '/contato': typeof ContatoRoute
-  '/obrigado': typeof ObrigadoRoute
-  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
-  '/servicos': typeof ServicosRoute
+  '/chat': typeof ChatRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/sobre': typeof SobreRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/bookings': typeof AuthenticatedBookingsRoute
   '/api/chat': typeof ApiChatRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
-  '/contato': typeof ContatoRoute
-  '/obrigado': typeof ObrigadoRoute
-  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
-  '/servicos': typeof ServicosRoute
+  '/chat': typeof ChatRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/sobre': typeof SobreRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
   '/api/chat': typeof ApiChatRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/areas-atendidas'
     | '/auth'
-    | '/contato'
-    | '/obrigado'
-    | '/perguntas-frequentes'
-    | '/servicos'
+    | '/chat'
     | '/sitemap.xml'
-    | '/sobre'
-    | '/admin'
+    | '/bookings'
     | '/api/chat'
-    | '/blog/$slug'
-    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/areas-atendidas'
-    | '/auth'
-    | '/contato'
-    | '/obrigado'
-    | '/perguntas-frequentes'
-    | '/servicos'
-    | '/sitemap.xml'
-    | '/sobre'
-    | '/admin'
-    | '/api/chat'
-    | '/blog/$slug'
-    | '/blog'
+  to: '/' | '/auth' | '/chat' | '/sitemap.xml' | '/bookings' | '/api/chat'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
-    | '/areas-atendidas'
     | '/auth'
-    | '/contato'
-    | '/obrigado'
-    | '/perguntas-frequentes'
-    | '/servicos'
+    | '/chat'
     | '/sitemap.xml'
-    | '/sobre'
-    | '/_authenticated/admin'
+    | '/_authenticated/bookings'
     | '/api/chat'
-    | '/blog/$slug'
-    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AreasAtendidasRoute: typeof AreasAtendidasRoute
   AuthRoute: typeof AuthRoute
-  ContatoRoute: typeof ContatoRoute
-  ObrigadoRoute: typeof ObrigadoRoute
-  PerguntasFrequentesRoute: typeof PerguntasFrequentesRoute
-  ServicosRoute: typeof ServicosRoute
+  ChatRoute: typeof ChatRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  SobreRoute: typeof SobreRoute
   ApiChatRoute: typeof ApiChatRoute
-  BlogSlugRoute: typeof BlogSlugRoute
-  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sobre': {
-      id: '/sobre'
-      path: '/sobre'
-      fullPath: '/sobre'
-      preLoaderRoute: typeof SobreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -222,32 +118,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/servicos': {
-      id: '/servicos'
-      path: '/servicos'
-      fullPath: '/servicos'
-      preLoaderRoute: typeof ServicosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/perguntas-frequentes': {
-      id: '/perguntas-frequentes'
-      path: '/perguntas-frequentes'
-      fullPath: '/perguntas-frequentes'
-      preLoaderRoute: typeof PerguntasFrequentesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/obrigado': {
-      id: '/obrigado'
-      path: '/obrigado'
-      fullPath: '/obrigado'
-      preLoaderRoute: typeof ObrigadoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contato': {
-      id: '/contato'
-      path: '/contato'
-      fullPath: '/contato'
-      preLoaderRoute: typeof ContatoRouteImport
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -255,13 +130,6 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/areas-atendidas': {
-      id: '/areas-atendidas'
-      path: '/areas-atendidas'
-      fullPath: '/areas-atendidas'
-      preLoaderRoute: typeof AreasAtendidasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -278,20 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/': {
-      id: '/blog/'
-      path: '/blog'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/blog/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -299,22 +153,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+    '/_authenticated/bookings': {
+      id: '/_authenticated/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof AuthenticatedBookingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedBookingsRoute: AuthenticatedBookingsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -323,18 +177,21 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AreasAtendidasRoute: AreasAtendidasRoute,
   AuthRoute: AuthRoute,
-  ContatoRoute: ContatoRoute,
-  ObrigadoRoute: ObrigadoRoute,
-  PerguntasFrequentesRoute: PerguntasFrequentesRoute,
-  ServicosRoute: ServicosRoute,
+  ChatRoute: ChatRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  SobreRoute: SobreRoute,
   ApiChatRoute: ApiChatRoute,
-  BlogSlugRoute: BlogSlugRoute,
-  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

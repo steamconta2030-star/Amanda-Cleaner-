@@ -1,73 +1,83 @@
 import { Link } from "@tanstack/react-router";
 import { useT } from "./lang";
 
+const VOLUMES = ["Vol. I", "Vol. II", "Vol. III"];
+const CADENCES: Record<string, { en: string; pt: string }> = {
+  0: { en: "Weekly · Bi-weekly", pt: "Semanal · Quinzenal" },
+  1: { en: "Monthly · Seasonal", pt: "Mensal · Sazonal" },
+  2: { en: "One-time transition", pt: "Transição pontual" },
+};
+
 export function Pricing() {
-  const { t } = useT();
+  const { t, lang } = useT();
   return (
     <section id="pricing" className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
-        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-xl">
-            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.pricing.tag}</span>
-            <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-              {t.pricing.title1} <em className="italic text-primary">{t.pricing.title2}</em> {t.pricing.title3}
+      <div className="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-40">
+        <div className="mb-20 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-md">
+            <span className="mb-4 block text-[10px] uppercase tracking-[0.5em] text-muted-foreground">
+              {t.pricing.tag}
+            </span>
+            <h2 className="font-serif text-3xl italic leading-tight md:text-4xl">
+              {t.pricing.title1} <em className="not-italic text-primary">{t.pricing.title2}</em>{" "}
+              {t.pricing.title3}
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            {t.pricing.sub}
+          <p className="max-w-sm text-[10px] uppercase tracking-[0.3em] text-primary md:text-right">
+            {t.pricing.note}
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+
+        <div className="divide-y divide-border border-y border-border">
           {t.pricing.plans.map((p, i) => {
             const featured = i === 1;
+            const cadence = CADENCES[i]?.[lang] ?? "";
             return (
-              <div
+              <a
                 key={p.name}
-                className={`group relative flex flex-col justify-between rounded-sm border p-8 transition-all duration-300 ${
-                  featured
-                    ? "border-primary/50 bg-primary/[0.04] shadow-[0_1px_0_0_rgba(0,0,0,0.02)] md:-translate-y-2 md:p-10"
-                    : "border-border bg-background hover:border-foreground/30"
+                href="#quote"
+                className={`group grid grid-cols-12 items-center gap-4 px-2 py-10 transition-colors duration-500 hover:bg-primary/5 md:px-6 md:py-14 ${
+                  featured ? "bg-primary/[0.03]" : ""
                 }`}
               >
-                {featured && (
-                  <span className="absolute -top-3 left-8 inline-flex items-center gap-2 border border-primary/40 bg-background px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-primary">
-                    <span className="h-px w-3 bg-primary" aria-hidden />
-                    {t.pricing.popular}
+                <div className="col-span-12 md:col-span-6">
+                  <span className="mb-3 block text-[9px] uppercase tracking-[0.4em] text-muted-foreground">
+                    {VOLUMES[i]}
+                    {featured ? ` · ${t.pricing.popular}` : ""}
                   </span>
-                )}
-                <div>
-                  <h3 className="font-serif text-2xl">{p.name}</h3>
-                  <div className="mt-6 flex items-baseline gap-2">
-                    <span className="font-serif text-5xl">{p.price}</span>
-                    <span className="text-xs uppercase tracking-widest text-muted-foreground">
-                      {t.pricing.startingAt}
-                    </span>
-                  </div>
-                  <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+                  <h3 className="font-serif text-3xl italic leading-tight transition-transform duration-500 group-hover:translate-x-2 md:text-4xl">
+                    {p.name}
+                  </h3>
                 </div>
-                <a
-                  href="#quote"
-                  className={`mt-10 inline-flex items-center gap-2 text-sm underline underline-offset-4 transition-opacity ${
-                    featured
-                      ? "text-primary opacity-100 hover:opacity-80"
-                      : "text-foreground opacity-80 hover:opacity-100"
-                  }`}
-                >
-                  {t.pricing.request} <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
-                </a>
-              </div>
+                <div className="col-span-8 md:col-span-3">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                    {cadence}
+                  </p>
+                  <p className="mt-2 text-sm font-light leading-relaxed text-muted-foreground">
+                    {p.desc}
+                  </p>
+                </div>
+                <div className="col-span-4 flex flex-col items-end md:col-span-3">
+                  <span className="text-[9px] uppercase tracking-[0.3em] text-muted-foreground">
+                    {t.pricing.startingAt}
+                  </span>
+                  <span className="mt-2 font-serif text-3xl italic">{p.price}</span>
+                </div>
+              </a>
             );
           })}
         </div>
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            {t.pricing.note}
-          </p>
+
+        <div className="mt-12 flex justify-end">
           <Link
             to="/servicos"
-            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-foreground underline underline-offset-4 hover:text-primary"
+            className="group inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-foreground hover:text-primary"
           >
-            Full pricing &amp; services <span aria-hidden>→</span>
+            Full pricing &amp; services
+            <span
+              aria-hidden
+              className="inline-block h-px w-8 bg-current transition-all duration-300 group-hover:w-14"
+            />
           </Link>
         </div>
       </div>

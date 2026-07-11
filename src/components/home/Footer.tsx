@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useT } from "./lang";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "./constants";
 

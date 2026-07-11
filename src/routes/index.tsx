@@ -685,6 +685,14 @@ function Hero() {
               {t.hero.see}
             </a>
           </div>
+          <div className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5" aria-hidden>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#009C3B]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
+            </span>
+            <span>Brazilian-owned · Feito com capricho</span>
+          </div>
         </div>
         <div className="relative">
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm">

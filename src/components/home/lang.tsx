@@ -209,6 +209,7 @@ export const dict = {
       sub: "Cada casa é diferente. Prefiro visitar e passar um orçamento exato, mas estimativas online também são bem-vindas.",
       startingAt: "a partir de",
       request: "Pedir orçamento",
+      popular: "Mais pedido",
       note: "Limpezas pós-obra e comerciais são orçadas individualmente — envie mensagem para detalhes.",
       plans: [
         { name: "Limpeza Regular", price: "$150", desc: "2 quartos · 2 banheiros · limpeza residencial padrão." },

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { LangProvider, LangToggle, useT, FAQ_ITEMS_EN } from "@/components/home/lang";
 import heroImage from "../assets/hero.jpg.asset.json";
 import aboutImage from "../assets/amanda.jpg.asset.json";
 import beforePantry from "../assets/before-pantry.jpg.asset.json";
@@ -16,15 +17,8 @@ import { ChatWidget } from "@/components/ChatWidget";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 
-const FAQ_ITEMS_EN = [
-  { q: "How do I get an exact price?", a: "Send a quick message on WhatsApp with your address, number of bedrooms and bathrooms and the type of cleaning. Amanda replies personally with a quote." },
-  { q: "Are the cleaning products safe for pets and children?", a: "Yes. We use gentle, effective products that smell nice and are safe for family and pets. If you have specific preferences, let Amanda know on WhatsApp." },
-];
 
-const FAQ_ITEMS_PT = [
-  { q: "Como consigo um preço exato?", a: "Envie uma mensagem rápida pelo WhatsApp com endereço, quantidade de quartos e banheiros e o tipo de limpeza. A Amanda responde pessoalmente com o orçamento." },
-  { q: "Os produtos são seguros para pets e crianças?", a: "Sim. Usamos produtos suaves, eficazes, com aroma agradável e seguros pra família e pets. Se você tem preferência específica, é só falar com a Amanda pelo WhatsApp." },
-];
+
 
 export const Route = createFileRoute("/")({
   component: Index,

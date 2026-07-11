@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SubPageHeader } from "@/components/SubPageHeader";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 const WHATSAPP = "https://wa.me/18133649757";

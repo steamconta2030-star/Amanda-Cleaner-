@@ -31,7 +31,7 @@ export function About() {
                 href="#servicos"
                 className="text-[10px] font-medium uppercase tracking-[0.25em] text-foreground"
               >
-                {t.about.tag === "About" ? "Explore services" : "Ver serviços"}
+                {t.common.exploreServices}
               </a>
               <div className="h-px w-12 bg-foreground transition-all duration-500 hover:w-20" />
             </div>

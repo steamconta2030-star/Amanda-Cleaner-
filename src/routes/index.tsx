@@ -337,6 +337,8 @@ const dict = {
       sub: "O capricho brasileiro trazido pra sua casa na Flórida — com calma, método e o carinho de quem trata a sua casa como a própria.",
       book: "Agendar pelo WhatsApp",
       see: "Ver serviços",
+      provenanceLabel: "Origem",
+      provenance: "Tampa, Flórida",
     },
     concept: {
       tag: "Minha abordagem",

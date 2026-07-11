@@ -15,6 +15,20 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
+type LeadData = {
+  name?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  service?: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  sqft?: number;
+  has_pets?: boolean;
+  preferred_date?: string;
+  notes?: string;
+};
+
 type Conv = {
   id: string;
   session_id: string;
@@ -26,6 +40,7 @@ type Conv = {
   status: ConversationStatus;
   admin_notes: string | null;
   quoted_value: number | null;
+  lead_data: LeadData | null;
 };
 
 type Msg = {

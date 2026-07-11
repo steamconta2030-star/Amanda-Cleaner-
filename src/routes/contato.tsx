@@ -189,34 +189,13 @@ function ContactPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-secondary/30">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-24">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Prefer numbers first?
-          </p>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-4xl">
-            Get an <em className="italic text-primary">instant estimate</em>.
-          </h2>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            The concierge on our home page gives you a real price in 60 seconds — no forms, no
-            phone tag.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/"
-              className="inline-flex items-center rounded-full bg-primary px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-primary-foreground hover:opacity-90"
-            >
-              Get my estimate
-            </Link>
-            <Link
-              to="/servicos"
-              className="inline-flex items-center rounded-full border border-border px-6 py-2.5 text-xs uppercase tracking-[0.2em] hover:bg-muted"
-            >
-              See services
-            </Link>
-          </div>
-        </div>
-      </section>
+      <SubPageCta
+        eyebrow="Prefer numbers first?"
+        title={<>Get an <em className="italic text-primary">instant estimate</em>.</>}
+        description="The concierge on our home page gives you a real price in 60 seconds — no forms, no phone tag."
+        primary={{ label: "Get my estimate", to: "/" }}
+        secondary={{ label: "See services", to: "/servicos" }}
+      />
     </main>
   );
 }

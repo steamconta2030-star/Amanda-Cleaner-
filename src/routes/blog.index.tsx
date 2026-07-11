@@ -65,14 +65,12 @@ export const Route = createFileRoute("/blog/")({
 function BlogIndex() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SubPageHeader />
       <div className="mx-auto max-w-3xl px-6 py-20 md:px-10 md:py-28">
-        <Link
-          to="/"
-          className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground"
-        >
-          ← Amanda &amp; Co.
-        </Link>
-        <h1 className="mt-8 font-serif text-4xl italic tracking-tight md:text-5xl">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+          Tampa, Florida — Journal
+        </p>
+        <h1 className="mt-6 font-serif text-4xl italic tracking-tight md:text-5xl">
           Notes from the field
         </h1>
         <p className="mt-4 max-w-xl text-muted-foreground">

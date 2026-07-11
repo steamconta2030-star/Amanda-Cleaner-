@@ -1278,98 +1278,59 @@ function Contact() {
   const { t } = useT();
   return (
     <section id="contact" className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
-        <div className="mb-16 max-w-xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.contact.tag}</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            {t.contact.title1} <em className="italic text-primary">{t.contact.title2}</em>{t.contact.title3}
-          </h2>
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            {t.contact.sub}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16">
-          <div className="border-t border-foreground/20 pt-6">
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.phone}</span>
-            <a
-              href={`tel:${PHONE_TEL}`}
-              className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary"
-            >
-              {PHONE_DISPLAY}
-            </a>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              {t.contact.phoneNote}
+      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-28">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-5">
+            <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.contact.tag}</span>
+            <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+              {t.contact.title1} <em className="italic text-primary">{t.contact.title2}</em>{t.contact.title3}
+            </h2>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
+              {t.contact.sub}
             </p>
           </div>
-
-          <div className="border-t border-foreground/20 pt-6">
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.email}</span>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary break-all"
-            >
-              {EMAIL}
-            </a>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              {t.contact.emailNote}
-            </p>
+          <div className="md:col-span-7 md:col-start-6">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+              <div className="border-t border-foreground/20 pt-6">
+                <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.wa}</span>
+                <p className="mt-3 font-serif text-xl leading-snug">{PHONE_DISPLAY}</p>
+                <a
+                  href={waLink(t.quote.msgTitle)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs uppercase tracking-[0.2em] text-background hover:-translate-y-0.5 transition-transform"
+                >
+                  {t.contact.waBtn} <span aria-hidden>→</span>
+                </a>
+              </div>
+              <div className="border-t border-foreground/20 pt-6">
+                <span className="text-xs uppercase tracking-widest text-muted-foreground">Instagram</span>
+                <p className="mt-3 font-serif text-xl leading-snug break-all">{INSTAGRAM_HANDLE}</p>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-foreground/30 px-5 py-2.5 text-xs uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-colors"
+                >
+                  Follow <span aria-hidden>→</span>
+                </a>
+              </div>
+            </div>
+            <div className="mt-10 border-t border-foreground/15 pt-6">
+              <Link
+                to="/contato"
+                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-foreground underline underline-offset-4 hover:text-primary"
+              >
+                Phone, email &amp; hours <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
-
-          <div className="border-t border-foreground/20 pt-6">
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.wa}</span>
-            <p className="mt-4 font-serif text-2xl leading-snug">
-              {t.contact.waLine}
-            </p>
-            <a
-              href={waLink(t.quote.msgTitle)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
-            >
-              {t.contact.waBtn}
-              <span aria-hidden>→</span>
-            </a>
-          </div>
-
-          <div className="border-t border-foreground/20 pt-6">
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">Instagram</span>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 block font-serif text-2xl leading-snug transition-colors hover:text-primary break-all"
-            >
-              {INSTAGRAM_HANDLE}
-            </a>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="mt-5 inline-flex items-center gap-2 rounded-full border border-foreground/30 px-5 py-3 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-              Follow
-            </a>
-          </div>
-        </div>
-
-
-        <div className="mt-16 border-t border-foreground/15 pt-8 md:mt-20">
-          <span className="text-xs uppercase tracking-widest text-muted-foreground">{t.contact.area}</span>
-          <p className="mt-4 max-w-xl font-serif text-xl leading-snug md:text-2xl">
-            {t.contact.areaLine}
-          </p>
         </div>
       </div>
     </section>
   );
 }
+
 
 function Footer() {
   const { t } = useT();
@@ -1413,18 +1374,19 @@ function Footer() {
 
 function FAQ() {
   const { t } = useT();
+  const items = t.faq.items.slice(0, 3);
   return (
     <section id="faq" className="border-t border-border">
-      <div className="mx-auto max-w-4xl px-6 py-20 md:px-10 md:py-32">
-        <div className="mb-14 max-w-2xl">
+      <div className="mx-auto max-w-4xl px-6 py-20 md:px-10 md:py-28">
+        <div className="mb-12 max-w-2xl">
           <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.faq.tag}</span>
           <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
             {t.faq.title1} <em className="italic text-primary">{t.faq.title2}</em>{t.faq.title3}
           </h2>
         </div>
         <div className="divide-y divide-border border-t border-b border-border">
-          {t.faq.items.map((it, i) => (
-            <details key={i} className="group py-6">
+          {items.map((it, i) => (
+            <details key={i} className="group py-6" open={i === 0}>
               <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
                 <span className="font-serif text-lg leading-snug md:text-xl">{it.q}</span>
                 <span aria-hidden className="mt-1 shrink-0 text-2xl leading-none text-muted-foreground transition-transform group-open:rotate-45">
@@ -1437,10 +1399,19 @@ function FAQ() {
             </details>
           ))}
         </div>
+        <div className="mt-8">
+          <Link
+            to="/perguntas-frequentes"
+            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-foreground underline underline-offset-4 hover:text-primary"
+          >
+            See all questions <span aria-hidden>→</span>
+          </Link>
+        </div>
       </div>
     </section>
   );
 }
+
 
 function MobileCta() {
   const { t } = useT();

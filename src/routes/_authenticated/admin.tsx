@@ -445,9 +445,18 @@ function AdminPage() {
                 sub="cotado + agendado"
               />
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
-              <StatCard label="Conversas" value={stats?.totalConversations ?? "–"} />
-              <StatCard label="Últimos 7 dias" value={stats?.conversationsThisWeek ?? "–"} />
+            <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+              <StatCard
+                label="Ticket médio"
+                value={stats && stats.avgTicket ? formatBRL(stats.avgTicket) : "–"}
+                sub="por venda ganha"
+              />
+              <StatCard
+                label="Taxa de cotação"
+                value={stats ? `${stats.quoteRate ?? 0}%` : "–"}
+                sub="leads que receberam preço"
+              />
+              <StatCard label="Últimos 7 dias" value={stats?.conversationsThisWeek ?? "–"} sub="conversas novas" />
               <StatCard label="Mensagens" value={stats?.totalMessages ?? "–"} />
             </div>
 

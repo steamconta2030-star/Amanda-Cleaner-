@@ -24,6 +24,12 @@ export function Footer() {
           {INSTAGRAM_HANDLE}
         </a>
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <Link
+            to="/blog"
+            className="text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Blog
+          </Link>
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
             © {new Date().getFullYear()} — {t.footer.line}
           </p>

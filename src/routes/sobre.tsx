@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SubPageHeader } from "@/components/SubPageHeader";
 import aboutImage from "../assets/amanda.jpg.asset.json";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";

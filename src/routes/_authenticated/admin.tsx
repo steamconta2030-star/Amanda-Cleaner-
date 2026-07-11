@@ -607,6 +607,22 @@ function AdminPage() {
                   )}
                 </div>
 
+                {selected && selected.lead_data && Object.keys(selected.lead_data).length > 0 && (
+                  <div className="border-b border-border bg-primary/5 px-4 py-3">
+                    <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+                      📇 Dados capturados pelo chat
+                    </p>
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs md:grid-cols-3">
+                      {Object.entries(selected.lead_data).map(([k, v]) => (
+                        <div key={k}>
+                          <span className="text-muted-foreground">{k}:</span>{" "}
+                          <span className="font-medium">{String(v)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {selected && (
                   <div className="border-b border-border px-4 py-3 space-y-3">
                     <div className="flex flex-wrap gap-1.5">

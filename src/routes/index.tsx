@@ -298,11 +298,8 @@ const dict = {
       title1: "Trusted by",
       title2: "families",
       title3: "across Florida.",
-      items: [
-        { name: "Ashley R.", role: "Tampa", quote: "Amanda is meticulous. My house has never felt this calm — every corner truly cared for.", rating: 5 },
-        { name: "Marina L.", role: "St. Petersburg", quote: "I found someone I actually trust with my home. She's kind, punctual and the results are beautiful.", rating: 5 },
-        { name: "Daniel S.", role: "Brandon", quote: "Best move-out cleaning I've ever booked. Got my full deposit back — landlord was impressed.", rating: 5 },
-      ],
+      items: [] as { name: string; role: string; quote: string; rating: number }[],
+
     },
     faq: {
       tag: "FAQ",
@@ -503,11 +500,8 @@ const dict = {
       title1: "A confiança de",
       title2: "famílias",
       title3: "pela Flórida.",
-      items: [
-        { name: "Ashley R.", role: "Tampa", quote: "A Amanda é meticulosa. Minha casa nunca esteve tão calma — cada canto realmente cuidado.", rating: 5 },
-        { name: "Marina L.", role: "St. Petersburg", quote: "Encontrei alguém em quem realmente confio na minha casa. É gentil, pontual e o resultado é lindo.", rating: 5 },
-        { name: "Daniel S.", role: "Brandon", quote: "A melhor limpeza de mudança que já contratei. Recebi o depósito todo de volta — o proprietário ficou impressionado.", rating: 5 },
-      ],
+      items: [] as { name: string; role: string; quote: string; rating: number }[],
+
     },
     faq: {
       tag: "Perguntas frequentes",
@@ -748,20 +742,6 @@ function About() {
             <p>{t.about.p1}</p>
             <p>{t.about.p2}</p>
             <p>{t.about.p3}</p>
-          </div>
-          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-foreground/15 pt-8 text-sm">
-            <div>
-              <div className="font-serif text-3xl">{t.about.stat1a}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat1b}</div>
-            </div>
-            <div>
-              <div className="font-serif text-3xl">{t.about.stat2a}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat2b}</div>
-            </div>
-            <div>
-              <div className="font-serif text-3xl">{t.about.stat3a}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat3b}</div>
-            </div>
           </div>
         </div>
       </div>

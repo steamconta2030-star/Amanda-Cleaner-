@@ -6,49 +6,66 @@ export function Hero() {
   const { t } = useT();
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pt-24 pb-24 md:grid-cols-12 md:gap-16 md:px-10 md:pt-32 md:pb-40">
-        <div className="flex flex-col justify-start md:col-span-7">
-          <span className="mb-10 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            {t.hero.tag}
-          </span>
-          <h1
-            className="font-serif italic leading-[0.85] tracking-tight text-foreground"
-            style={{ fontSize: "clamp(3.5rem, 9vw, 7.5rem)" }}
-          >
-            {t.hero.title1} <em className="not-italic">{t.hero.title2}</em>
-          </h1>
-          <div className="mt-14 flex flex-col items-start gap-10 md:flex-row md:items-start md:gap-12">
-            <a
-              href={waLink(t.quote.msgTitle)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center whitespace-nowrap bg-foreground px-10 py-4 text-[10px] font-medium uppercase tracking-[0.25em] text-background transition-opacity hover:opacity-85"
+      <div className="mx-auto max-w-6xl px-6 pt-20 pb-32 md:px-10 md:pt-28 md:pb-48">
+        <div className="relative grid grid-cols-12 gap-8">
+          <div className="z-10 col-span-12 lg:col-span-9">
+            <span className="mb-10 inline-block border-b border-primary pb-1 text-[11px] uppercase tracking-[0.4em] text-muted-foreground">
+              {t.hero.tag}
+            </span>
+            <h1
+              className="mb-14 font-serif italic tracking-tight text-foreground"
+              style={{ fontSize: "clamp(3.5rem, 11vw, 10rem)", lineHeight: 0.85 }}
             >
-              {t.hero.book}
-            </a>
-            <p className="max-w-xs text-sm font-light leading-relaxed text-muted-foreground">
-              {t.hero.sub}
-            </p>
-          </div>
-        </div>
-        <div className="relative md:col-span-5">
-          <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary">
-            <img
-              src={heroImage.url}
-              alt="Calm, sunlit interior"
-              width={1280}
-              height={1600}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="absolute -bottom-6 -left-4 border border-border bg-background p-6 md:-bottom-10 md:-left-10 md:p-10">
-            <div className="mb-3 text-[9px] uppercase tracking-[0.4em] text-muted-foreground">
-              {t.hero.provenanceLabel}
+              {t.hero.title1}{" "}
+              <span className="relative italic">
+                <em className="not-italic">{t.hero.title2}</em>
+              </span>
+            </h1>
+            <div className="flex flex-col items-start gap-10 md:flex-row md:gap-12">
+              <p className="max-w-xs text-lg font-light leading-relaxed text-muted-foreground">
+                {t.hero.sub}
+              </p>
+              <a
+                href={waLink(t.quote.msgTitle)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-6 whitespace-nowrap bg-foreground px-10 py-5 text-[10px] font-medium uppercase tracking-[0.25em] text-background transition-colors duration-500 hover:bg-primary"
+              >
+                {t.hero.book}
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="transition-transform duration-500 group-hover:translate-x-1"
+                  aria-hidden
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
-            <p className="font-serif text-xl italic leading-none md:text-2xl">
-              {t.hero.provenance}
-            </p>
-            <div className="mt-4 h-px w-8 bg-[#009C3B]" />
+          </div>
+          <div className="col-span-12 mt-12 lg:absolute lg:right-0 lg:top-16 lg:col-span-6 lg:mt-0">
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary lg:aspect-[3/4]">
+              <img
+                src={heroImage.url}
+                alt="Calm, sunlit interior"
+                width={1280}
+                height={1600}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="mt-6 flex items-center gap-4 lg:mt-8">
+              <div className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground">
+                {t.hero.provenanceLabel}
+              </div>
+              <div className="h-px w-8 bg-primary" />
+              <p className="font-serif text-lg italic leading-none">
+                {t.hero.provenance}
+              </p>
+            </div>
           </div>
         </div>
       </div>

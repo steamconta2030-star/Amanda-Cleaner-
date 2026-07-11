@@ -292,37 +292,13 @@ function ServicesPage() {
         </div>
       </section>
 
-      {/* Closing */}
-      <section className="border-t border-border bg-secondary/30">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-28">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Ready when you are
-          </p>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            Get an <em className="italic text-primary">instant estimate</em> in 60 seconds.
-          </h2>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            Ask our concierge for a real price — no forms, no phone tag. Or send Amanda a WhatsApp
-            for anything custom.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/"
-              className="inline-flex items-center rounded-full bg-primary px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-primary-foreground hover:opacity-90"
-            >
-              Get my estimate
-            </Link>
-            <a
-              href={WHATSAPP}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-border px-6 py-2.5 text-xs uppercase tracking-[0.2em] hover:bg-muted"
-            >
-              WhatsApp Amanda
-            </a>
-          </div>
-        </div>
-      </section>
+      <SubPageCta
+        eyebrow="Ready when you are"
+        title={<>Get an <em className="italic text-primary">instant estimate</em> in 60 seconds.</>}
+        description="Ask our concierge for a real price — no forms, no phone tag. Or send Amanda a WhatsApp for anything custom."
+        primary={{ label: "Get my estimate", to: "/" }}
+        secondary={{ label: "WhatsApp Amanda", href: WHATSAPP, external: true }}
+      />
     </main>
   );
 }

@@ -4,24 +4,34 @@ import aboutImage from "../../assets/amanda.jpg.asset.json";
 export function About() {
   const { t } = useT();
   return (
-    <section id="about" className="border-t border-border bg-secondary/30">
+    <section id="about" className="border-t border-border">
       <div className="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-40">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
-          <div className="md:col-span-5">
-            <span className="mb-6 inline-flex items-center gap-1.5" aria-hidden>
-              <span className="h-1.5 w-1.5 rounded-full bg-[#009C3B]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
-            </span>
-            <div className="mb-8 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-              {t.about.tag}
+          <div className="relative md:col-span-5">
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary">
+              <img
+                src={aboutImage.url}
+                alt={t.about.alt}
+                width={800}
+                height={1000}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
             </div>
-            <h2 className="font-serif text-4xl italic leading-[1.05] tracking-tight md:text-5xl">
-              {t.about.title1} <em className="not-italic">{t.about.title2}</em>{t.about.title3}
-            </h2>
+            <div
+              className="pointer-events-none absolute -bottom-8 -right-8 hidden h-32 w-32 border border-primary/30 md:block"
+              aria-hidden
+            />
           </div>
-          <div className="md:col-span-7 md:col-start-6">
-            <div className="space-y-6 text-base font-light leading-relaxed text-foreground/80">
+          <div className="flex flex-col justify-center md:col-span-6 md:col-start-7">
+            <span className="mb-8 block text-[10px] uppercase tracking-[0.5em] text-primary">
+              {t.about.tag}
+            </span>
+            <h2 className="mb-10 font-serif text-4xl italic leading-[1.1] tracking-tight text-foreground md:text-5xl">
+              {t.about.title1} <em className="not-italic">{t.about.title2}</em>
+              {t.about.title3}
+            </h2>
+            <div className="space-y-6 font-light leading-loose text-muted-foreground">
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
               <p>{t.about.p3}</p>
@@ -33,20 +43,8 @@ export function About() {
               >
                 {t.common.exploreServices}
               </a>
-              <div className="h-px w-12 bg-foreground transition-all duration-500 hover:w-20" />
+              <div className="h-px w-20 bg-foreground transition-all duration-500 hover:w-28" />
             </div>
-          </div>
-        </div>
-        <div className="mt-16 md:mt-24">
-          <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary md:aspect-[21/9]">
-            <img
-              src={aboutImage.url}
-              alt={t.about.alt}
-              width={1600}
-              height={900}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
           </div>
         </div>
       </div>

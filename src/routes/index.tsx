@@ -683,7 +683,7 @@ function Hero() {
               <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
               <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
             </span>
-            <span>Brazilian-owned · Feito com capricho</span>
+            <span>Brazilian-owned · Licensed &amp; insured · 48h re-clean guarantee</span>
           </div>
         </div>
         <div className="relative">

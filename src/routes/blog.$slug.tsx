@@ -7,7 +7,15 @@ export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
     const post = getPost(params.slug);
     if (!post) throw notFound();
-    return { post };
+    // Return only serializable metadata; content is looked up in the component.
+    return {
+      slug: post.slug,
+      title: post.title,
+      excerpt: post.excerpt,
+      date: post.date,
+      readingTime: post.readingTime,
+      keywords: post.keywords,
+    };
   },
   component: BlogPostPage,
   notFoundComponent: PostNotFound,
@@ -20,18 +28,17 @@ export const Route = createFileRoute("/blog/$slug")({
         ],
       };
     }
-    const { post } = loaderData;
-    const url = `${SITE_URL}/blog/${post.slug}`;
+    const url = `${SITE_URL}/blog/${loaderData.slug}`;
     return {
       meta: [
-        { title: `${post.title} — Amanda & Co.` },
-        { name: "description", content: post.excerpt },
-        { name: "keywords", content: post.keywords.join(", ") },
-        { property: "og:title", content: post.title },
-        { property: "og:description", content: post.excerpt },
+        { title: `${loaderData.title} — Amanda & Co.` },
+        { name: "description", content: loaderData.excerpt },
+        { name: "keywords", content: loaderData.keywords.join(", ") },
+        { property: "og:title", content: loaderData.title },
+        { property: "og:description", content: loaderData.excerpt },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
-        { property: "article:published_time", content: post.date },
+        { property: "article:published_time", content: loaderData.date },
         { property: "article:author", content: "Amanda" },
         { name: "twitter:card", content: "summary_large_image" },
       ],
@@ -42,9 +49,9 @@ export const Route = createFileRoute("/blog/$slug")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            headline: post.title,
-            description: post.excerpt,
-            datePublished: post.date,
+            headline: loaderData.title,
+            description: loaderData.excerpt,
+            datePublished: loaderData.date,
             author: { "@type": "Person", name: "Amanda", url: `${SITE_URL}/sobre` },
             publisher: {
               "@type": "Organization",
@@ -62,7 +69,7 @@ export const Route = createFileRoute("/blog/$slug")({
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
               { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
-              { "@type": "ListItem", position: 3, name: post.title, item: url },
+              { "@type": "ListItem", position: 3, name: loaderData.title, item: url },
             ],
           }),
         },
@@ -72,7 +79,9 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPostPage() {
-  const { post } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const post = getPost(slug);
+  if (!post) return <PostNotFound />;
   const others = POSTS.filter((p) => p.slug !== post.slug);
   return (
     <div className="min-h-screen bg-background text-foreground">

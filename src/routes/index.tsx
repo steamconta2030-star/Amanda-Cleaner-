@@ -17,17 +17,13 @@ import { ChatWidget } from "@/components/ChatWidget";
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 
 const FAQ_ITEMS_EN = [
-  { q: "What areas do you serve?", a: "Amanda & Co. is based in Tampa, Florida and serves Tampa and surrounding neighborhoods. Message us to confirm your address is within range." },
-  { q: "Are the cleaning products safe for pets and children?", a: "Yes. We use gentle, effective products that smell nice and are safe for family and pets. If you have specific preferences, let Amanda know on WhatsApp." },
   { q: "How do I get an exact price?", a: "Send a quick message on WhatsApp with your address, number of bedrooms and bathrooms and the type of cleaning. Amanda replies personally with a quote." },
-  { q: "How does booking work?", a: "Pick a preferred day, go over the details with Amanda (space, priorities, preferences) on WhatsApp, and she handles everything from there." },
+  { q: "Are the cleaning products safe for pets and children?", a: "Yes. We use gentle, effective products that smell nice and are safe for family and pets. If you have specific preferences, let Amanda know on WhatsApp." },
 ];
 
 const FAQ_ITEMS_PT = [
-  { q: "Quais regiões vocês atendem?", a: "A Amanda & Co. fica em Tampa, Flórida, e atende Tampa e bairros da região. Mande uma mensagem para confirmar se o seu endereço está dentro da área." },
-  { q: "Os produtos são seguros para pets e crianças?", a: "Sim. Usamos produtos suaves, eficazes, com aroma agradável e seguros pra família e pets. Se você tem preferência específica, é só falar com a Amanda pelo WhatsApp." },
   { q: "Como consigo um preço exato?", a: "Envie uma mensagem rápida pelo WhatsApp com endereço, quantidade de quartos e banheiros e o tipo de limpeza. A Amanda responde pessoalmente com o orçamento." },
-  { q: "Como funciona o agendamento?", a: "Você escolhe o dia, combina os detalhes com a Amanda (espaço, prioridades, preferências) pelo WhatsApp, e ela cuida do resto." },
+  { q: "Os produtos são seguros para pets e crianças?", a: "Sim. Usamos produtos suaves, eficazes, com aroma agradável e seguros pra família e pets. Se você tem preferência específica, é só falar com a Amanda pelo WhatsApp." },
 ];
 
 export const Route = createFileRoute("/")({
@@ -273,7 +269,7 @@ const dict = {
       waLine: "The easiest way.",
       waBtn: "Message on WhatsApp",
       area: "Service area",
-      areaLine: "Based at 6429 Wilshire Dr, Tampa, FL 33615 — serving Tampa and surrounding areas.",
+      areaLine: "Based in Tampa, FL — serving Westchase, Carrollwood, Citrus Park, Town 'N' Country, Odessa, Lutz, Brandon and surrounding areas. Not happy with something? I come back within 48 hours to make it right.",
     },
     gallery: {
       tag: "Before & After",
@@ -478,7 +474,7 @@ const dict = {
       waLine: "O jeito mais fácil.",
       waBtn: "Enviar mensagem no WhatsApp",
       area: "Área de atendimento",
-      areaLine: "Baseada em 6429 Wilshire Dr, Tampa, FL 33615 — atendemos Tampa e região.",
+      areaLine: "Baseada em Tampa, FL — atendendo Westchase, Carrollwood, Citrus Park, Town 'N' Country, Odessa, Lutz, Brandon e regiões próximas. Não gostou de algo? Eu volto em até 48h pra ajustar.",
     },
     gallery: {
       tag: "Antes e Depois",
@@ -571,15 +567,11 @@ function Index() {
     <LangProvider>
       <div className="min-h-screen bg-background text-foreground">
         <Nav />
-        <StaffAccess />
         <Hero />
-        <Concept />
         <About />
         <Services />
         <Pricing />
-        <Process />
         <Gallery />
-        {/* <Testimonials /> — removed until real reviews are collected */}
         <QuoteForm />
         <FAQ />
         <Contact />
@@ -636,12 +628,7 @@ function Nav() {
         </nav>
         <div className="flex items-center gap-4">
           <LangToggle />
-          <a
-            href="/auth"
-            className="inline-flex items-center rounded-full border border-foreground/25 px-3 py-2 text-xs uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background md:hidden"
-          >
-            Staff
-          </a>
+
           <a
             href={waLink("Hi Amanda!")}
             target="_blank"
@@ -691,7 +678,7 @@ function Hero() {
               <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
               <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
             </span>
-            <span>Brazilian-owned · Feito com capricho</span>
+            <span>Brazilian-owned · Licensed &amp; insured · 48h re-clean guarantee</span>
           </div>
         </div>
         <div className="relative">

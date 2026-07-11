@@ -42,7 +42,7 @@ export const listConversations = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await (supabaseAdmin as any)
       .from("conversations")
-      .select("id, session_id, created_at, updated_at, message_count, is_lead, visitor_lang, status, admin_notes, quoted_value")
+      .select("id, session_id, created_at, updated_at, message_count, is_lead, visitor_lang, status, admin_notes, quoted_value, lead_data")
       .order("updated_at", { ascending: false })
       .limit(200);
     if (error) throw new Error(error.message);

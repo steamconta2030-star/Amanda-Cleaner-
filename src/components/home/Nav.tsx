@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { LangToggle, useT } from "./lang";
 import { waLink } from "./constants";
 
@@ -17,7 +18,7 @@ export function Nav() {
           </span>
         </a>
         <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:flex">
-          <a href="#about" className="hover:text-foreground transition-colors">{t.nav.about}</a>
+          <Link to="/sobre" className="hover:text-foreground transition-colors">{t.nav.about}</Link>
           <a href="#servicos" className="hover:text-foreground transition-colors">{t.nav.services}</a>
           <a href="#pricing" className="hover:text-foreground transition-colors">{t.nav.pricing}</a>
           <a href="#gallery" className="hover:text-foreground transition-colors">{t.nav.gallery}</a>

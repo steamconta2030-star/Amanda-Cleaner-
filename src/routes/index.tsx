@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
 import heroImage from "../assets/hero.jpg.asset.json";
 import aboutImage from "../assets/amanda.jpg.asset.json";

@@ -131,41 +131,41 @@ const dict = {
       contact: "Contact",
     },
     hero: {
-      tag: "Boutique home cleaning · Florida",
+      tag: "Brazilian-owned boutique cleaning · Tampa, FL",
       title1: "The care your home",
       title2: "deserves.",
-      sub: "Personalized cleaning services from Amanda — with the attention to detail and trust you're looking for.",
+      sub: "A Brazilian standard of care, brought home to Florida — cleaned slowly, with method, and treated like my own.",
       book: "Book on WhatsApp",
       see: "See services",
     },
     concept: {
       tag: "My approach",
       title1: "It's not just cleaning. It's",
-      title2: "caring",
+      title2: "capricho",
       title3: ".",
       items: [
         {
-          title: "Attention to detail",
-          desc: "Every corner, every surface. The work is done slowly, with method and a critical eye.",
+          title: "Capricho — the Brazilian way",
+          desc: "In Brazil we grow up cleaning with capricho: slowly, thoroughly, corner by corner. It's the standard I bring to every home in Tampa.",
         },
         {
-          title: "Carefully chosen products",
-          desc: "Gentle, effective formulas with a beautiful scent. Respectful of your home, your family and your pets.",
+          title: "Products that respect your home",
+          desc: "Gentle, effective formulas with a soft scent. Safe for family, pets and the surfaces you love.",
         },
         {
-          title: "Complete trust",
-          desc: "One person taking care of your home. No rotating crews, no strangers — just someone you can rely on.",
+          title: "One person you can trust",
+          desc: "No rotating crews, no strangers walking through your door. Just me — the same face, every visit.",
         },
       ],
     },
     about: {
       tag: "Meet Amanda",
-      title1: "A personal touch you can",
-      title2: "feel",
+      title1: "Brazilian care, right here in",
+      title2: "Tampa",
       title3: ".",
-      p1: "I'm Amanda — the person behind every cleaning, from the first message to the moment you walk back into your fresh, quiet home.",
-      p2: "I built this small boutique service because I believe your home deserves more than a rushed checklist. It deserves attention, calm and honest care — the kind you'd give it yourself if you had the time.",
-      p3: "Working with a small handful of families across Florida means I know your space, your preferences and your routines. No surprises, just a home that feels like home again.",
+      p1: "I'm Amanda — Brazilian, and the person behind every cleaning. From the first message on WhatsApp to the moment you walk back into a quiet, fresh home, it's just me taking care of your space.",
+      p2: "I grew up with a simple idea: a home is cared for like family. In Brazil we call it capricho — doing things slowly, with method and honest care. It's the standard I bring to every home I work with in Florida.",
+      p3: "Working closely with a small handful of families means I know your space, your preferences and your routines. No rotating crews, no strangers — just one trusted person who treats your home like her own.",
       stat1a: "5+",
       stat1b: "Years of care",
       stat2a: "40+",
@@ -336,41 +336,41 @@ const dict = {
       contact: "Contato",
     },
     hero: {
-      tag: "Limpeza residencial boutique · Flórida",
+      tag: "Limpeza boutique feita por brasileira · Tampa, FL",
       title1: "O cuidado que a sua casa",
       title2: "merece.",
-      sub: "Serviços de limpeza personalizados da Amanda — com a atenção ao detalhe e a confiança que você procura.",
+      sub: "O capricho brasileiro trazido pra sua casa na Flórida — com calma, método e o carinho de quem trata a sua casa como a própria.",
       book: "Agendar pelo WhatsApp",
       see: "Ver serviços",
     },
     concept: {
       tag: "Minha abordagem",
       title1: "Não é só limpeza. É",
-      title2: "cuidado",
+      title2: "capricho",
       title3: ".",
       items: [
         {
-          title: "Atenção aos detalhes",
-          desc: "Cada canto, cada superfície. O trabalho é feito com calma, método e olhar crítico.",
+          title: "Capricho de verdade",
+          desc: "A gente brasileira cresce limpando com capricho: com calma, canto por canto, sem pressa. É esse padrão que eu trago pra cada casa em Tampa.",
         },
         {
-          title: "Produtos escolhidos com cuidado",
-          desc: "Fórmulas suaves e eficazes, com um aroma agradável. Respeitosas com a casa, a família e os pets.",
+          title: "Produtos que respeitam a sua casa",
+          desc: "Fórmulas suaves, eficazes e com aroma leve. Seguras pra família, pets e pras superfícies que você ama.",
         },
         {
-          title: "Confiança total",
-          desc: "Uma só pessoa cuidando da sua casa. Sem equipes rotativas, sem estranhos — só alguém em quem você pode confiar.",
+          title: "Uma pessoa de confiança",
+          desc: "Sem equipes rotativas, sem estranho entrando na sua casa. Sou eu — a mesma pessoa, em toda visita.",
         },
       ],
     },
     about: {
       tag: "Conheça a Amanda",
-      title1: "Um toque pessoal que se",
-      title2: "sente",
+      title1: "Cuidado brasileiro, aqui em",
+      title2: "Tampa",
       title3: ".",
-      p1: "Eu sou a Amanda — a pessoa por trás de cada limpeza, da primeira mensagem até o momento em que você volta pra uma casa fresca e tranquila.",
-      p2: "Criei esse pequeno serviço boutique porque acredito que a sua casa merece mais do que uma checklist apressada. Merece atenção, calma e cuidado honesto — o tipo de cuidado que você mesma daria se tivesse tempo.",
-      p3: "Trabalhar com um pequeno grupo de famílias pela Flórida significa que eu conheço o seu espaço, as suas preferências e as suas rotinas. Sem surpresas — só uma casa que volta a parecer casa.",
+      p1: "Sou a Amanda — brasileira, e a pessoa por trás de cada limpeza. Da primeira mensagem no WhatsApp até o momento em que você volta pra uma casa fresca e tranquila, sou eu cuidando do seu espaço.",
+      p2: "Cresci com uma ideia simples: casa é cuidada como família. No Brasil a gente chama isso de capricho — fazer as coisas com calma, com método e com carinho honesto. É esse padrão que eu trago pra cada casa aqui na Flórida.",
+      p3: "Trabalhar de perto com um pequeno grupo de famílias significa que eu conheço o seu espaço, as suas preferências e a sua rotina. Sem equipe rotativa, sem estranhos — só uma pessoa de confiança que cuida da sua casa como se fosse a dela.",
       stat1a: "5+",
       stat1b: "Anos de cuidado",
       stat2a: "40+",
@@ -684,6 +684,14 @@ function Hero() {
             <a href="#servicos" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
               {t.hero.see}
             </a>
+          </div>
+          <div className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5" aria-hidden>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#009C3B]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
+            </span>
+            <span>Brazilian-owned · Feito com capricho</span>
           </div>
         </div>
         <div className="relative">

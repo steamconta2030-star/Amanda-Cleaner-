@@ -144,6 +144,12 @@ export const dict = {
     stickyCta: { quote: "Quote", wa: "WhatsApp" },
     footer: { line: "Personalized home cleaning · Florida" },
     lang: { switchTo: "PT", label: "Português" },
+    common: {
+      exploreServices: "Explore services",
+      seeAllServices: "See all services",
+      seeAllQuestions: "See all questions",
+      readMore: "Read more",
+    },
   },
   pt: {
     nav: {

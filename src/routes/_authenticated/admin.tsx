@@ -445,9 +445,18 @@ function AdminPage() {
                 sub="cotado + agendado"
               />
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
-              <StatCard label="Conversas" value={stats?.totalConversations ?? "–"} />
-              <StatCard label="Últimos 7 dias" value={stats?.conversationsThisWeek ?? "–"} />
+            <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+              <StatCard
+                label="Ticket médio"
+                value={stats && stats.avgTicket ? formatBRL(stats.avgTicket) : "–"}
+                sub="por venda ganha"
+              />
+              <StatCard
+                label="Taxa de cotação"
+                value={stats ? `${stats.quoteRate ?? 0}%` : "–"}
+                sub="leads que receberam preço"
+              />
+              <StatCard label="Últimos 7 dias" value={stats?.conversationsThisWeek ?? "–"} sub="conversas novas" />
               <StatCard label="Mensagens" value={stats?.totalMessages ?? "–"} />
             </div>
 
@@ -471,21 +480,35 @@ function AdminPage() {
                 </div>
               </div>
               <div className="rounded-xl border border-border bg-card p-4">
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">Funil</p>
-                <div className="mt-3 space-y-1.5">
-                  {STATUS_ORDER.map((s) => {
-                    const count = stats?.statusCounts?.[s] ?? 0;
-                    return (
-                      <button
-                        key={s}
-                        onClick={() => setFilter(s)}
-                        className={`flex w-full items-center justify-between rounded-md border px-2 py-1 text-xs transition-colors hover:bg-muted ${STATUS_META[s].color}`}
-                      >
-                        <span>{STATUS_META[s].label}</span>
-                        <span className="font-medium">{count}</span>
-                      </button>
-                    );
-                  })}
+                <p className="text-xs uppercase tracking-widest text-muted-foreground">Funil de conversão</p>
+                <div className="mt-3 space-y-2">
+                  {(() => {
+                    const counts = stats?.statusCounts ?? {};
+                    const maxCount = Math.max(1, ...STATUS_ORDER.map((s) => counts[s] ?? 0));
+                    return STATUS_ORDER.map((s) => {
+                      const count = counts[s] ?? 0;
+                      const pct = Math.round((count / maxCount) * 100);
+                      return (
+                        <button
+                          key={s}
+                          onClick={() => setFilter(s)}
+                          className="group block w-full text-left"
+                          title={`Filtrar por ${STATUS_META[s].label}`}
+                        >
+                          <div className="flex items-center justify-between text-[11px]">
+                            <span className="text-muted-foreground group-hover:text-foreground">{STATUS_META[s].label}</span>
+                            <span className="font-medium tabular-nums">{count}</span>
+                          </div>
+                          <div className="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                            <div
+                              className={`h-full rounded-full ${STATUS_META[s].color.split(" ").find((c) => c.startsWith("bg-")) ?? "bg-primary"}`}
+                              style={{ width: `${pct}%` }}
+                            />
+                          </div>
+                        </button>
+                      );
+                    });
+                  })()}
                 </div>
               </div>
             </div>

@@ -143,6 +143,9 @@ export const getStats = createServerFn({ method: "GET" })
     const totalLeads = leadsRes.count ?? 0;
     const wonCount = wonRes.count ?? 0;
     const conversionRate = totalLeads > 0 ? Math.round((wonCount / totalLeads) * 100) : 0;
+    const avgTicket = wonCount > 0 ? Math.round(revenueWon / wonCount) : 0;
+    const quotedPlus = statusCounts.quoted + statusCounts.scheduled + statusCounts.won + statusCounts.lost;
+    const quoteRate = totalLeads > 0 ? Math.round((quotedPlus / totalLeads) * 100) : 0;
 
     return {
       totalConversations: totalRes.count ?? 0,
@@ -151,6 +154,8 @@ export const getStats = createServerFn({ method: "GET" })
       totalMessages: msgsRes.count ?? 0,
       won: wonCount,
       conversionRate,
+      quoteRate,
+      avgTicket,
       revenueWon,
       pipelineValue,
       daily,

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SubPageHeader } from "@/components/SubPageHeader";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 const WHATSAPP = "https://wa.me/18133649757";
@@ -202,22 +203,8 @@ export const Route = createFileRoute("/servicos")({
 function ServicesPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="border-b border-border">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <Link to="/" className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground">
-            ← Amanda & Co.
-          </Link>
-          <a
-            href={WHATSAPP}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full border border-border px-4 py-1.5 text-xs uppercase tracking-[0.2em] hover:bg-muted sm:inline-block"
-          >
-            WhatsApp
-          </a>
-        </div>
-      </header>
+      <SubPageHeader />
+
 
       {/* Hero */}
       <section className="border-b border-border bg-secondary/30">

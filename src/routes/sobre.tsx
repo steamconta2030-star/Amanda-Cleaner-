@@ -224,37 +224,13 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-border bg-secondary/30">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-24">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Ready when you are
-          </p>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-4xl">
-            Let's talk about <em className="italic text-primary">your home</em>.
-          </h2>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            Send me a quick message on WhatsApp — a few details about your space and I'll come back
-            with an honest quote, personally.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full bg-primary px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-primary-foreground hover:opacity-90"
-            >
-              Message Amanda
-            </a>
-            <Link
-              to="/contato"
-              className="inline-flex items-center rounded-full border border-border px-6 py-2.5 text-xs uppercase tracking-[0.2em] hover:bg-muted"
-            >
-              All contact options
-            </Link>
-          </div>
-        </div>
-      </section>
+      <SubPageCta
+        eyebrow="Ready when you are"
+        title={<>Let's talk about <em className="italic text-primary">your home</em>.</>}
+        description="Send me a quick message on WhatsApp — a few details about your space and I'll come back with an honest quote, personally."
+        primary={{ label: "Message Amanda", href: WHATSAPP_URL, external: true }}
+        secondary={{ label: "All contact options", to: "/contato" }}
+      />
     </main>
   );
 }

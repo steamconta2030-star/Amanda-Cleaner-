@@ -700,30 +700,8 @@ function Hero() {
 }
 
 
-function Concept() {
-  const { t } = useT();
-  return (
-    <section className="border-t border-border bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
-        <div className="mb-16 max-w-2xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.concept.tag}</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            {t.concept.title1} <em className="italic text-primary">{t.concept.title2}</em>{t.concept.title3}
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16">
-          {t.concept.items.map((item, i) => (
-            <div key={item.title} className="border-t border-foreground/20 pt-6">
-              <span className="font-serif text-sm italic text-muted-foreground">0{i + 1}</span>
-              <h3 className="mt-4 font-serif text-2xl leading-snug">{item.title}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+
+
 
 function About() {
   const { t } = useT();
@@ -871,44 +849,8 @@ function Pricing() {
   );
 }
 
-function Process() {
-  const { t } = useT();
-  return (
-    <section id="processo" className="border-t border-border bg-accent/30">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
-        <div className="mb-16 max-w-xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.process.tag}</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            {t.process.title}
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
-          {t.process.steps.map((s) => (
-            <div key={s.n} className="relative">
-              <div className="font-serif text-6xl italic text-primary/70 md:text-7xl">{s.n}</div>
-              <h3 className="mt-4 font-serif text-2xl">{s.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-20 flex flex-col items-start gap-6 border-t border-foreground/15 pt-10 md:flex-row md:items-center md:justify-between">
-          <p className="font-serif text-2xl italic md:text-3xl">
-            {t.process.cta}
-          </p>
-          <a
-            href={waLink(t.quote.msgTitle)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
-          >
-            {t.process.book}
-            <span aria-hidden>→</span>
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
+
+
 
 function Gallery() {
   const { t } = useT();
@@ -1466,47 +1408,8 @@ function Footer() {
   );
 }
 
-function Stars({ n }: { n: number }) {
-  return (
-    <div className="flex gap-0.5" aria-label={`${n} out of 5 stars`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < n ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5" className="text-primary" aria-hidden>
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-      ))}
-    </div>
-  );
-}
 
-function Testimonials() {
-  const { t } = useT();
-  return (
-    <section id="testimonials" className="border-t border-border bg-secondary/30">
-      <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-32">
-        <div className="mb-16 max-w-2xl">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.testimonials.tag}</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            {t.testimonials.title1} <em className="italic text-primary">{t.testimonials.title2}</em> {t.testimonials.title3}
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10">
-          {t.testimonials.items.map((it) => (
-            <figure key={it.name} className="flex flex-col rounded-sm border border-border bg-background p-8">
-              <Stars n={it.rating} />
-              <blockquote className="mt-6 flex-1 font-serif text-lg leading-snug md:text-xl">
-                “{it.quote}”
-              </blockquote>
-              <figcaption className="mt-6 border-t border-foreground/10 pt-4 text-sm">
-                <div className="font-medium">{it.name}</div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">{it.role}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+
 
 function FAQ() {
   const { t } = useT();

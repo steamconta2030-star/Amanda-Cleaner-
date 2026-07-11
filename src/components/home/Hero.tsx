@@ -6,22 +6,19 @@ export function Hero() {
   const { t } = useT();
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto max-w-6xl px-6 pt-20 pb-32 md:px-10 md:pt-28 md:pb-48">
-        <div className="relative grid grid-cols-12 gap-8">
-          <div className="z-10 col-span-12 lg:col-span-9">
+      <div className="mx-auto max-w-6xl px-6 pt-20 pb-24 md:px-10 md:pt-28 md:pb-32">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-10">
+          <div className="md:col-span-7">
             <span className="mb-10 inline-block border-b border-primary pb-1 text-[11px] uppercase tracking-[0.4em] text-muted-foreground">
               {t.hero.tag}
             </span>
             <h1
               className="mb-14 font-serif italic tracking-tight text-foreground"
-              style={{ fontSize: "clamp(3.5rem, 11vw, 10rem)", lineHeight: 0.85 }}
+              style={{ fontSize: "clamp(3.5rem, 10vw, 8.5rem)", lineHeight: 0.88 }}
             >
-              {t.hero.title1}{" "}
-              <span className="relative italic">
-                <em className="not-italic">{t.hero.title2}</em>
-              </span>
+              {t.hero.title1} <em className="not-italic">{t.hero.title2}</em>
             </h1>
-            <div className="flex max-w-xl flex-col items-start gap-10 md:flex-row md:gap-12">
+            <div className="flex flex-col items-start gap-10 md:flex-row md:items-center md:gap-12">
               <p className="max-w-xs text-base font-light leading-relaxed text-muted-foreground">
                 {t.hero.sub}
               </p>
@@ -47,8 +44,8 @@ export function Hero() {
               </a>
             </div>
           </div>
-          <div className="col-span-12 mt-12 lg:absolute lg:right-0 lg:top-16 lg:col-span-6 lg:mt-0">
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary lg:aspect-[3/4]">
+          <div className="md:col-span-5">
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary">
               <img
                 src={heroImage.url}
                 alt="Calm, sunlit interior"
@@ -57,7 +54,7 @@ export function Hero() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <div className="mt-6 flex items-center gap-4 lg:mt-8">
+            <div className="mt-6 flex items-center gap-4">
               <div className="text-[9px] uppercase tracking-[0.4em] text-muted-foreground">
                 {t.hero.provenanceLabel}
               </div>
@@ -68,6 +65,7 @@ export function Hero() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

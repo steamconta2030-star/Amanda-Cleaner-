@@ -1,0 +1,26 @@
+{
+  "name": "Tidly — Cleaning in Tampa",
+  "short_name": "Tidly",
+  "description": "Book cleaning in Tampa by chat. Homes, Airbnbs, and moves.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAFAF7",
+  "theme_color": "#FF6B57",
+  "categories": ["lifestyle", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

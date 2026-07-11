@@ -500,11 +500,8 @@ const dict = {
       title1: "A confiança de",
       title2: "famílias",
       title3: "pela Flórida.",
-      items: [
-        { name: "Ashley R.", role: "Tampa", quote: "A Amanda é meticulosa. Minha casa nunca esteve tão calma — cada canto realmente cuidado.", rating: 5 },
-        { name: "Marina L.", role: "St. Petersburg", quote: "Encontrei alguém em quem realmente confio na minha casa. É gentil, pontual e o resultado é lindo.", rating: 5 },
-        { name: "Daniel S.", role: "Brandon", quote: "A melhor limpeza de mudança que já contratei. Recebi o depósito todo de volta — o proprietário ficou impressionado.", rating: 5 },
-      ],
+      items: [] as { name: string; role: string; quote: string; rating: number }[],
+
     },
     faq: {
       tag: "Perguntas frequentes",

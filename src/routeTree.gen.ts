@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicosRouteImport } from './routes/servicos'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
+import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AreasAtendidasRouteImport } from './routes/areas-atendidas'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -33,9 +35,19 @@ const ObrigadoRoute = ObrigadoRouteImport.update({
   path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AreasAtendidasRoute = AreasAtendidasRouteImport.update({
+  id: '/areas-atendidas',
+  path: '/areas-atendidas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -60,7 +72,9 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
   '/obrigado': typeof ObrigadoRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -69,7 +83,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
   '/obrigado': typeof ObrigadoRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -80,7 +96,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
   '/obrigado': typeof ObrigadoRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -91,7 +109,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/areas-atendidas'
     | '/auth'
+    | '/contato'
     | '/obrigado'
     | '/servicos'
     | '/sitemap.xml'
@@ -100,7 +120,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/areas-atendidas'
     | '/auth'
+    | '/contato'
     | '/obrigado'
     | '/servicos'
     | '/sitemap.xml'
@@ -110,7 +132,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/areas-atendidas'
     | '/auth'
+    | '/contato'
     | '/obrigado'
     | '/servicos'
     | '/sitemap.xml'
@@ -121,7 +145,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AreasAtendidasRoute: typeof AreasAtendidasRoute
   AuthRoute: typeof AuthRoute
+  ContatoRoute: typeof ContatoRoute
   ObrigadoRoute: typeof ObrigadoRoute
   ServicosRoute: typeof ServicosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -151,11 +177,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/areas-atendidas': {
+      id: '/areas-atendidas'
+      path: '/areas-atendidas'
+      fullPath: '/areas-atendidas'
+      preLoaderRoute: typeof AreasAtendidasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -203,7 +243,9 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AreasAtendidasRoute: AreasAtendidasRoute,
   AuthRoute: AuthRoute,
+  ContatoRoute: ContatoRoute,
   ObrigadoRoute: ObrigadoRoute,
   ServicosRoute: ServicosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

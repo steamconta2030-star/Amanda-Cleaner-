@@ -18,31 +18,46 @@ export function Pricing() {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-          {t.pricing.plans.map((p, i) => (
-            <div
-              key={p.name}
-              className={`flex flex-col justify-between rounded-sm border p-8 transition-colors ${
-                i === 1 ? "border-primary/40 bg-primary/5" : "border-border bg-background"
-              }`}
-            >
-              <div>
-                <h3 className="font-serif text-2xl">{p.name}</h3>
-                <div className="mt-6 flex items-baseline gap-2">
-                  <span className="font-serif text-5xl">{p.price}</span>
-                  <span className="text-xs uppercase tracking-widest text-muted-foreground">
-                    {t.pricing.startingAt}
-                  </span>
-                </div>
-                <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-              </div>
-              <a
-                href="#quote"
-                className="mt-10 inline-flex items-center gap-2 text-sm text-foreground underline underline-offset-4 opacity-80 hover:opacity-100"
+          {t.pricing.plans.map((p, i) => {
+            const featured = i === 1;
+            return (
+              <div
+                key={p.name}
+                className={`group relative flex flex-col justify-between rounded-sm border p-8 transition-all duration-300 ${
+                  featured
+                    ? "border-primary/50 bg-primary/[0.04] shadow-[0_1px_0_0_rgba(0,0,0,0.02)] md:-translate-y-2 md:p-10"
+                    : "border-border bg-background hover:border-foreground/30"
+                }`}
               >
-                {t.pricing.request} <span aria-hidden>→</span>
-              </a>
-            </div>
-          ))}
+                {featured && (
+                  <span className="absolute -top-3 left-8 inline-flex items-center gap-2 border border-primary/40 bg-background px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-primary">
+                    <span className="h-px w-3 bg-primary" aria-hidden />
+                    {t.pricing.popular}
+                  </span>
+                )}
+                <div>
+                  <h3 className="font-serif text-2xl">{p.name}</h3>
+                  <div className="mt-6 flex items-baseline gap-2">
+                    <span className="font-serif text-5xl">{p.price}</span>
+                    <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                      {t.pricing.startingAt}
+                    </span>
+                  </div>
+                  <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
+                </div>
+                <a
+                  href="#quote"
+                  className={`mt-10 inline-flex items-center gap-2 text-sm underline underline-offset-4 transition-opacity ${
+                    featured
+                      ? "text-primary opacity-100 hover:opacity-80"
+                      : "text-foreground opacity-80 hover:opacity-100"
+                  }`}
+                >
+                  {t.pricing.request} <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+                </a>
+              </div>
+            );
+          })}
         </div>
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">

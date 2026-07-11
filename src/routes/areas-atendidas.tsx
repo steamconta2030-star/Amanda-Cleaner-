@@ -212,36 +212,13 @@ function AreasPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-secondary/30">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-24">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Not sure if we cover you?
-          </p>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-4xl">
-            Just <em className="italic text-primary">ask Amanda</em>.
-          </h2>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            If your neighborhood isn't listed, send a quick WhatsApp — she'll tell you honestly
-            whether she can take on your home this month.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a
-              href={WHATSAPP}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full bg-primary px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-primary-foreground hover:opacity-90"
-            >
-              WhatsApp Amanda
-            </a>
-            <Link
-              to="/"
-              className="inline-flex items-center rounded-full border border-border px-6 py-2.5 text-xs uppercase tracking-[0.2em] hover:bg-muted"
-            >
-              Get instant estimate
-            </Link>
-          </div>
-        </div>
-      </section>
+      <SubPageCta
+        eyebrow="Not sure if we cover you?"
+        title={<>Just <em className="italic text-primary">ask Amanda</em>.</>}
+        description="If your neighborhood isn't listed, send a quick WhatsApp — she'll tell you honestly whether she can take on your home this month."
+        primary={{ label: "WhatsApp Amanda", href: WHATSAPP, external: true }}
+        secondary={{ label: "Get instant estimate", to: "/" }}
+      />
     </main>
   );
 }

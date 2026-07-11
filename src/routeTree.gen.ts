@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicosRouteImport } from './routes/servicos'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
+import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AreasAtendidasRouteImport } from './routes/areas-atendidas'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -32,6 +33,11 @@ const ServicosRoute = ServicosRouteImport.update({
 const ObrigadoRoute = ObrigadoRouteImport.update({
   id: '/obrigado',
   path: '/obrigado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
   '/obrigado': typeof ObrigadoRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
   '/obrigado': typeof ObrigadoRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -90,6 +98,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/areas-atendidas': typeof AreasAtendidasRoute
   '/auth': typeof AuthRoute
+  '/contato': typeof ContatoRoute
   '/obrigado': typeof ObrigadoRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
     | '/'
     | '/areas-atendidas'
     | '/auth'
+    | '/contato'
     | '/obrigado'
     | '/servicos'
     | '/sitemap.xml'
@@ -112,6 +122,7 @@ export interface FileRouteTypes {
     | '/'
     | '/areas-atendidas'
     | '/auth'
+    | '/contato'
     | '/obrigado'
     | '/servicos'
     | '/sitemap.xml'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/areas-atendidas'
     | '/auth'
+    | '/contato'
     | '/obrigado'
     | '/servicos'
     | '/sitemap.xml'
@@ -135,6 +147,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AreasAtendidasRoute: typeof AreasAtendidasRoute
   AuthRoute: typeof AuthRoute
+  ContatoRoute: typeof ContatoRoute
   ObrigadoRoute: typeof ObrigadoRoute
   ServicosRoute: typeof ServicosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/obrigado'
       fullPath: '/obrigado'
       preLoaderRoute: typeof ObrigadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AreasAtendidasRoute: AreasAtendidasRoute,
   AuthRoute: AuthRoute,
+  ContatoRoute: ContatoRoute,
   ObrigadoRoute: ObrigadoRoute,
   ServicosRoute: ServicosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

@@ -41,7 +41,7 @@ export function Services() {
             to="/servicos"
             className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-foreground underline underline-offset-4 hover:text-primary"
           >
-            See all services <span aria-hidden>→</span>
+            {t.common.seeAllServices} <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

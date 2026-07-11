@@ -144,6 +144,12 @@ export const dict = {
     stickyCta: { quote: "Quote", wa: "WhatsApp" },
     footer: { line: "Personalized home cleaning · Florida" },
     lang: { switchTo: "PT", label: "Português" },
+    common: {
+      exploreServices: "Explore services",
+      seeAllServices: "See all services",
+      seeAllQuestions: "See all questions",
+      readMore: "Read more",
+    },
   },
   pt: {
     nav: {
@@ -276,6 +282,12 @@ export const dict = {
     stickyCta: { quote: "Orçamento", wa: "WhatsApp" },
     footer: { line: "Limpeza residencial personalizada · Flórida" },
     lang: { switchTo: "EN", label: "English" },
+    common: {
+      exploreServices: "Ver serviços",
+      seeAllServices: "Ver todos os serviços",
+      seeAllQuestions: "Ver todas as perguntas",
+      readMore: "Ler mais",
+    },
   },
 };
 

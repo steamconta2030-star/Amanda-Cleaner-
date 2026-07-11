@@ -499,14 +499,7 @@ const dict = {
       of: "de",
       dialogHint: "Use as setas esquerda e direita para navegar. Pressione Esc para fechar.",
     },
-    testimonials: {
-      tag: "O que dizem",
-      title1: "A confiança de",
-      title2: "famílias",
-      title3: "pela Flórida.",
-      items: [] as { name: string; role: string; quote: string; rating: number }[],
-
-    },
+    
     faq: {
       tag: "Perguntas frequentes",
       title1: "Bom",

@@ -269,7 +269,7 @@ const dict = {
       waLine: "The easiest way.",
       waBtn: "Message on WhatsApp",
       area: "Service area",
-      areaLine: "Based at 6429 Wilshire Dr, Tampa, FL 33615 — serving Tampa and surrounding areas.",
+      areaLine: "Based in Tampa, FL — serving Westchase, Carrollwood, Citrus Park, Town 'N' Country, Odessa, Lutz, Brandon and surrounding areas. Not happy with something? I come back within 48 hours to make it right.",
     },
     gallery: {
       tag: "Before & After",

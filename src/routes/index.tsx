@@ -298,7 +298,7 @@ const dict = {
       title1: "Trusted by",
       title2: "families",
       title3: "across Florida.",
-      items: [],
+      items: [] as { name: string; role: string; quote: string; rating: number }[],
 
     },
     faq: {

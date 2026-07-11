@@ -749,20 +749,6 @@ function About() {
             <p>{t.about.p2}</p>
             <p>{t.about.p3}</p>
           </div>
-          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-foreground/15 pt-8 text-sm">
-            <div>
-              <div className="font-serif text-3xl">{t.about.stat1a}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat1b}</div>
-            </div>
-            <div>
-              <div className="font-serif text-3xl">{t.about.stat2a}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat2b}</div>
-            </div>
-            <div>
-              <div className="font-serif text-3xl">{t.about.stat3a}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">{t.about.stat3b}</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

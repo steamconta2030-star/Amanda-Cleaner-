@@ -133,6 +133,8 @@ const dict = {
       sub: "A Brazilian standard of care, brought home to Florida — cleaned slowly, with method, and treated like my own.",
       book: "Book on WhatsApp",
       see: "See services",
+      provenanceLabel: "Provenance",
+      provenance: "Tampa, Florida",
     },
     concept: {
       tag: "My approach",

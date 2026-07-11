@@ -165,35 +165,13 @@ function FAQPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-secondary/30">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:py-24">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Still have a question?
-          </p>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-4xl">
-            Ask <em className="italic text-primary">Amanda</em> directly.
-          </h2>
-          <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-            WhatsApp is the fastest — she replies personally, usually within a few hours.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full bg-primary px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-primary-foreground hover:opacity-90"
-            >
-              Message on WhatsApp
-            </a>
-            <Link
-              to="/contato"
-              className="inline-flex items-center rounded-full border border-border px-6 py-2.5 text-xs uppercase tracking-[0.2em] hover:bg-muted"
-            >
-              All contact options
-            </Link>
-          </div>
-        </div>
-      </section>
+      <SubPageCta
+        eyebrow="Still have a question?"
+        title={<>Ask <em className="italic text-primary">Amanda</em> directly.</>}
+        description="WhatsApp is the fastest — she replies personally, usually within a few hours."
+        primary={{ label: "Message on WhatsApp", href: WHATSAPP_URL, external: true }}
+        secondary={{ label: "All contact options", to: "/contato" }}
+      />
     </main>
   );
 }

@@ -70,6 +70,7 @@ export const dict = {
       sub: "Every home is different. I prefer to visit and give you an exact quote, but online estimates are welcome too.",
       startingAt: "starting at",
       request: "Request a quote",
+      popular: "Most requested",
       note: "Post-construction and commercial cleanings are quoted individually — message for details.",
       plans: [
         { name: "Regular Cleaning", price: "$150", desc: "2 bedrooms · 2 bathrooms · standard residential cleaning." },

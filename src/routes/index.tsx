@@ -104,6 +104,27 @@ const INSTAGRAM_URL = "https://www.instagram.com/amandas_elite_services_";
 const waLink = (text: string) =>
   `/obrigado?msg=${encodeURIComponent(text)}`;
 
+function Index() {
+  return (
+    <LangProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <Nav />
+        <Hero />
+        <About />
+        <Services />
+        <Pricing />
+        <Gallery />
+        <QuoteForm />
+        <FAQ />
+        <Contact />
+        <Footer />
+        <MobileCta />
+        <ChatWidget />
+      </div>
+    </LangProvider>
+  );
+}
+
 
 function Nav() {
   const { t } = useT();

@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { POSTS } from "@/lib/blog-posts";
+
+
 
 const BASE_URL = "https://amanda-cleaning.lovable.app";
 

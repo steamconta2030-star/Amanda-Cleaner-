@@ -20,6 +20,7 @@ export type Database = {
           created_at: string
           id: string
           is_lead: boolean
+          lead_data: Json | null
           message_count: number
           quoted_value: number | null
           session_id: string
@@ -33,6 +34,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_lead?: boolean
+          lead_data?: Json | null
           message_count?: number
           quoted_value?: number | null
           session_id: string
@@ -46,6 +48,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_lead?: boolean
+          lead_data?: Json | null
           message_count?: number
           quoted_value?: number | null
           session_id?: string

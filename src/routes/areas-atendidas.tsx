@@ -140,21 +140,8 @@ export const Route = createFileRoute("/areas-atendidas")({
 function AreasPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <Link to="/" className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground">
-            ← Amanda & Co.
-          </Link>
-          <a
-            href={WHATSAPP}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full border border-border px-4 py-1.5 text-xs uppercase tracking-[0.2em] hover:bg-muted sm:inline-block"
-          >
-            WhatsApp
-          </a>
-        </div>
-      </header>
+      <SubPageHeader />
+
 
       <section className="border-b border-border bg-secondary/30">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">

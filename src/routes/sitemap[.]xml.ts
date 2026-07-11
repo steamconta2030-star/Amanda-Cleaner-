@@ -9,6 +9,7 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/servicos", changefreq: "monthly", priority: "0.9" },
           { path: "/obrigado", changefreq: "yearly", priority: "0.3" },
         ];
         const urls = entries.map(

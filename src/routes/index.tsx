@@ -474,7 +474,7 @@ const dict = {
       waLine: "O jeito mais fácil.",
       waBtn: "Enviar mensagem no WhatsApp",
       area: "Área de atendimento",
-      areaLine: "Baseada em 6429 Wilshire Dr, Tampa, FL 33615 — atendemos Tampa e região.",
+      areaLine: "Baseada em Tampa, FL — atendendo Westchase, Carrollwood, Citrus Park, Town 'N' Country, Odessa, Lutz, Brandon e regiões próximas. Não gostou de algo? Eu volto em até 48h pra ajustar.",
     },
     gallery: {
       tag: "Antes e Depois",

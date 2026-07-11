@@ -133,6 +133,8 @@ const dict = {
       sub: "A Brazilian standard of care, brought home to Florida — cleaned slowly, with method, and treated like my own.",
       book: "Book on WhatsApp",
       see: "See services",
+      provenanceLabel: "Provenance",
+      provenance: "Tampa, Florida",
     },
     concept: {
       tag: "My approach",
@@ -335,6 +337,8 @@ const dict = {
       sub: "O capricho brasileiro trazido pra sua casa na Flórida — com calma, método e o carinho de quem trata a sua casa como a própria.",
       book: "Agendar pelo WhatsApp",
       see: "Ver serviços",
+      provenanceLabel: "Origem",
+      provenance: "Tampa, Flórida",
     },
     concept: {
       tag: "Minha abordagem",
@@ -608,26 +612,30 @@ function Nav() {
   return (
     <header className="absolute top-0 left-0 right-0 z-20">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 md:px-10 md:py-8">
-        <a href="#top" className="font-serif text-xl tracking-tight">
-          Amanda <span className="italic text-primary">&amp;</span> Co.
+        <a href="#top" className="flex items-baseline gap-3">
+          <span className="font-serif text-2xl italic tracking-tight">
+            Amanda <span className="text-primary">&amp;</span> Co.
+          </span>
+          <span className="mb-1 hidden items-center gap-1 sm:inline-flex" aria-hidden>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#009C3B]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
+          </span>
         </a>
-        <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-          <a href="#top" className="hover:text-foreground transition-colors">{t.nav.home}</a>
+        <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:flex">
           <a href="#about" className="hover:text-foreground transition-colors">{t.nav.about}</a>
           <a href="#servicos" className="hover:text-foreground transition-colors">{t.nav.services}</a>
           <a href="#pricing" className="hover:text-foreground transition-colors">{t.nav.pricing}</a>
           <a href="#gallery" className="hover:text-foreground transition-colors">{t.nav.gallery}</a>
           <a href="#quote" className="hover:text-foreground transition-colors">{t.nav.quote}</a>
-          <a href="#contact" className="hover:text-foreground transition-colors">{t.nav.contact}</a>
         </nav>
         <div className="flex items-center gap-4">
           <LangToggle />
-
           <a
             href={waLink("Hi Amanda!")}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-full border border-foreground/20 px-4 py-2 text-sm transition-colors hover:bg-foreground hover:text-background sm:inline-block"
+            className="hidden text-[11px] uppercase tracking-[0.2em] text-foreground transition-opacity hover:opacity-60 sm:inline-block"
           >
             {t.nav.contact}
           </a>
@@ -641,42 +649,33 @@ function Hero() {
   const { t } = useT();
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pt-32 pb-20 md:grid-cols-2 md:gap-16 md:px-10 md:pt-40 md:pb-32">
-        <div className="flex flex-col justify-center">
-          <span className="mb-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pt-24 pb-24 md:grid-cols-12 md:gap-16 md:px-10 md:pt-32 md:pb-40">
+        <div className="flex flex-col justify-start md:col-span-7">
+          <span className="mb-10 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
             {t.hero.tag}
           </span>
-          <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
-            {t.hero.title1} <em className="italic text-primary">{t.hero.title2}</em>
+          <h1
+            className="font-serif italic leading-[0.85] tracking-tight text-foreground"
+            style={{ fontSize: "clamp(3.5rem, 9vw, 7.5rem)" }}
+          >
+            {t.hero.title1} <em className="not-italic">{t.hero.title2}</em>
           </h1>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-            {t.hero.sub}
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-14 flex flex-col items-start gap-10 md:flex-row md:items-start md:gap-12">
             <a
               href={waLink(t.quote.msgTitle)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center whitespace-nowrap bg-foreground px-10 py-4 text-[10px] font-medium uppercase tracking-[0.25em] text-background transition-opacity hover:opacity-85"
             >
               {t.hero.book}
-              <span aria-hidden>→</span>
             </a>
-            <a href="#servicos" className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
-              {t.hero.see}
-            </a>
-          </div>
-          <div className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5" aria-hidden>
-              <span className="h-1.5 w-1.5 rounded-full bg-[#009C3B]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
-            </span>
-            <span>Brazilian-owned · Licensed &amp; insured · 48h re-clean guarantee</span>
+            <p className="max-w-xs text-sm font-light leading-relaxed text-muted-foreground">
+              {t.hero.sub}
+            </p>
           </div>
         </div>
-        <div className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+        <div className="relative md:col-span-5">
+          <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary">
             <img
               src={heroImage.url}
               alt="Calm, sunlit interior"
@@ -685,11 +684,21 @@ function Hero() {
               className="h-full w-full object-cover"
             />
           </div>
+          <div className="absolute -bottom-6 -left-4 border border-border bg-background p-6 md:-bottom-10 md:-left-10 md:p-10">
+            <div className="mb-3 text-[9px] uppercase tracking-[0.4em] text-muted-foreground">
+              {t.hero.provenanceLabel}
+            </div>
+            <p className="font-serif text-xl italic leading-none md:text-2xl">
+              {t.hero.provenance}
+            </p>
+            <div className="mt-4 h-px w-8 bg-[#009C3B]" />
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
 
 function Concept() {
   const { t } = useT();
@@ -719,35 +728,57 @@ function Concept() {
 function About() {
   const { t } = useT();
   return (
-    <section id="about" className="border-t border-border">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-12 md:gap-16 md:px-10 md:py-32">
-        <div className="md:col-span-5">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+    <section id="about" className="border-t border-border bg-secondary/30">
+      <div className="mx-auto max-w-6xl px-6 py-24 md:px-10 md:py-40">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-5">
+            <span className="mb-6 inline-flex items-center gap-1.5" aria-hidden>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#009C3B]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#FFDF00]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#002776]" />
+            </span>
+            <div className="mb-8 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+              {t.about.tag}
+            </div>
+            <h2 className="font-serif text-4xl italic leading-[1.05] tracking-tight md:text-5xl">
+              {t.about.title1} <em className="not-italic">{t.about.title2}</em>{t.about.title3}
+            </h2>
+          </div>
+          <div className="md:col-span-7 md:col-start-6">
+            <div className="space-y-6 text-base font-light leading-relaxed text-foreground/80">
+              <p>{t.about.p1}</p>
+              <p>{t.about.p2}</p>
+              <p>{t.about.p3}</p>
+            </div>
+            <div className="mt-10 flex items-center gap-4">
+              <a
+                href="#servicos"
+                className="text-[10px] font-medium uppercase tracking-[0.25em] text-foreground"
+              >
+                {t.about.tag === "About" ? "Explore services" : "Ver serviços"}
+              </a>
+              <div className="h-px w-12 bg-foreground transition-all duration-500 hover:w-20" />
+            </div>
+          </div>
+        </div>
+        <div className="mt-16 md:mt-24">
+          <div className="relative aspect-[16/9] w-full overflow-hidden bg-secondary md:aspect-[21/9]">
             <img
               src={aboutImage.url}
               alt={t.about.alt}
-              width={1200}
-              height={1500}
+              width={1600}
+              height={900}
               loading="lazy"
               className="h-full w-full object-cover"
             />
-          </div>
-        </div>
-        <div className="flex flex-col justify-center md:col-span-7">
-          <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">{t.about.tag}</span>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            {t.about.title1} <em className="italic text-primary">{t.about.title2}</em>{t.about.title3}
-          </h2>
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
-            <p>{t.about.p1}</p>
-            <p>{t.about.p2}</p>
-            <p>{t.about.p3}</p>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+
 
 function Services() {
   const { t } = useT();

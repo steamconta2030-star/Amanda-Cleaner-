@@ -17,11 +17,7 @@ export function About() {
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
-            </div>
-            <div
-              className="pointer-events-none absolute -bottom-8 -right-8 hidden h-32 w-32 border border-primary/30 md:block"
-              aria-hidden
-            />
+          </div>
           </div>
           <div className="flex flex-col justify-center md:col-span-6 md:col-start-7">
             <span className="mb-8 block text-[10px] uppercase tracking-[0.5em] text-primary">

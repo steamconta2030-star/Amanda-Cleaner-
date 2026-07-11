@@ -17,17 +17,13 @@ import { ChatWidget } from "@/components/ChatWidget";
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 
 const FAQ_ITEMS_EN = [
-  { q: "What areas do you serve?", a: "Amanda & Co. is based in Tampa, Florida and serves Tampa and surrounding neighborhoods. Message us to confirm your address is within range." },
-  { q: "Are the cleaning products safe for pets and children?", a: "Yes. We use gentle, effective products that smell nice and are safe for family and pets. If you have specific preferences, let Amanda know on WhatsApp." },
   { q: "How do I get an exact price?", a: "Send a quick message on WhatsApp with your address, number of bedrooms and bathrooms and the type of cleaning. Amanda replies personally with a quote." },
-  { q: "How does booking work?", a: "Pick a preferred day, go over the details with Amanda (space, priorities, preferences) on WhatsApp, and she handles everything from there." },
+  { q: "Are the cleaning products safe for pets and children?", a: "Yes. We use gentle, effective products that smell nice and are safe for family and pets. If you have specific preferences, let Amanda know on WhatsApp." },
 ];
 
 const FAQ_ITEMS_PT = [
-  { q: "Quais regiões vocês atendem?", a: "A Amanda & Co. fica em Tampa, Flórida, e atende Tampa e bairros da região. Mande uma mensagem para confirmar se o seu endereço está dentro da área." },
-  { q: "Os produtos são seguros para pets e crianças?", a: "Sim. Usamos produtos suaves, eficazes, com aroma agradável e seguros pra família e pets. Se você tem preferência específica, é só falar com a Amanda pelo WhatsApp." },
   { q: "Como consigo um preço exato?", a: "Envie uma mensagem rápida pelo WhatsApp com endereço, quantidade de quartos e banheiros e o tipo de limpeza. A Amanda responde pessoalmente com o orçamento." },
-  { q: "Como funciona o agendamento?", a: "Você escolhe o dia, combina os detalhes com a Amanda (espaço, prioridades, preferências) pelo WhatsApp, e ela cuida do resto." },
+  { q: "Os produtos são seguros para pets e crianças?", a: "Sim. Usamos produtos suaves, eficazes, com aroma agradável e seguros pra família e pets. Se você tem preferência específica, é só falar com a Amanda pelo WhatsApp." },
 ];
 
 export const Route = createFileRoute("/")({

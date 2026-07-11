@@ -21,15 +21,15 @@ export function Hero() {
                 <em className="not-italic">{t.hero.title2}</em>
               </span>
             </h1>
-            <div className="flex flex-col items-start gap-10 md:flex-row md:gap-12">
-              <p className="max-w-xs text-lg font-light leading-relaxed text-muted-foreground">
+            <div className="flex max-w-xl flex-col items-start gap-10 md:flex-row md:gap-12">
+              <p className="max-w-xs text-base font-light leading-relaxed text-muted-foreground">
                 {t.hero.sub}
               </p>
               <a
                 href={waLink(t.quote.msgTitle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-6 whitespace-nowrap bg-foreground px-10 py-5 text-[10px] font-medium uppercase tracking-[0.25em] text-background transition-colors duration-500 hover:bg-primary"
+                className="group inline-flex items-center gap-5 whitespace-nowrap bg-foreground px-8 py-4 text-[10px] font-medium uppercase tracking-[0.25em] text-background transition-colors duration-500 hover:bg-primary"
               >
                 {t.hero.book}
                 <svg

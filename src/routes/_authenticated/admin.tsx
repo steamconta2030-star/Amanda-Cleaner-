@@ -15,6 +15,20 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
+type LeadData = {
+  name?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  service?: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  sqft?: number;
+  has_pets?: boolean;
+  preferred_date?: string;
+  notes?: string;
+};
+
 type Conv = {
   id: string;
   session_id: string;
@@ -26,6 +40,7 @@ type Conv = {
   status: ConversationStatus;
   admin_notes: string | null;
   quoted_value: number | null;
+  lead_data: LeadData | null;
 };
 
 type Msg = {
@@ -591,6 +606,22 @@ function AdminPage() {
                     </div>
                   )}
                 </div>
+
+                {selected && selected.lead_data && Object.keys(selected.lead_data).length > 0 && (
+                  <div className="border-b border-border bg-primary/5 px-4 py-3">
+                    <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+                      📇 Dados capturados pelo chat
+                    </p>
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs md:grid-cols-3">
+                      {Object.entries(selected.lead_data).map(([k, v]) => (
+                        <div key={k}>
+                          <span className="text-muted-foreground">{k}:</span>{" "}
+                          <span className="font-medium">{String(v)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {selected && (
                   <div className="border-b border-border px-4 py-3 space-y-3">

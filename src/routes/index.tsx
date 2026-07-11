@@ -628,12 +628,7 @@ function Nav() {
         </nav>
         <div className="flex items-center gap-4">
           <LangToggle />
-          <a
-            href="/auth"
-            className="inline-flex items-center rounded-full border border-foreground/25 px-3 py-2 text-xs uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background md:hidden"
-          >
-            Staff
-          </a>
+
           <a
             href={waLink("Hi Amanda!")}
             target="_blank"

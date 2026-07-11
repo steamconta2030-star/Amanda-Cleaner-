@@ -121,7 +121,6 @@ const dict = {
       about: "About",
       services: "Services",
       pricing: "Pricing",
-      process: "How it works",
       gallery: "Gallery",
       quote: "Get a quote",
       contact: "Contact",
@@ -136,26 +135,7 @@ const dict = {
       provenanceLabel: "Provenance",
       provenance: "Tampa, Florida",
     },
-    concept: {
-      tag: "My approach",
-      title1: "It's not just cleaning. It's",
-      title2: "capricho",
-      title3: ".",
-      items: [
-        {
-          title: "Capricho — the Brazilian way",
-          desc: "In Brazil we grow up cleaning with capricho: slowly, thoroughly, corner by corner. It's the standard I bring to every home in Tampa.",
-        },
-        {
-          title: "Products that respect your home",
-          desc: "Gentle, effective formulas with a soft scent. Safe for family, pets and the surfaces you love.",
-        },
-        {
-          title: "One person you can trust",
-          desc: "No rotating crews, no strangers walking through your door. Just me — the same face, every visit.",
-        },
-      ],
-    },
+    
     about: {
       tag: "Meet Amanda",
       title1: "Brazilian care, right here in",
@@ -227,17 +207,7 @@ const dict = {
         },
       ],
     },
-    process: {
-      tag: "How it works",
-      title: "Simple, from start to finish.",
-      steps: [
-        { n: "1", title: "Pick a day", desc: "Send a message with the date that works best for you." },
-        { n: "2", title: "We go over the details", desc: "Space, priorities and preferences — all tailored to you." },
-        { n: "3", title: "Relax", desc: "While Amanda takes care of everything, quietly and with care." },
-      ],
-      cta: "Ready to come home to a fresh space?",
-      book: "Book on WhatsApp",
-    },
+    
     quote: {
       tag: "Get a quote",
       title1: "Tell me about your",
@@ -295,14 +265,7 @@ const dict = {
       of: "of",
       dialogHint: "Use left and right arrow keys to navigate. Press Escape to close.",
     },
-    testimonials: {
-      tag: "Kind words",
-      title1: "Trusted by",
-      title2: "families",
-      title3: "across Florida.",
-      items: [] as { name: string; role: string; quote: string; rating: number }[],
-
-    },
+    
     faq: {
       tag: "FAQ",
       title1: "Good to",
@@ -325,7 +288,6 @@ const dict = {
       about: "Sobre",
       services: "Serviços",
       pricing: "Preços",
-      process: "Como funciona",
       gallery: "Galeria",
       quote: "Pedir orçamento",
       contact: "Contato",
@@ -340,26 +302,7 @@ const dict = {
       provenanceLabel: "Origem",
       provenance: "Tampa, Flórida",
     },
-    concept: {
-      tag: "Minha abordagem",
-      title1: "Não é só limpeza. É",
-      title2: "capricho",
-      title3: ".",
-      items: [
-        {
-          title: "Capricho de verdade",
-          desc: "A gente brasileira cresce limpando com capricho: com calma, canto por canto, sem pressa. É esse padrão que eu trago pra cada casa em Tampa.",
-        },
-        {
-          title: "Produtos que respeitam a sua casa",
-          desc: "Fórmulas suaves, eficazes e com aroma leve. Seguras pra família, pets e pras superfícies que você ama.",
-        },
-        {
-          title: "Uma pessoa de confiança",
-          desc: "Sem equipes rotativas, sem estranho entrando na sua casa. Sou eu — a mesma pessoa, em toda visita.",
-        },
-      ],
-    },
+    
     about: {
       tag: "Conheça a Amanda",
       title1: "Cuidado brasileiro, aqui em",
@@ -431,17 +374,7 @@ const dict = {
         },
       ],
     },
-    process: {
-      tag: "Como funciona",
-      title: "Simples, do início ao fim.",
-      steps: [
-        { n: "1", title: "Escolha o dia", desc: "Envie uma mensagem com a data que funcionar melhor pra você." },
-        { n: "2", title: "Combinamos os detalhes", desc: "Espaço, prioridades e preferências — tudo personalizado." },
-        { n: "3", title: "Relaxe", desc: "Enquanto a Amanda cuida de tudo, com discrição e carinho." },
-      ],
-      cta: "Pronta pra voltar pra uma casa fresca?",
-      book: "Agendar pelo WhatsApp",
-    },
+    
     quote: {
       tag: "Pedir orçamento",
       title1: "Me conte sobre a sua",

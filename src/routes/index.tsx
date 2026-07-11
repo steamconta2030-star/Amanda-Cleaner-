@@ -298,11 +298,8 @@ const dict = {
       title1: "Trusted by",
       title2: "families",
       title3: "across Florida.",
-      items: [
-        { name: "Ashley R.", role: "Tampa", quote: "Amanda is meticulous. My house has never felt this calm — every corner truly cared for.", rating: 5 },
-        { name: "Marina L.", role: "St. Petersburg", quote: "I found someone I actually trust with my home. She's kind, punctual and the results are beautiful.", rating: 5 },
-        { name: "Daniel S.", role: "Brandon", quote: "Best move-out cleaning I've ever booked. Got my full deposit back — landlord was impressed.", rating: 5 },
-      ],
+      items: [],
+
     },
     faq: {
       tag: "FAQ",

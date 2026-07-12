@@ -382,3 +382,29 @@ export const amIAdmin = createServerFn({ method: "GET" })
     });
     return !!data;
   });
+
+export type AdminLead = {
+  id: string;
+  session_token: string;
+  audience: string | null;
+  lang: string | null;
+  messages: JsonValue[];
+  updated_at: string;
+  user_id: string;
+};
+
+export const adminListLeads = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<AdminLead[]> => {
+    const { supabase, userId } = context;
+    await assertAdmin(supabase, userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("chat_sessions")
+      .select("id,session_token,audience,lang,messages,updated_at,user_id")
+      .order("updated_at", { ascending: false })
+      .limit(100);
+    if (error || !data) return [];
+    return data as AdminLead[];
+  });
+

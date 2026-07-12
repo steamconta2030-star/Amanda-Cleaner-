@@ -13,6 +13,7 @@ import { Route as ThanksRouteImport } from './routes/thanks'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CleanersRouteImport } from './routes/cleaners'
@@ -50,6 +51,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -152,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/cleaners': typeof CleanersRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -175,6 +182,7 @@ export interface FileRoutesByTo {
   '/cleaners': typeof CleanersRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -200,6 +208,7 @@ export interface FileRoutesById {
   '/cleaners': typeof CleanersRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/pricing': typeof PricingRoute
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -225,6 +234,7 @@ export interface FileRouteTypes {
     | '/cleaners'
     | '/contact'
     | '/faq'
+    | '/pricing'
     | '/reviews'
     | '/services'
     | '/sitemap.xml'
@@ -248,6 +258,7 @@ export interface FileRouteTypes {
     | '/cleaners'
     | '/contact'
     | '/faq'
+    | '/pricing'
     | '/reviews'
     | '/services'
     | '/sitemap.xml'
@@ -272,6 +283,7 @@ export interface FileRouteTypes {
     | '/cleaners'
     | '/contact'
     | '/faq'
+    | '/pricing'
     | '/reviews'
     | '/services'
     | '/sitemap.xml'
@@ -297,6 +309,7 @@ export interface RootRouteChildren {
   CleanersRoute: typeof CleanersRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  PricingRoute: typeof PricingRoute
   ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -332,6 +345,13 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -526,6 +546,7 @@ const rootRouteChildren: RootRouteChildren = {
   CleanersRoute: CleanersRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  PricingRoute: PricingRoute,
   ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

@@ -35,7 +35,7 @@ async function loadCatalog(): Promise<Service[]> {
   return (data ?? []) as Service[];
 }
 
-function buildSystem(catalog: Service[], audience?: string) {
+function buildSystem(catalog: Service[], audience?: string, lang?: string) {
   const catalogText = catalog
     .map(
       (s) =>
@@ -43,7 +43,14 @@ function buildSystem(catalog: Service[], audience?: string) {
     )
     .join("\n");
 
-  return `You are Tidly, an AI concierge for a boutique cleaning service in Tampa, Florida (Hillsborough County). Warm, brief, conversational, one question at a time. Mirror the visitor's language (English / Español / Português).
+  const langHint =
+    lang === "pt"
+      ? "Reply in Brazilian Portuguese unless the user writes in another language."
+      : lang === "es"
+        ? "Reply in Spanish unless the user writes in another language."
+        : "Reply in English unless the user writes in another language.";
+
+  return `You are Tidly, an AI concierge for a boutique cleaning service in Tampa, Florida (Hillsborough County). Warm, brief, conversational, one question at a time. ${langHint}
 
 ${audience ? `The visitor started from the "${audience}" flow.` : ""}
 
@@ -52,7 +59,7 @@ ${catalogText}
 
 FLOW (adapt, don't robot-march):
 1. Confirm audience: home / rental / move.
-2. Bedrooms, bathrooms, approx sqft.
+2. Bedrooms, bathrooms, approx sqft. If the visitor sends photos, use them to estimate size, style, and mess level.
 3. Neighborhood / zip in Tampa Bay.
 4. Cadence: one-time / weekly / bi-weekly / monthly.
 5. Preferred day/time window.
@@ -122,6 +129,7 @@ export const Route = createFileRoute("/api/chat")({
         const body = (await request.json()) as {
           messages?: unknown;
           audience?: string;
+          lang?: string;
         };
         if (!Array.isArray(body.messages)) {
           return new Response("Messages are required", { status: 400 });
@@ -136,7 +144,7 @@ export const Route = createFileRoute("/api/chat")({
 
         const result = streamText({
           model,
-          system: buildSystem(catalog, body.audience),
+          system: buildSystem(catalog, body.audience, body.lang),
           messages: await convertToModelMessages(body.messages as UIMessage[]),
           tools: {
             estimate_quote: estimateQuoteTool,

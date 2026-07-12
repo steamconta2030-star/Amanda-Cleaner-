@@ -147,12 +147,23 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <FooterLazy />
       <InstallPromptLazy />
     </QueryClientProvider>
   );
 }
 
 import { InstallPrompt } from "@/components/tidly/InstallPrompt";
+import { Footer } from "@/components/tidly/Footer";
+function InstallPromptLazy() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <InstallPrompt />;
+}
+function FooterLazy() {
+  return <Footer />;
+}
 function InstallPromptLazy() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);

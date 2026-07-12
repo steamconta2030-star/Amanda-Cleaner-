@@ -17,6 +17,12 @@ import {
   adminSetCleanerPublished,
   type AdminCleaner,
 } from "@/lib/cleaners.functions";
+import {
+  adminListApplications,
+  adminApproveApplication,
+  adminRejectApplication,
+  type CleanerApplication,
+} from "@/lib/marketplace.functions";
 
 
 export const Route = createFileRoute("/_authenticated/admin")({

@@ -43,7 +43,9 @@ function CleanerDashboard() {
     queryFn: () => checkFn(),
   });
 
-  const [tab, setTab] = useState<"open" | "mine" | "profile">("open");
+  const [tab, setTab] = useState<"open" | "mine" | "schedule" | "profile">(
+    "open",
+  );
 
   if (checking) {
     return (
@@ -63,15 +65,15 @@ function CleanerDashboard() {
         <section className="mx-auto max-w-2xl px-5 py-16">
           <h1 className="text-2xl font-semibold">Not a cleaner yet</h1>
           <p className="mt-3 text-muted-foreground">
-            This area is for cleaners in the Tidly network. If Amanda invited
-            you, ask her to add your email — otherwise, reach out to join.
+            This area is for cleaners in the Tidly network. Apply below and
+            Amanda will review your profile.
           </p>
-          <a
-            href="mailto:hello@amandacleaning.com?subject=Join%20the%20Tidly%20network"
+          <Link
+            to="/become-a-cleaner"
             className="mt-6 inline-block rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
             Apply to the network
-          </a>
+          </Link>
         </section>
       </div>
     );
@@ -88,12 +90,15 @@ function CleanerDashboard() {
           Your Tidly workshop.
         </h1>
 
-        <div className="mt-8 inline-flex rounded-full border border-border bg-card p-1 text-sm">
+        <div className="mt-8 inline-flex flex-wrap gap-1 rounded-full border border-border bg-card p-1 text-sm">
           <TabBtn active={tab === "open"} onClick={() => setTab("open")}>
             Open jobs
           </TabBtn>
           <TabBtn active={tab === "mine"} onClick={() => setTab("mine")}>
             My jobs
+          </TabBtn>
+          <TabBtn active={tab === "schedule"} onClick={() => setTab("schedule")}>
+            Schedule
           </TabBtn>
           <TabBtn active={tab === "profile"} onClick={() => setTab("profile")}>
             Profile
@@ -103,6 +108,7 @@ function CleanerDashboard() {
         <div className="mt-8">
           {tab === "open" && <OpenJobsPanel />}
           {tab === "mine" && <MyJobsPanel />}
+          {tab === "schedule" && <SchedulePanel />}
           {tab === "profile" && <ProfilePanel />}
         </div>
       </section>

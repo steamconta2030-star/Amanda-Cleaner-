@@ -517,3 +517,17 @@ function Footer() {
     </footer>
   );
 }
+
+function NewsletterSection() {
+  return (
+    <section className="border-t border-border/60 bg-secondary/40">
+      <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
+        <NewsletterForm
+          source="home"
+          title="Cleaning tips for Tampa homes"
+          subtitle="One short email a month — cadence guides, host tips, and open slots. Unsubscribe anytime."
+        />
+      </div>
+    </section>
+  );
+}

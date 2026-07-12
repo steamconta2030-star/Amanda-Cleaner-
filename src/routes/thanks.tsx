@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/tidly/Nav";
+import { NewsletterForm } from "@/components/tidly/NewsletterForm";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 
@@ -98,6 +99,13 @@ function ThanksPage() {
               WhatsApp
             </a>
           </div>
+        </div>
+        <div className="mt-10">
+          <NewsletterForm
+            source="thanks"
+            title="Stay tidy between cleanings"
+            subtitle="Get one short cleaning tip a month, Tampa-specific."
+          />
         </div>
       </section>
     </div>

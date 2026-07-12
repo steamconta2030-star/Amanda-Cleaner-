@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Nav } from "@/components/tidly/Nav";
 import { importStrCalendar, type StrCheckout } from "@/lib/tidly.functions";
 
-export const Route = createFileRoute("/_authenticated/host")({
+export const Route = createFileRoute("/_authenticated/str")({
   component: HostPage,
   head: () => ({
     meta: [

@@ -11,6 +11,12 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import {
+  META_PIXEL_ID,
+  GA4_MEASUREMENT_ID,
+  metaPixelSnippet,
+  ga4Snippet,
+} from "../lib/analytics";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 
@@ -115,8 +121,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap",
       },
+      ...(GA4_MEASUREMENT_ID
+        ? [
+            {
+              rel: "preconnect" as const,
+              href: "https://www.googletagmanager.com",
+            },
+          ]
+        : []),
+    ],
+    scripts: [
+      ...(GA4_MEASUREMENT_ID
+        ? [
+            {
+              src: `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`,
+              async: true,
+            },
+            { children: ga4Snippet(GA4_MEASUREMENT_ID) },
+          ]
+        : []),
+      ...(META_PIXEL_ID ? [{ children: metaPixelSnippet(META_PIXEL_ID) }] : []),
     ],
   }),
+
 
   shellComponent: RootShell,
   component: RootComponent,

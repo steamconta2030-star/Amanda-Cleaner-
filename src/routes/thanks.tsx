@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Nav } from "@/components/tidly/Nav";
 import { NewsletterForm } from "@/components/tidly/NewsletterForm";
+import { trackConversion } from "@/lib/analytics";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 
@@ -28,6 +30,14 @@ export const Route = createFileRoute("/thanks")({
 function ThanksPage() {
   const shareUrl = `${SITE_URL}/`;
   const shareText = "Booked my Tampa cleaning by chat with Tidly — took a minute:";
+
+  useEffect(() => {
+    // Meta standard "Schedule" + GA4 "generate_lead"
+    trackConversion("Schedule", { content_name: "booking_confirmed" });
+    trackConversion("generate_lead", { value: 1, currency: "USD" });
+  }, []);
+
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">

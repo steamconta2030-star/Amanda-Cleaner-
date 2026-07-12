@@ -29,8 +29,11 @@ type Status = (typeof STATUSES)[number];
 function AdminPage() {
   const checkAdminFn = useServerFn(amIAdmin);
   const listFn = useServerFn(adminListBookings);
+  const leadsFn = useServerFn(adminListLeads);
   const updateFn = useServerFn(adminUpdateBookingStatus);
   const qc = useQueryClient();
+  const [q, setQ] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | Status>("all");
 
   const { data: isAdmin, isLoading: checking } = useQuery({
     queryKey: ["am-i-admin"],
@@ -43,10 +46,17 @@ function AdminPage() {
     enabled: !!isAdmin,
   });
 
+  const { data: leads = [] } = useQuery({
+    queryKey: ["admin-leads"],
+    queryFn: () => leadsFn(),
+    enabled: !!isAdmin,
+  });
+
   const mut = useMutation({
     mutationFn: (v: { id: string; status: Status }) => updateFn({ data: v }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-bookings"] }),
   });
+
 
   const rows: AdminBooking[] = data ?? [];
 

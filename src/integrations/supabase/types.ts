@@ -14,6 +14,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      booking_messages: {
+        Row: {
+          body: string
+          booking_id: string
+          created_at: string
+          id: string
+          read_at: string | null
+          sender_id: string
+          sender_role: string
+        }
+        Insert: {
+          body: string
+          booking_id: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          sender_id: string
+          sender_role: string
+        }
+        Update: {
+          body?: string
+          booking_id?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          sender_id?: string
+          sender_role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_messages_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookings: {
         Row: {
           address_line1: string
@@ -21,6 +59,9 @@ export type Database = {
           audience: string
           bathrooms: number | null
           bedrooms: number | null
+          cancel_reason: string | null
+          cancelled_at: string | null
+          cancelled_by: string | null
           chat_session_id: string | null
           city: string
           claimed_at: string | null
@@ -33,6 +74,7 @@ export type Database = {
           id: string
           notes: string | null
           price_cents: number
+          rescheduled_from_at: string | null
           scheduled_at: string
           service_slug: string
           square_feet: number | null
@@ -48,6 +90,9 @@ export type Database = {
           audience: string
           bathrooms?: number | null
           bedrooms?: number | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
           chat_session_id?: string | null
           city?: string
           claimed_at?: string | null
@@ -60,6 +105,7 @@ export type Database = {
           id?: string
           notes?: string | null
           price_cents: number
+          rescheduled_from_at?: string | null
           scheduled_at: string
           service_slug: string
           square_feet?: number | null
@@ -75,6 +121,9 @@ export type Database = {
           audience?: string
           bathrooms?: number | null
           bedrooms?: number | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
           chat_session_id?: string | null
           city?: string
           claimed_at?: string | null
@@ -87,6 +136,7 @@ export type Database = {
           id?: string
           notes?: string | null
           price_cents?: number
+          rescheduled_from_at?: string | null
           scheduled_at?: string
           service_slug?: string
           square_feet?: number | null
@@ -139,6 +189,99 @@ export type Database = {
           session_token?: string
           updated_at?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      cleaner_applications: {
+        Row: {
+          approved_user_id: string | null
+          audiences: string[] | null
+          bio: string | null
+          city: string | null
+          created_at: string
+          email: string
+          full_name: string
+          has_supplies: boolean | null
+          has_transport: boolean | null
+          id: string
+          languages: string[] | null
+          phone: string | null
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+          years_experience: number | null
+          zips: string[] | null
+        }
+        Insert: {
+          approved_user_id?: string | null
+          audiences?: string[] | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          has_supplies?: boolean | null
+          has_transport?: boolean | null
+          id?: string
+          languages?: string[] | null
+          phone?: string | null
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          years_experience?: number | null
+          zips?: string[] | null
+        }
+        Update: {
+          approved_user_id?: string | null
+          audiences?: string[] | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          has_supplies?: boolean | null
+          has_transport?: boolean | null
+          id?: string
+          languages?: string[] | null
+          phone?: string | null
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+          years_experience?: number | null
+          zips?: string[] | null
+        }
+        Relationships: []
+      }
+      cleaner_availability: {
+        Row: {
+          cleaner_id: string
+          created_at: string
+          end_time: string
+          id: string
+          start_time: string
+          weekday: number
+        }
+        Insert: {
+          cleaner_id: string
+          created_at?: string
+          end_time: string
+          id?: string
+          start_time: string
+          weekday: number
+        }
+        Update: {
+          cleaner_id?: string
+          created_at?: string
+          end_time?: string
+          id?: string
+          start_time?: string
+          weekday?: number
         }
         Relationships: []
       }
@@ -199,6 +342,33 @@ export type Database = {
           user_id?: string
           years_experience?: number | null
           zips?: string[]
+        }
+        Relationships: []
+      }
+      cleaner_time_off: {
+        Row: {
+          cleaner_id: string
+          created_at: string
+          ends_at: string
+          id: string
+          reason: string | null
+          starts_at: string
+        }
+        Insert: {
+          cleaner_id: string
+          created_at?: string
+          ends_at: string
+          id?: string
+          reason?: string | null
+          starts_at: string
+        }
+        Update: {
+          cleaner_id?: string
+          created_at?: string
+          ends_at?: string
+          id?: string
+          reason?: string | null
+          starts_at?: string
         }
         Relationships: []
       }
@@ -371,6 +541,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      approve_cleaner_application: {
+        Args: { _app_id: string; _user_id: string }
+        Returns: undefined
+      }
+      can_access_booking: { Args: { _booking_id: string }; Returns: boolean }
+      cancel_booking: {
+        Args: { _booking_id: string; _reason?: string }
+        Returns: undefined
+      }
       claim_job: {
         Args: { _booking_id: string }
         Returns: {

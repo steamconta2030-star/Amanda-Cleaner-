@@ -15,6 +15,16 @@ import {
   type OpenJob,
   type MyCleanerProfile,
 } from "@/lib/cleaners.functions";
+import {
+  listMyAvailability,
+  addAvailabilitySlot,
+  removeAvailabilitySlot,
+  listMyTimeOff,
+  addTimeOff,
+  removeTimeOff,
+  type AvailabilitySlot,
+  type TimeOff,
+} from "@/lib/marketplace.functions";
 
 export const Route = createFileRoute("/_authenticated/cleaner")({
   component: CleanerDashboard,

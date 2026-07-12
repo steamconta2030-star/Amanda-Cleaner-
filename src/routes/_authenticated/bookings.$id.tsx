@@ -258,6 +258,27 @@ function BookingDetailPage() {
             )}
           </div>
         </div>
+
+        {userId && booking.cleaner_id && (iAmCustomer || iAmCleaner) && (
+          <div className="mt-8">
+            <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+              Rating
+            </h2>
+            <div className="mt-4">
+              <RatingForm
+                bookingId={booking.id}
+                currentUserId={userId}
+                otherPartyId={iAmCustomer ? booking.cleaner_id : booking.user_id}
+                direction={iAmCustomer ? "customer_to_cleaner" : "cleaner_to_customer"}
+                bookingCompleted={booking.status === "completed"}
+              />
+            </div>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
       </section>
     </div>
   );

@@ -325,8 +325,157 @@ function AdminPage() {
         )}
       </section>
 
+      <ApplicationsAdmin isAdmin={!!isAdmin} />
       <CleanersAdmin isAdmin={!!isAdmin} />
     </div>
+  );
+}
+
+function ApplicationsAdmin({ isAdmin }: { isAdmin: boolean }) {
+  const listFn = useServerFn(adminListApplications);
+  const approveFn = useServerFn(adminApproveApplication);
+  const rejectFn = useServerFn(adminRejectApplication);
+  const qc = useQueryClient();
+
+  const { data: apps = [], isLoading } = useQuery({
+    queryKey: ["admin-applications"],
+    queryFn: () => listFn(),
+    enabled: isAdmin,
+  });
+
+  const approve = useMutation({
+    mutationFn: (v: { id: string; email: string }) => approveFn({ data: v }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["admin-applications"] });
+      qc.invalidateQueries({ queryKey: ["admin-cleaners"] });
+    },
+  });
+  const reject = useMutation({
+    mutationFn: (v: { id: string; notes: string | null }) =>
+      rejectFn({ data: v }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-applications"] }),
+  });
+
+  if (!isAdmin) return null;
+
+  const pending = apps.filter((a: CleanerApplication) => a.status === "pending");
+  const reviewed = apps.filter((a: CleanerApplication) => a.status !== "pending");
+
+  return (
+    <section className="mx-auto max-w-6xl px-5 pb-4 md:px-8">
+      <div className="mt-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          Applications
+        </p>
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+          Pending ({pending.length})
+        </h2>
+      </div>
+
+      {isLoading ? (
+        <p className="mt-6 text-sm text-muted-foreground">Loading…</p>
+      ) : pending.length === 0 ? (
+        <p className="mt-6 text-sm text-muted-foreground">
+          No pending applications.
+        </p>
+      ) : (
+        <ul className="mt-6 space-y-3">
+          {pending.map((a: CleanerApplication) => (
+            <li
+              key={a.id}
+              className="rounded-2xl border border-border bg-card p-5"
+            >
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-base font-semibold">{a.full_name}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {a.email}
+                    {a.phone && ` · ${a.phone}`}
+                    {a.city && ` · ${a.city}`}
+                  </p>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {a.years_experience != null && `${a.years_experience} yrs · `}
+                    {a.audiences.join(", ") || "no services"} ·{" "}
+                    {a.languages.join(", ") || "—"}
+                  </p>
+                  {a.zips.length > 0 && (
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      ZIPs: {a.zips.slice(0, 8).join(", ")}
+                    </p>
+                  )}
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Transport: {a.has_transport ? "✓" : "—"} · Supplies:{" "}
+                    {a.has_supplies ? "✓" : "—"}
+                  </p>
+                  {a.bio && (
+                    <p className="mt-3 rounded-xl bg-secondary/60 p-3 text-sm">
+                      {a.bio}
+                    </p>
+                  )}
+                </div>
+                <div className="flex shrink-0 flex-col gap-2">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      approve.mutate({ id: a.id, email: a.email })
+                    }
+                    disabled={approve.isPending}
+                    className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const notes = window.prompt("Rejection reason (optional):");
+                      reject.mutate({ id: a.id, notes: notes || null });
+                    }}
+                    disabled={reject.isPending}
+                    className="rounded-full border border-input px-4 py-1.5 text-xs font-medium hover:bg-destructive/10 hover:text-destructive"
+                  >
+                    Reject
+                  </button>
+                </div>
+              </div>
+              {approve.isError && (
+                <p className="mt-2 text-xs text-destructive">
+                  {(approve.error as Error).message}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {reviewed.length > 0 && (
+        <details className="mt-6 rounded-2xl border border-border bg-card p-4">
+          <summary className="cursor-pointer text-sm text-muted-foreground">
+            Reviewed ({reviewed.length})
+          </summary>
+          <ul className="mt-3 space-y-1 text-sm">
+            {reviewed.map((a: CleanerApplication) => (
+              <li
+                key={a.id}
+                className="flex items-center justify-between text-xs text-muted-foreground"
+              >
+                <span>
+                  {a.full_name} · {a.email}
+                </span>
+                <span
+                  className={`rounded-full px-2 py-0.5 uppercase tracking-widest ${
+                    a.status === "approved"
+                      ? "bg-primary/10 text-primary"
+                      : "bg-destructive/10 text-destructive"
+                  }`}
+                >
+                  {a.status}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </section>
   );
 }
 

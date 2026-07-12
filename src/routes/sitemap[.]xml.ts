@@ -51,6 +51,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { loc: `${SITE_URL}/cleaners`, changefreq: "weekly", priority: "0.8" },
           { loc: `${SITE_URL}/chat`, changefreq: "weekly", priority: "0.8" },
           { loc: `${SITE_URL}/host`, changefreq: "monthly", priority: "0.6" },
+          { loc: `${SITE_URL}/become-a-cleaner`, changefreq: "monthly", priority: "0.7" },
           { loc: `${SITE_URL}/auth`, changefreq: "monthly", priority: "0.4" },
         ];
         for (const slug of cleanerSlugs) {

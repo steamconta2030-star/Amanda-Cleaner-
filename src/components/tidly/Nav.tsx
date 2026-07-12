@@ -123,6 +123,14 @@ export function Nav() {
           >
             For hosts
           </Link>
+          {!isCleaner && (
+            <Link
+              to="/become-a-cleaner"
+              className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
+            >
+              Work with us
+            </Link>
+          )}
           {isCleaner && (
             <Link
               to="/cleaner"

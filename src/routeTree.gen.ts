@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CleanersRouteImport } from './routes/cleaners'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BecomeACleanerRouteImport } from './routes/become-a-cleaner'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -29,6 +30,7 @@ import { Route as AuthenticatedHostRouteImport } from './routes/_authenticated/h
 import { Route as AuthenticatedCleanerRouteImport } from './routes/_authenticated/cleaner'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedBookingsIdRouteImport } from './routes/_authenticated/bookings.$id'
 
 const ThanksRoute = ThanksRouteImport.update({
   id: '/thanks',
@@ -73,6 +75,11 @@ const ChatRoute = ChatRouteImport.update({
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BecomeACleanerRoute = BecomeACleanerRouteImport.update({
+  id: '/become-a-cleaner',
+  path: '/become-a-cleaner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -129,11 +136,17 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBookingsIdRoute = AuthenticatedBookingsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedBookingsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/become-a-cleaner': typeof BecomeACleanerRoute
   '/blog': typeof BlogRouteWithChildren
   '/chat': typeof ChatRoute
   '/cleaners': typeof CleanersRouteWithChildren
@@ -144,17 +157,19 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
-  '/bookings': typeof AuthenticatedBookingsRoute
+  '/bookings': typeof AuthenticatedBookingsRouteWithChildren
   '/cleaner': typeof AuthenticatedCleanerRoute
   '/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/cleaners/$slug': typeof CleanersSlugRoute
+  '/bookings/$id': typeof AuthenticatedBookingsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/become-a-cleaner': typeof BecomeACleanerRoute
   '/blog': typeof BlogRouteWithChildren
   '/chat': typeof ChatRoute
   '/cleaners': typeof CleanersRouteWithChildren
@@ -165,12 +180,13 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
-  '/bookings': typeof AuthenticatedBookingsRoute
+  '/bookings': typeof AuthenticatedBookingsRouteWithChildren
   '/cleaner': typeof AuthenticatedCleanerRoute
   '/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/cleaners/$slug': typeof CleanersSlugRoute
+  '/bookings/$id': typeof AuthenticatedBookingsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -178,6 +194,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/become-a-cleaner': typeof BecomeACleanerRoute
   '/blog': typeof BlogRouteWithChildren
   '/chat': typeof ChatRoute
   '/cleaners': typeof CleanersRouteWithChildren
@@ -188,12 +205,13 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thanks': typeof ThanksRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
-  '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
+  '/_authenticated/bookings': typeof AuthenticatedBookingsRouteWithChildren
   '/_authenticated/cleaner': typeof AuthenticatedCleanerRoute
   '/_authenticated/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/cleaners/$slug': typeof CleanersSlugRoute
+  '/_authenticated/bookings/$id': typeof AuthenticatedBookingsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -201,6 +219,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/become-a-cleaner'
     | '/blog'
     | '/chat'
     | '/cleaners'
@@ -217,11 +236,13 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/cleaners/$slug'
+    | '/bookings/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/auth'
+    | '/become-a-cleaner'
     | '/blog'
     | '/chat'
     | '/cleaners'
@@ -238,12 +259,14 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/cleaners/$slug'
+    | '/bookings/$id'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/become-a-cleaner'
     | '/blog'
     | '/chat'
     | '/cleaners'
@@ -260,6 +283,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/cleaners/$slug'
+    | '/_authenticated/bookings/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -267,6 +291,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  BecomeACleanerRoute: typeof BecomeACleanerRoute
   BlogRoute: typeof BlogRouteWithChildren
   ChatRoute: typeof ChatRoute
   CleanersRoute: typeof CleanersRouteWithChildren
@@ -342,6 +367,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/become-a-cleaner': {
+      id: '/become-a-cleaner'
+      path: '/become-a-cleaner'
+      fullPath: '/become-a-cleaner'
+      preLoaderRoute: typeof BecomeACleanerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -421,19 +453,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/bookings/$id': {
+      id: '/_authenticated/bookings/$id'
+      path: '/$id'
+      fullPath: '/bookings/$id'
+      preLoaderRoute: typeof AuthenticatedBookingsIdRouteImport
+      parentRoute: typeof AuthenticatedBookingsRoute
+    }
   }
 }
 
+interface AuthenticatedBookingsRouteChildren {
+  AuthenticatedBookingsIdRoute: typeof AuthenticatedBookingsIdRoute
+}
+
+const AuthenticatedBookingsRouteChildren: AuthenticatedBookingsRouteChildren = {
+  AuthenticatedBookingsIdRoute: AuthenticatedBookingsIdRoute,
+}
+
+const AuthenticatedBookingsRouteWithChildren =
+  AuthenticatedBookingsRoute._addFileChildren(
+    AuthenticatedBookingsRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
-  AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRoute
+  AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRouteWithChildren
   AuthenticatedCleanerRoute: typeof AuthenticatedCleanerRoute
   AuthenticatedHostRoute: typeof AuthenticatedHostRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
-  AuthenticatedBookingsRoute: AuthenticatedBookingsRoute,
+  AuthenticatedBookingsRoute: AuthenticatedBookingsRouteWithChildren,
   AuthenticatedCleanerRoute: AuthenticatedCleanerRoute,
   AuthenticatedHostRoute: AuthenticatedHostRoute,
 }
@@ -468,6 +520,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  BecomeACleanerRoute: BecomeACleanerRoute,
   BlogRoute: BlogRouteWithChildren,
   ChatRoute: ChatRoute,
   CleanersRoute: CleanersRouteWithChildren,

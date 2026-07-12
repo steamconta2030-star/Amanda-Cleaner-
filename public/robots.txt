@@ -3,6 +3,7 @@ Allow: /
 Disallow: /admin
 Disallow: /bookings
 Disallow: /host
+Disallow: /cleaner$
 Disallow: /api/
 
 Sitemap: https://amanda-cleaning.lovable.app/sitemap.xml

@@ -244,14 +244,16 @@ export const importStrCalendar = createServerFn({ method: "POST" })
   });
 
 // Chat session persistence
+type JsonValue = string | number | boolean | null | JsonValue[] | { [k: string]: JsonValue };
 export type ChatSessionRow = {
   id: string;
   session_token: string;
   audience: string | null;
   lang: string | null;
-  messages: unknown[];
+  messages: JsonValue[];
   updated_at: string;
 };
+
 
 const chatSaveSchema = z.object({
   session_token: z.string().min(6),

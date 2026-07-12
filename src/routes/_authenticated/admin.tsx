@@ -11,6 +11,12 @@ import {
   type AdminBooking,
   type AdminLead,
 } from "@/lib/tidly.functions";
+import {
+  adminListCleaners,
+  adminUpsertCleaner,
+  adminSetCleanerPublished,
+  type AdminCleaner,
+} from "@/lib/cleaners.functions";
 
 
 export const Route = createFileRoute("/_authenticated/admin")({

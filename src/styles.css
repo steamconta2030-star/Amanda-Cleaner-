@@ -127,6 +127,17 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  html, body {
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   body {
@@ -135,12 +146,25 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    /* iOS safe-area (notch / home indicator) */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: -0.02em;
+  }
+
+  /* Prevent iOS zoom on focus (needs >=16px) */
+  input, select, textarea {
+    font-size: max(16px, 1rem);
+  }
+
+  /* Snappier taps on touch devices, no ghost 300ms */
+  button, a, [role="button"] {
+    touch-action: manipulation;
   }
 }
 

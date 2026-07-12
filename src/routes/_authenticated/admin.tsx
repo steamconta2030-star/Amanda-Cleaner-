@@ -148,6 +148,10 @@ function AdminPage() {
           ))}
         </div>
 
+        <Trend7d rows={rowsAll} />
+
+
+
         <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center">
           <input
             value={q}

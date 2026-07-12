@@ -242,3 +242,72 @@ export const importStrCalendar = createServerFn({ method: "POST" })
     if (!text.includes("BEGIN:VCALENDAR")) throw new Error("Not a valid iCal feed");
     return parseIcal(text);
   });
+
+// Chat session persistence
+export type ChatSessionRow = {
+  id: string;
+  session_token: string;
+  audience: string | null;
+  lang: string | null;
+  messages: unknown;
+  updated_at: string;
+};
+
+const chatSaveSchema = z.object({
+  session_token: z.string().min(6),
+  audience: z.enum(["home", "rental", "move"]).nullable(),
+  lang: z.string().min(2).max(5),
+  messages: z.array(z.any()),
+});
+
+export const saveChatSession = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => chatSaveSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { error } = await supabase
+      .from("chat_sessions")
+      .upsert(
+        {
+          user_id: userId,
+          session_token: data.session_token,
+          audience: data.audience,
+          lang: data.lang,
+          messages: data.messages,
+        },
+        { onConflict: "session_token" },
+      );
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const listChatSessions = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabase, userId } = context;
+    const { data, error } = await supabase
+      .from("chat_sessions")
+      .select("id,session_token,audience,lang,messages,updated_at")
+      .eq("user_id", userId)
+      .order("updated_at", { ascending: false })
+      .limit(10);
+    if (error || !data) return [];
+    return data as ChatSessionRow[];
+  });
+
+export const getChatSession = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({ session_token: z.string() }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { data: row, error } = await supabase
+      .from("chat_sessions")
+      .select("id,session_token,audience,lang,messages,updated_at")
+      .eq("user_id", userId)
+      .eq("session_token", data.session_token)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    return row as ChatSessionRow | null;
+  });

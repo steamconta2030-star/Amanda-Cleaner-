@@ -26,6 +26,7 @@ import { Route as CleanersSlugRouteImport } from './routes/cleaners.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedHostRouteImport } from './routes/_authenticated/host'
+import { Route as AuthenticatedCleanerRouteImport } from './routes/_authenticated/cleaner'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
@@ -113,6 +114,11 @@ const AuthenticatedHostRoute = AuthenticatedHostRouteImport.update({
   path: '/host',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCleanerRoute = AuthenticatedCleanerRouteImport.update({
+  id: '/cleaner',
+  path: '/cleaner',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedBookingsRoute = AuthenticatedBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRoute
+  '/cleaner': typeof AuthenticatedCleanerRoute
   '/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -159,6 +166,7 @@ export interface FileRoutesByTo {
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRoute
+  '/cleaner': typeof AuthenticatedCleanerRoute
   '/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/thanks': typeof ThanksRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
+  '/_authenticated/cleaner': typeof AuthenticatedCleanerRoute
   '/_authenticated/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/thanks'
     | '/admin'
     | '/bookings'
+    | '/cleaner'
     | '/host'
     | '/api/chat'
     | '/blog/$slug'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
     | '/thanks'
     | '/admin'
     | '/bookings'
+    | '/cleaner'
     | '/host'
     | '/api/chat'
     | '/blog/$slug'
@@ -244,6 +255,7 @@ export interface FileRouteTypes {
     | '/thanks'
     | '/_authenticated/admin'
     | '/_authenticated/bookings'
+    | '/_authenticated/cleaner'
     | '/_authenticated/host'
     | '/api/chat'
     | '/blog/$slug'
@@ -388,6 +400,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHostRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/cleaner': {
+      id: '/_authenticated/cleaner'
+      path: '/cleaner'
+      fullPath: '/cleaner'
+      preLoaderRoute: typeof AuthenticatedCleanerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/bookings': {
       id: '/_authenticated/bookings'
       path: '/bookings'
@@ -408,12 +427,14 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRoute
+  AuthenticatedCleanerRoute: typeof AuthenticatedCleanerRoute
   AuthenticatedHostRoute: typeof AuthenticatedHostRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedBookingsRoute: AuthenticatedBookingsRoute,
+  AuthenticatedCleanerRoute: AuthenticatedCleanerRoute,
   AuthenticatedHostRoute: AuthenticatedHostRoute,
 }
 

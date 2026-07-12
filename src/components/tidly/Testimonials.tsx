@@ -59,24 +59,28 @@ export function Testimonials() {
             Read all reviews →
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {TESTIMONIALS.map((t) => (
             <figure
               key={t.name}
-              className="flex h-full flex-col rounded-3xl border border-border bg-card p-6"
+              className="flex h-full flex-col rounded-[2rem] border border-border/70 bg-card p-8 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_20px_40px_-16px_color-mix(in_oklab,var(--primary)_20%,transparent)]"
             >
               <div className="flex items-center justify-between">
                 <Stars n={t.rating} />
-                <span className="rounded-full border border-border bg-background px-2.5 py-1 text-[10px] uppercase tracking-widest text-muted-foreground">
+                <span className="rounded-full border border-border/70 bg-secondary/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                   {t.tag}
                 </span>
               </div>
-              <blockquote className="mt-5 flex-1 text-sm leading-relaxed text-foreground">
-                "{t.quote}"
+              <blockquote className="mt-6 flex-1 font-serif text-lg italic leading-relaxed text-foreground">
+                &ldquo;{t.quote}&rdquo;
               </blockquote>
-              <figcaption className="mt-6 text-xs text-muted-foreground">
-                <span className="font-medium text-foreground">{t.name}</span> ·{" "}
-                {t.area}
+              <figcaption className="mt-8 border-t border-border/60 pt-5 text-xs text-muted-foreground">
+                <span className="block text-sm font-semibold tracking-tight text-foreground">
+                  {t.name}
+                </span>
+                <span className="mt-1 block uppercase tracking-[0.15em]">
+                  {t.area}
+                </span>
               </figcaption>
             </figure>
           ))}

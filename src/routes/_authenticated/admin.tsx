@@ -215,6 +215,23 @@ function AdminPage() {
                           {b.customer_phone}
                         </div>
                       )}
+                      <div className="mt-2 flex gap-2">
+                        <a
+                          href={`mailto:${b.customer_email}?subject=${encodeURIComponent(
+                            `Your ${b.service_slug} cleaning with Tidly`,
+                          )}`}
+                          className="text-[11px] text-muted-foreground underline hover:text-foreground"
+                        >
+                          Email
+                        </a>
+                        <Link
+                          to="/chat"
+                          search={{ audience: b.audience as "home" | "rental" | "move" }}
+                          className="text-[11px] text-muted-foreground underline hover:text-foreground"
+                        >
+                          Rebook
+                        </Link>
+                      </div>
                     </td>
                     <td className="px-4 py-3">
                       <div>{b.service_slug}</div>

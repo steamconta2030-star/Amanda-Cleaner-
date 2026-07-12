@@ -2,9 +2,22 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 import { supabase } from "@/integrations/supabase/client";
+import { LANGS, detectLang, setLang, type Lang } from "@/lib/i18n";
+
 
 export function Nav() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [lang, setLangState] = useState<Lang>("en");
+
+  useEffect(() => {
+    setLangState(detectLang());
+  }, []);
+
+  function changeLang(next: Lang) {
+    setLang(next);
+    setLangState(next);
+    if (typeof window !== "undefined") window.location.reload();
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -55,6 +68,18 @@ export function Nav() {
               Admin
             </Link>
           )}
+          <select
+            aria-label="Language"
+            value={lang}
+            onChange={(e) => changeLang(e.target.value as Lang)}
+            className="rounded-full border border-border bg-background px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+          >
+            {LANGS.map((l) => (
+              <option key={l} value={l}>
+                {l.toUpperCase()}
+              </option>
+            ))}
+          </select>
           <Link
             to="/auth"
             className="text-sm text-muted-foreground hover:text-foreground"

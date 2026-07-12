@@ -118,3 +118,127 @@ export const listMyBookings = createServerFn({ method: "GET" })
     if (error || !data) return [];
     return data as Booking[];
   });
+
+export const cancelBooking = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({ id: z.string().uuid() }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { error } = await supabase
+      .from("bookings")
+      .update({ status: "cancelled" })
+      .eq("id", data.id)
+      .eq("user_id", userId);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+function pad(n: number) {
+  return n < 10 ? `0${n}` : `${n}`;
+}
+function icsDate(d: Date) {
+  return `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+}
+
+export const getBookingIcs = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({ id: z.string().uuid() }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { data: b, error } = await supabase
+      .from("bookings")
+      .select(
+        "id,service_slug,scheduled_at,duration_minutes,address_line1,city,state,zip,customer_name",
+      )
+      .eq("id", data.id)
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (error || !b) throw new Error("Not found");
+
+    const start = new Date(b.scheduled_at);
+    const end = new Date(start.getTime() + b.duration_minutes * 60000);
+    const uid = `${b.id}@tidly`;
+    const now = icsDate(new Date());
+    const ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Tidly//Booking//EN",
+      "CALSCALE:GREGORIAN",
+      "BEGIN:VEVENT",
+      `UID:${uid}`,
+      `DTSTAMP:${now}`,
+      `DTSTART:${icsDate(start)}`,
+      `DTEND:${icsDate(end)}`,
+      `SUMMARY:Tidly cleaning — ${b.service_slug}`,
+      `LOCATION:${b.address_line1}, ${b.city}, ${b.state} ${b.zip}`,
+      `DESCRIPTION:Tidly cleaning booking for ${b.customer_name}.`,
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+    return { filename: `tidly-${b.id.slice(0, 8)}.ics`, ics };
+  });
+
+// STR/Airbnb iCal parsing — returns upcoming checkouts (candidates for turnovers)
+export type StrCheckout = {
+  uid: string;
+  checkout_iso: string; // date the guest leaves = candidate cleaning day
+  summary: string;
+};
+
+function parseIcal(text: string): StrCheckout[] {
+  // Unfold RFC5545 lines
+  const unfolded = text.replace(/\r?\n[ \t]/g, "");
+  const lines = unfolded.split(/\r?\n/);
+  const events: StrCheckout[] = [];
+  let cur: Record<string, string> | null = null;
+  for (const line of lines) {
+    if (line === "BEGIN:VEVENT") cur = {};
+    else if (line === "END:VEVENT" && cur) {
+      const dtend = cur["DTEND"] || cur["DTEND;VALUE=DATE"];
+      const uid = cur["UID"] || crypto.randomUUID();
+      const summary = cur["SUMMARY"] || "Reservation";
+      if (dtend) {
+        // Airbnb usually gives DATE like 20260715
+        const m = dtend.match(/^(\d{4})(\d{2})(\d{2})/);
+        if (m) {
+          const iso = new Date(
+            Date.UTC(+m[1], +m[2] - 1, +m[3], 15, 0, 0), // default 11am ET turnover slot
+          ).toISOString();
+          if (new Date(iso).getTime() > Date.now()) {
+            events.push({ uid, checkout_iso: iso, summary });
+          }
+        }
+      }
+      cur = null;
+    } else if (cur) {
+      const idx = line.indexOf(":");
+      if (idx > 0) {
+        const key = line.slice(0, idx).split(";")[0];
+        cur[key] = line.slice(idx + 1);
+        // also keep the full key for DTEND;VALUE=DATE
+        cur[line.slice(0, idx)] = line.slice(idx + 1);
+      }
+    }
+  }
+  return events
+    .sort((a, b) => a.checkout_iso.localeCompare(b.checkout_iso))
+    .slice(0, 20);
+}
+
+export const importStrCalendar = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) =>
+    z.object({ url: z.string().url() }).parse(data),
+  )
+  .handler(async ({ data }): Promise<StrCheckout[]> => {
+    const res = await fetch(data.url, {
+      headers: { "User-Agent": "Tidly/1.0 (+https://tidly.app)" },
+    });
+    if (!res.ok) throw new Error(`Calendar fetch failed (${res.status})`);
+    const text = await res.text();
+    if (!text.includes("BEGIN:VCALENDAR")) throw new Error("Not a valid iCal feed");
+    return parseIcal(text);
+  });

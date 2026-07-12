@@ -7,6 +7,7 @@ import { LANGS, detectLang, setLang, type Lang } from "@/lib/i18n";
 
 export function Nav() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isCleaner, setIsCleaner] = useState(false);
   const [lang, setLangState] = useState<Lang>("en");
   const [dark, setDark] = useState(false);
 
@@ -41,14 +42,23 @@ export function Nav() {
     async function check() {
       const { data: userRes } = await supabase.auth.getUser();
       if (cancelled || !userRes.user) {
-        if (!cancelled) setIsAdmin(false);
+        if (!cancelled) {
+          setIsAdmin(false);
+          setIsCleaner(false);
+        }
         return;
       }
-      const { data } = await supabase.rpc("has_role", {
-        _user_id: userRes.user.id,
-        _role: "admin",
-      });
-      if (!cancelled) setIsAdmin(!!data);
+      const [admin, cleaner] = await Promise.all([
+        supabase.rpc("has_role", {
+          _user_id: userRes.user.id,
+          _role: "admin",
+        }),
+        supabase.rpc("has_cleaner_role", { _uid: userRes.user.id }),
+      ]);
+      if (!cancelled) {
+        setIsAdmin(!!admin.data);
+        setIsCleaner(!!cleaner.data);
+      }
     }
     check();
     const { data: sub } = supabase.auth.onAuthStateChange(() => check());

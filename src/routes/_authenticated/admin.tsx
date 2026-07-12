@@ -310,3 +310,60 @@ function Stat({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+function Trend7d({ rows }: { rows: AdminBooking[] }) {
+  const days = useMemo(() => {
+    const out: { key: string; label: string; count: number; revenue: number }[] = [];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(now.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      out.push({
+        key,
+        label: d.toLocaleDateString("en-US", { weekday: "short" }),
+        count: 0,
+        revenue: 0,
+      });
+    }
+    for (const r of rows) {
+      const key = new Date(r.created_at).toISOString().slice(0, 10);
+      const bucket = out.find((b) => b.key === key);
+      if (bucket) {
+        bucket.count += 1;
+        bucket.revenue += r.price_cents;
+      }
+    }
+    return out;
+  }, [rows]);
+
+  const max = Math.max(1, ...days.map((d) => d.count));
+  const total7 = days.reduce((a, d) => a + d.count, 0);
+  const rev7 = days.reduce((a, d) => a + d.revenue, 0);
+
+  return (
+    <div className="mt-6 rounded-2xl border border-border bg-card p-5">
+      <div className="flex items-baseline justify-between">
+        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          Last 7 days
+        </p>
+        <p className="text-xs text-muted-foreground">
+          {total7} bookings · ${(rev7 / 100).toFixed(0)}
+        </p>
+      </div>
+      <div className="mt-4 flex items-end gap-2 h-24">
+        {days.map((d) => (
+          <div key={d.key} className="flex flex-1 flex-col items-center gap-1">
+            <div
+              className="w-full rounded-t-md bg-primary/80"
+              style={{ height: `${(d.count / max) * 100}%`, minHeight: d.count ? 4 : 2 }}
+              title={`${d.count} bookings · $${(d.revenue / 100).toFixed(0)}`}
+            />
+            <span className="text-[10px] text-muted-foreground">{d.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+

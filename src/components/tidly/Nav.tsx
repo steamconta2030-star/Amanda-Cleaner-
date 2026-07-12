@@ -118,10 +118,10 @@ export function Nav() {
             Our cleaners
           </Link>
           <Link
-            to="/host"
+            to="/pricing"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
-            For hosts
+            Pricing
           </Link>
           {!isCleaner && (
             <Link

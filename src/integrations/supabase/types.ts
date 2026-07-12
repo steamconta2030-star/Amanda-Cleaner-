@@ -52,6 +52,47 @@ export type Database = {
           },
         ]
       }
+      booking_ratings: {
+        Row: {
+          booking_id: string
+          comment: string | null
+          created_at: string
+          direction: string
+          id: string
+          ratee_id: string
+          rater_id: string
+          stars: number
+        }
+        Insert: {
+          booking_id: string
+          comment?: string | null
+          created_at?: string
+          direction: string
+          id?: string
+          ratee_id: string
+          rater_id: string
+          stars: number
+        }
+        Update: {
+          booking_id?: string
+          comment?: string | null
+          created_at?: string
+          direction?: string
+          id?: string
+          ratee_id?: string
+          rater_id?: string
+          stars?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_ratings_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookings: {
         Row: {
           address_line1: string
@@ -557,6 +598,13 @@ export type Database = {
           cleaner_id: string
           id: string
           status: string
+        }[]
+      }
+      cleaner_rating_summary: {
+        Args: { _cleaner_id: string }
+        Returns: {
+          avg_stars: number
+          review_count: number
         }[]
       }
       has_cleaner_role: { Args: { _uid: string }; Returns: boolean }

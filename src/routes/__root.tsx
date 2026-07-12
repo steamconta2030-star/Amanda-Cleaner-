@@ -137,18 +137,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         : []),
     ],
     scripts: [
+      { children: consentDefaultSnippet },
       ...(GA4_MEASUREMENT_ID
         ? [
             {
               src: `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`,
               async: true,
             },
-            { children: ga4Snippet(GA4_MEASUREMENT_ID) },
+            { children: ga4Snippet(GA4_MEASUREMENT_ID, GOOGLE_ADS_ID) },
           ]
-        : []),
+        : GOOGLE_ADS_ID
+          ? [
+              {
+                src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`,
+                async: true,
+              },
+              { children: `gtag('config','${GOOGLE_ADS_ID}');` },
+            ]
+          : []),
       ...(META_PIXEL_ID ? [{ children: metaPixelSnippet(META_PIXEL_ID) }] : []),
+      ...(TIKTOK_PIXEL_ID ? [{ children: tiktokPixelSnippet(TIKTOK_PIXEL_ID) }] : []),
     ],
   }),
+
 
 
   shellComponent: RootShell,

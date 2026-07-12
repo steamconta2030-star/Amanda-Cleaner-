@@ -1,7 +1,33 @@
 import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
+import { supabase } from "@/integrations/supabase/client";
 
 export function Nav() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function check() {
+      const { data: userRes } = await supabase.auth.getUser();
+      if (cancelled || !userRes.user) {
+        if (!cancelled) setIsAdmin(false);
+        return;
+      }
+      const { data } = await supabase.rpc("has_role", {
+        _user_id: userRes.user.id,
+        _role: "admin",
+      });
+      if (!cancelled) setIsAdmin(!!data);
+    }
+    check();
+    const { data: sub } = supabase.auth.onAuthStateChange(() => check());
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
@@ -9,31 +35,32 @@ export function Nav() {
           <Logo />
         </Link>
         <nav className="flex items-center gap-1.5 sm:gap-3">
-          <a
-            href="#how-it-works"
-            className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
-          >
-            How it works
-          </a>
-          <a
-            href="#services"
+          <Link
+            to="/services"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
             Services
-          </a>
+          </Link>
           <Link
             to="/host"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
             For hosts
           </Link>
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="hidden rounded-full bg-secondary px-3 py-1 text-xs font-medium text-foreground hover:bg-secondary/80 sm:inline-block"
+            >
+              Admin
+            </Link>
+          )}
           <Link
             to="/auth"
             className="text-sm text-muted-foreground hover:text-foreground"
           >
             Sign in
           </Link>
-
           <Link
             to="/chat"
             className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/85"

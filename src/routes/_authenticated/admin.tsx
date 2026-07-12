@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Nav } from "@/components/tidly/Nav";
 import {
   adminListBookings,
+  adminListLeads,
   adminUpdateBookingStatus,
   amIAdmin,
   type AdminBooking,
+  type AdminLead,
 } from "@/lib/tidly.functions";
+
 
 export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,

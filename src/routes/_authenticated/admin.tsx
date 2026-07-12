@@ -148,11 +148,36 @@ function AdminPage() {
           ))}
         </div>
 
+        <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search name, email, address, service…"
+            className="w-full rounded-full border border-input bg-background px-4 py-2 text-sm md:max-w-sm"
+          />
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value as "all" | Status)}
+            className="rounded-full border border-input bg-background px-3 py-2 text-xs font-medium"
+          >
+            <option value="all">All statuses</option>
+            {STATUSES.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+          <span className="text-xs text-muted-foreground">
+            {rows.length} of {rowsAll.length}
+          </span>
+        </div>
+
         {isLoading ? (
           <p className="mt-8 text-sm text-muted-foreground">Loading…</p>
         ) : rows.length === 0 ? (
-          <p className="mt-8 text-sm text-muted-foreground">No bookings yet.</p>
+          <p className="mt-8 text-sm text-muted-foreground">No bookings match.</p>
         ) : (
+
           <div className="mt-8 overflow-x-auto rounded-2xl border border-border">
             <table className="w-full text-sm">
               <thead className="bg-secondary/40 text-left text-xs uppercase tracking-widest text-muted-foreground">

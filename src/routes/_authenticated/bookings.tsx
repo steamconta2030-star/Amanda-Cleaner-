@@ -25,6 +25,7 @@ export const Route = createFileRoute("/_authenticated/bookings")({
 
 function BookingsPage() {
   const fetchBookings = useServerFn(listMyBookings);
+  const fetchChats = useServerFn(listChatSessions);
   const cancelFn = useServerFn(cancelBooking);
   const icsFn = useServerFn(getBookingIcs);
   const qc = useQueryClient();
@@ -34,7 +35,29 @@ function BookingsPage() {
     queryFn: () => fetchBookings(),
   });
 
+  const { data: chats } = useQuery({
+    queryKey: ["my-chat-sessions"],
+    queryFn: () => fetchChats(),
+  });
+
   const bookings: Booking[] = data ?? [];
+
+  // Realtime: refetch on any booking row change for this user
+  useEffect(() => {
+    const channel = supabase
+      .channel("bookings-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "bookings" },
+        () => qc.invalidateQueries({ queryKey: ["my-bookings"] }),
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [qc]);
+
+
 
   async function handleCancel(id: string) {
     if (!confirm("Cancel this booking?")) return;

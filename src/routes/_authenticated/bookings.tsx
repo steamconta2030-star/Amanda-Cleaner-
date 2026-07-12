@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useEffect } from "react";
 import { Nav } from "@/components/tidly/Nav";
+import { supabase } from "@/integrations/supabase/client";
 import {
   listMyBookings,
   cancelBooking,
   getBookingIcs,
+  listChatSessions,
   type Booking,
 } from "@/lib/tidly.functions";
+
 
 export const Route = createFileRoute("/_authenticated/bookings")({
   component: BookingsPage,

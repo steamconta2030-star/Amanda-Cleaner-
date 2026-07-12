@@ -108,7 +108,7 @@ function BlogPostPage() {
         </p>
 
         <div className="mt-10 space-y-5 text-[15px] leading-relaxed md:text-base">
-          {post.blocks.map((b, i) => renderBlock(b, i))}
+          {post.blocks.map((b: BlogPost["blocks"][number], i: number) => renderBlock(b, i))}
         </div>
 
         <div className="mt-14 rounded-2xl border border-border bg-card p-6">

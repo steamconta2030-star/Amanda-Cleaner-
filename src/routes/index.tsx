@@ -39,6 +39,47 @@ export const Route = createFileRoute("/")({
           priceRange: "$$",
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How fast can I book a cleaning in Tampa?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Most quotes take about 60 seconds by chat, and same-week times are usually open.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Do you clean Airbnb and short-term rentals?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes — Airbnb and VRBO turnovers with a photo checklist and STR calendar sync.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Do you offer move-in and move-out cleanings?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes, deposit-ready move-in / move-out cleans are available on short notice.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How is pricing calculated?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "You get a real, transparent price based on home size, service type, and add-ons before booking.",
+              },
+            },
+          ],
+        }),
+      },
     ],
   }),
 });

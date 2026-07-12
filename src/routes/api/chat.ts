@@ -122,10 +122,69 @@ const proposeBookingTool = tool({
   execute: async (input) => input,
 });
 
+// Simple per-IP sliding window (per worker instance). Not distributed —
+// first line of defense against runaway loops / abuse. Real quotas belong
+// in the DB, but this stops the obvious burn.
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX = 20; // 20 chat POSTs / minute / IP
+const hits = new Map<string, number[]>();
+
+function rateLimit(ip: string): { ok: boolean; retryAfter: number } {
+  const now = Date.now();
+  const arr = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (arr.length >= RATE_MAX) {
+    const retryAfter = Math.ceil((RATE_WINDOW_MS - (now - arr[0])) / 1000);
+    hits.set(ip, arr);
+    return { ok: false, retryAfter };
+  }
+  arr.push(now);
+  hits.set(ip, arr);
+  // opportunistic cleanup
+  if (hits.size > 500) {
+    for (const [k, v] of hits) {
+      if (!v.some((t) => now - t < RATE_WINDOW_MS)) hits.delete(k);
+    }
+  }
+  return { ok: true, retryAfter: 0 };
+}
+
+function clientIp(request: Request): string {
+  return (
+    request.headers.get("cf-connecting-ip") ??
+    request.headers.get("x-real-ip") ??
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    "unknown"
+  );
+}
+
+const MAX_MESSAGES = 40;
+const MAX_TEXT_CHARS = 4000;
+
+function totalTextChars(messages: UIMessage[]): number {
+  let n = 0;
+  for (const m of messages) {
+    for (const p of m.parts ?? []) {
+      if (p && typeof p === "object" && "type" in p && p.type === "text" && "text" in p) {
+        n += String((p as { text: string }).text ?? "").length;
+      }
+    }
+  }
+  return n;
+}
+
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const ip = clientIp(request);
+        const rl = rateLimit(ip);
+        if (!rl.ok) {
+          return new Response("Too many requests", {
+            status: 429,
+            headers: { "Retry-After": String(rl.retryAfter) },
+          });
+        }
+
         const body = (await request.json()) as {
           messages?: unknown;
           audience?: string;
@@ -133,6 +192,12 @@ export const Route = createFileRoute("/api/chat")({
         };
         if (!Array.isArray(body.messages)) {
           return new Response("Messages are required", { status: 400 });
+        }
+        if (body.messages.length > MAX_MESSAGES) {
+          return new Response("Conversation too long", { status: 413 });
+        }
+        if (totalTextChars(body.messages as UIMessage[]) > MAX_TEXT_CHARS) {
+          return new Response("Message too large", { status: 413 });
         }
 
         const key = process.env.LOVABLE_API_KEY;
@@ -160,3 +225,4 @@ export const Route = createFileRoute("/api/chat")({
     },
   },
 });
+

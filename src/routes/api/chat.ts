@@ -8,7 +8,7 @@ import {
 } from "ai";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
-import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
+import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import type { Database } from "@/integrations/supabase/types";
 
 type Service = {

@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Nav } from "@/components/tidly/Nav";
 import { Logo } from "@/components/tidly/Logo";
+import { Testimonials } from "@/components/tidly/Testimonials";
+import { NewsletterForm } from "@/components/tidly/NewsletterForm";
 import { listServices } from "@/lib/tidly.functions";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
@@ -121,6 +123,8 @@ function Home() {
       <AudiencePicker />
       <HowItWorks />
       <ServicesGrid services={services} />
+      <Testimonials />
+      <NewsletterSection />
       <Cta />
       <Footer />
     </div>

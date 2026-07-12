@@ -78,6 +78,12 @@ export function Nav() {
             FAQ
           </Link>
           <Link
+            to="/about"
+            className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
+          >
+            About
+          </Link>
+          <Link
             to="/host"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >

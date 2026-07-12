@@ -59,6 +59,17 @@ export const Route = createFileRoute("/services")({
       links: [{ rel: "canonical", href: `${SITE_URL}/services` }],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(jsonLd) },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+            ],
+          }),
+        },
       ],
     };
   },
@@ -86,7 +97,12 @@ function ServicesPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Nav />
       <section className="mx-auto max-w-5xl px-5 py-14 md:px-8 md:py-20">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+          <Link to="/" className="hover:text-foreground">Home</Link>
+          <span className="mx-1.5">/</span>
+          <span className="text-foreground">Services</span>
+        </nav>
+        <p className="mt-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">
           Services & pricing
         </p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">

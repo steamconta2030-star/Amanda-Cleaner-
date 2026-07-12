@@ -84,6 +84,12 @@ export function Nav() {
             About
           </Link>
           <Link
+            to="/blog"
+            className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
+          >
+            Blog
+          </Link>
+          <Link
             to="/contact"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >

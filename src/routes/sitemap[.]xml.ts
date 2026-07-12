@@ -32,9 +32,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           }
         }
 
+        const { POSTS } = await import("@/lib/blog");
         const urls: { loc: string; changefreq: string; priority: string }[] = [
           { loc: `${SITE_URL}/`, changefreq: "weekly", priority: "1.0" },
           { loc: `${SITE_URL}/services`, changefreq: "weekly", priority: "0.9" },
+          { loc: `${SITE_URL}/blog`, changefreq: "weekly", priority: "0.8" },
           { loc: `${SITE_URL}/faq`, changefreq: "monthly", priority: "0.7" },
           { loc: `${SITE_URL}/about`, changefreq: "monthly", priority: "0.6" },
           { loc: `${SITE_URL}/contact`, changefreq: "monthly", priority: "0.6" },
@@ -42,6 +44,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           { loc: `${SITE_URL}/host`, changefreq: "monthly", priority: "0.6" },
           { loc: `${SITE_URL}/auth`, changefreq: "monthly", priority: "0.4" },
         ];
+        for (const p of POSTS) {
+          urls.push({
+            loc: `${SITE_URL}/blog/${p.slug}`,
+            changefreq: "monthly",
+            priority: "0.7",
+          });
+        }
         for (const a of audiences) {
           urls.push({
             loc: `${SITE_URL}/chat?audience=${encodeURIComponent(a)}`,

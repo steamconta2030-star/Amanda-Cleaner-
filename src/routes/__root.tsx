@@ -188,14 +188,28 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    captureUtm();
+    reportWebVitals();
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <FooterLazy />
       <InstallPromptLazy />
+      <ConsentBannerLazy />
     </QueryClientProvider>
   );
 }
+
+import { ConsentBanner } from "@/components/tidly/ConsentBanner";
+function ConsentBannerLazy() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <ConsentBanner />;
+}
+
 
 import { InstallPrompt } from "@/components/tidly/InstallPrompt";
 import { Footer } from "@/components/tidly/Footer";

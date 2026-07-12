@@ -63,23 +63,32 @@ export function Testimonials() {
           {TESTIMONIALS.map((t) => (
             <figure
               key={t.name}
-              className="flex h-full flex-col rounded-[2rem] border border-border/70 bg-card p-8 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_20px_40px_-16px_color-mix(in_oklab,var(--primary)_20%,transparent)]"
+              className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border/70 bg-card p-8 pt-10 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_24px_50px_-18px_color-mix(in_oklab,var(--primary)_22%,transparent)]"
             >
-              <div className="flex items-center justify-between">
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -left-2 -top-6 select-none font-serif text-[9rem] italic leading-none text-primary/10 transition-colors duration-500 group-hover:text-primary/20"
+              >
+                &ldquo;
+              </span>
+              <div className="relative flex items-center justify-between">
                 <Stars n={t.rating} />
                 <span className="rounded-full border border-border/70 bg-secondary/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                   {t.tag}
                 </span>
               </div>
-              <blockquote className="mt-6 flex-1 font-serif text-lg italic leading-relaxed text-foreground">
-                &ldquo;{t.quote}&rdquo;
+              <blockquote className="relative mt-6 flex-1 font-serif text-lg italic leading-relaxed text-foreground">
+                {t.quote}
               </blockquote>
-              <figcaption className="mt-8 border-t border-border/60 pt-5 text-xs text-muted-foreground">
-                <span className="block text-sm font-semibold tracking-tight text-foreground">
-                  {t.name}
-                </span>
-                <span className="mt-1 block uppercase tracking-[0.15em]">
-                  {t.area}
+              <figcaption className="relative mt-8 flex items-center gap-3 pt-5 text-xs text-muted-foreground">
+                <span className="h-8 w-px bg-primary/60" aria-hidden />
+                <span>
+                  <span className="block text-sm font-semibold tracking-tight text-foreground">
+                    {t.name}
+                  </span>
+                  <span className="mt-1 block uppercase tracking-[0.15em]">
+                    {t.area}
+                  </span>
                 </span>
               </figcaption>
             </figure>

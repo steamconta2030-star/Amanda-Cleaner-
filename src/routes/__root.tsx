@@ -14,8 +14,14 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import {
   META_PIXEL_ID,
   GA4_MEASUREMENT_ID,
+  TIKTOK_PIXEL_ID,
+  GOOGLE_ADS_ID,
   metaPixelSnippet,
   ga4Snippet,
+  tiktokPixelSnippet,
+  consentDefaultSnippet,
+  captureUtm,
+  reportWebVitals,
 } from "../lib/analytics";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";

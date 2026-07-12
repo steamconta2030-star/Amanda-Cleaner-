@@ -313,3 +313,72 @@ export const getChatSession = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     return row as ChatSessionRow | null;
   });
+
+// ---------- Admin ----------
+export type AdminBooking = Booking & {
+  user_id: string;
+  customer_email: string;
+  customer_phone: string | null;
+  bedrooms: number | null;
+  bathrooms: number | null;
+  created_at: string;
+};
+
+async function assertAdmin(supabase: import("@supabase/supabase-js").SupabaseClient<Database>, userId: string) {
+  const { data, error } = await supabase.rpc("has_role", {
+    _user_id: userId,
+    _role: "admin",
+  });
+  if (error) throw new Error(error.message);
+  if (!data) throw new Error("Forbidden");
+}
+
+export const adminListBookings = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<AdminBooking[]> => {
+    const { supabase, userId } = context;
+    await assertAdmin(supabase, userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("bookings")
+      .select(
+        "id,user_id,service_slug,audience,scheduled_at,duration_minutes,price_cents,status,address_line1,city,zip,customer_name,customer_email,customer_phone,bedrooms,bathrooms,created_at",
+      )
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (error || !data) return [];
+    return data as AdminBooking[];
+  });
+
+export const adminUpdateBookingStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        status: z.enum(["pending", "confirmed", "completed", "cancelled"]),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    await assertAdmin(supabase, userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("bookings")
+      .update({ status: data.status })
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const amIAdmin = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<boolean> => {
+    const { supabase, userId } = context;
+    const { data } = await supabase.rpc("has_role", {
+      _user_id: userId,
+      _role: "admin",
+    });
+    return !!data;
+  });

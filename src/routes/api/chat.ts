@@ -129,6 +129,7 @@ export const Route = createFileRoute("/api/chat")({
         const body = (await request.json()) as {
           messages?: unknown;
           audience?: string;
+          lang?: string;
         };
         if (!Array.isArray(body.messages)) {
           return new Response("Messages are required", { status: 400 });
@@ -143,7 +144,7 @@ export const Route = createFileRoute("/api/chat")({
 
         const result = streamText({
           model,
-          system: buildSystem(catalog, body.audience),
+          system: buildSystem(catalog, body.audience, body.lang),
           messages: await convertToModelMessages(body.messages as UIMessage[]),
           tools: {
             estimate_quote: estimateQuoteTool,

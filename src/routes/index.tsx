@@ -432,31 +432,48 @@ function ServicesGrid({
           </p>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((s) => (
+          {services.map((s, i) => (
             <div
               key={s.slug}
-              className="group flex flex-col rounded-[2rem] border border-border/70 bg-card p-7 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-16px_color-mix(in_oklab,var(--primary)_25%,transparent)]"
+              className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-border/70 bg-card p-7 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_24px_50px_-18px_color-mix(in_oklab,var(--primary)_28%,transparent)]"
             >
-              <p className="font-serif text-sm font-medium italic uppercase tracking-wide text-primary">
-                {s.audience === "home"
-                  ? "Home"
-                  : s.audience === "rental"
-                    ? "Rental"
-                    : "Move"}
-              </p>
-              <h3 className="mt-5 text-xl font-medium tracking-tight text-foreground">
+              <span
+                aria-hidden
+                className="pointer-events-none absolute right-6 top-6 font-serif text-[11px] italic tracking-[0.2em] text-muted-foreground/60"
+              >
+                {String(i + 1).padStart(2, "0")}/{String(services.length).padStart(2, "0")}
+              </span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-7 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              />
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
+                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">
+                  {s.audience === "home"
+                    ? "Home"
+                    : s.audience === "rental"
+                      ? "Rental"
+                      : "Move"}
+                </p>
+              </div>
+              <h3 className="mt-6 font-serif text-2xl font-normal leading-tight tracking-tight text-foreground">
                 {s.name}
               </h3>
-              <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                 {s.description}
               </p>
-              <div className="mt-auto flex items-baseline gap-1.5 pt-7">
-                <span className="font-serif text-sm italic text-muted-foreground">
-                  from
-                </span>
-                <span className="text-2xl font-semibold tracking-tight text-foreground">
-                  ${(s.base_price_cents / 100).toFixed(0)}
-                </span>
+              <div className="mt-auto pt-7">
+                <div className="h-px w-8 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-primary" />
+                <div className="mt-4 flex items-baseline gap-2">
+                  <span className="font-serif text-sm italic text-muted-foreground">
+                    from
+                  </span>
+                  <span className="font-serif text-xs italic text-primary">$</span>
+                  <span className="text-2xl font-semibold tracking-tight tabular-nums text-foreground">
+                    {(s.base_price_cents / 100).toFixed(0)}
+                  </span>
+                </div>
               </div>
             </div>
           ))}

@@ -22,11 +22,18 @@ export function Nav() {
             Services
           </a>
           <Link
+            to="/host"
+            className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
+          >
+            For hosts
+          </Link>
+          <Link
             to="/auth"
             className="text-sm text-muted-foreground hover:text-foreground"
           >
             Sign in
           </Link>
+
           <Link
             to="/chat"
             className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/85"

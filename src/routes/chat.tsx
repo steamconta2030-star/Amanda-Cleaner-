@@ -6,7 +6,12 @@ import { z } from "zod";
 import ReactMarkdown from "react-markdown";
 import { Nav } from "@/components/tidly/Nav";
 import { supabase } from "@/integrations/supabase/client";
-import { createBooking } from "@/lib/tidly.functions";
+import {
+  createBooking,
+  saveChatSession,
+  getChatSession,
+} from "@/lib/tidly.functions";
+
 import { useServerFn } from "@tanstack/react-start";
 import { detectLang, t, type Lang } from "@/lib/i18n";
 

@@ -31,6 +31,14 @@ function ThanksPage() {
   const shareUrl = `${SITE_URL}/`;
   const shareText = "Booked my Tampa cleaning by chat with Tidly — took a minute:";
 
+  useEffect(() => {
+    // Meta standard "Schedule" + GA4 "generate_lead"
+    trackConversion("Schedule", { content_name: "booking_confirmed" });
+    trackConversion("generate_lead", { value: 1, currency: "USD" });
+  }, []);
+
+
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Nav />

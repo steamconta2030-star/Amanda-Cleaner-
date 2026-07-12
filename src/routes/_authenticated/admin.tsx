@@ -251,7 +251,47 @@ function AdminPage() {
             </table>
           </div>
         )}
+
+        <div className="mt-14 flex items-baseline justify-between">
+          <h2 className="text-2xl font-semibold tracking-tight">Recent leads</h2>
+          <span className="text-xs text-muted-foreground">{leads.length} sessions</span>
+        </div>
+        {leads.length === 0 ? (
+          <p className="mt-4 text-sm text-muted-foreground">No chat sessions yet.</p>
+        ) : (
+          <ul className="mt-4 divide-y divide-border rounded-2xl border border-border">
+            {leads.map((l: AdminLead) => {
+              const first = l.messages?.[0] as { content?: string } | undefined;
+              const preview =
+                typeof first?.content === "string"
+                  ? first.content.slice(0, 120)
+                  : `${l.messages?.length ?? 0} messages`;
+              return (
+                <li key={l.id} className="flex flex-col gap-1 px-4 py-3 md:flex-row md:items-center md:justify-between">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span className="rounded-full bg-secondary px-2 py-0.5">
+                        {l.audience ?? "—"}
+                      </span>
+                      <span>{new Date(l.updated_at).toLocaleString()}</span>
+                      <span>· {l.lang ?? "en"}</span>
+                    </div>
+                    <p className="mt-1 truncate text-sm">{preview}</p>
+                  </div>
+                  <Link
+                    to="/chat"
+                    search={{ audience: (l.audience ?? "home") as "home" | "rental" | "move", session: l.session_token }}
+                    className="shrink-0 rounded-full border border-input px-3 py-1.5 text-xs font-medium hover:bg-secondary"
+                  >
+                    Open
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </section>
+
     </div>
   );
 }

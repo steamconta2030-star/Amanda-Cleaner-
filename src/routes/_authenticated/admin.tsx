@@ -58,7 +58,22 @@ function AdminPage() {
   });
 
 
-  const rows: AdminBooking[] = data ?? [];
+  const rowsAll: AdminBooking[] = data ?? [];
+  const rows = useMemo(() => {
+    const term = q.trim().toLowerCase();
+    return rowsAll.filter((r) => {
+      if (statusFilter !== "all" && r.status !== statusFilter) return false;
+      if (!term) return true;
+      return (
+        r.customer_name?.toLowerCase().includes(term) ||
+        r.customer_email?.toLowerCase().includes(term) ||
+        r.customer_phone?.toLowerCase().includes(term) ||
+        r.address_line1?.toLowerCase().includes(term) ||
+        r.service_slug?.toLowerCase().includes(term)
+      );
+    });
+  }, [rowsAll, q, statusFilter]);
+
 
   if (checking) {
     return (

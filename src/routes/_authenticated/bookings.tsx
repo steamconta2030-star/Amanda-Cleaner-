@@ -160,7 +160,19 @@ function BookingsPage() {
                     </span>
                   </div>
                 </div>
-                {b.status !== "cancelled" && b.status !== "completed" && (
+                {b.status === "completed" ? (
+                  <div className="mt-4">
+                    <Link
+                      to="/chat"
+                      search={{
+                        audience: b.audience as "home" | "rental" | "move",
+                      }}
+                      className="inline-flex rounded-full bg-primary px-3.5 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90"
+                    >
+                      Book again
+                    </Link>
+                  </div>
+                ) : b.status !== "cancelled" ? (
                   <div className="mt-4 flex flex-wrap gap-2">
                     <button
                       onClick={() => handleDownloadIcs(b.id)}
@@ -175,7 +187,8 @@ function BookingsPage() {
                       Cancel
                     </button>
                   </div>
-                )}
+                ) : null}
+
               </li>
             ))}
           </ul>

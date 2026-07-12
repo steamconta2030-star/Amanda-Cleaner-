@@ -14,8 +14,14 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import {
   META_PIXEL_ID,
   GA4_MEASUREMENT_ID,
+  TIKTOK_PIXEL_ID,
+  GOOGLE_ADS_ID,
   metaPixelSnippet,
   ga4Snippet,
+  tiktokPixelSnippet,
+  consentDefaultSnippet,
+  captureUtm,
+  reportWebVitals,
 } from "../lib/analytics";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
@@ -131,18 +137,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         : []),
     ],
     scripts: [
+      { children: consentDefaultSnippet },
       ...(GA4_MEASUREMENT_ID
         ? [
             {
               src: `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`,
               async: true,
             },
-            { children: ga4Snippet(GA4_MEASUREMENT_ID) },
+            { children: ga4Snippet(GA4_MEASUREMENT_ID, GOOGLE_ADS_ID) },
           ]
-        : []),
+        : GOOGLE_ADS_ID
+          ? [
+              {
+                src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`,
+                async: true,
+              },
+              { children: `gtag('config','${GOOGLE_ADS_ID}');` },
+            ]
+          : []),
       ...(META_PIXEL_ID ? [{ children: metaPixelSnippet(META_PIXEL_ID) }] : []),
+      ...(TIKTOK_PIXEL_ID ? [{ children: tiktokPixelSnippet(TIKTOK_PIXEL_ID) }] : []),
     ],
   }),
+
 
 
   shellComponent: RootShell,
@@ -171,14 +188,28 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    captureUtm();
+    reportWebVitals();
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <FooterLazy />
       <InstallPromptLazy />
+      <ConsentBannerLazy />
     </QueryClientProvider>
   );
 }
+
+import { ConsentBanner } from "@/components/tidly/ConsentBanner";
+function ConsentBannerLazy() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <ConsentBanner />;
+}
+
 
 import { InstallPrompt } from "@/components/tidly/InstallPrompt";
 import { Footer } from "@/components/tidly/Footer";

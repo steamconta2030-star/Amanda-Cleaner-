@@ -34,13 +34,29 @@ export const Route = createFileRoute("/")({
           "@type": "HouseCleaningService",
           name: "Tidly",
           url: SITE_URL,
+          image: `${SITE_URL}/icon-512.png`,
+          telephone: "+1-813-000-0000",
+          priceRange: "$$",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Tampa",
+            addressRegion: "FL",
+            addressCountry: "US",
+          },
           areaServed: [
             { "@type": "City", name: "Tampa" },
             { "@type": "AdministrativeArea", name: "Hillsborough County, FL" },
           ],
-          priceRange: "$$",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            reviewCount: "120",
+            bestRating: "5",
+            worstRating: "1",
+          },
         }),
       },
+
       {
         type: "application/ld+json",
         children: JSON.stringify({

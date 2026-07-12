@@ -534,13 +534,20 @@ function BookingConfirmCard({
     }
     setConfirming(true);
     try {
+      const { getUtm } = await import("@/lib/analytics");
+      const utm = getUtm();
+      const utmLine = utm
+        ? `\n---\nattribution: ${JSON.stringify(utm)}`
+        : "";
       const res = await create({
         data: {
           ...proposal,
           customer_email: proposal.customer_email || userEmail || "",
+          notes: (proposal.notes ?? "") + utmLine,
         },
       });
       setConfirmed(res.id);
+
     } catch (e) {
       setErr(e instanceof Error ? e.message : "Could not save booking");
     } finally {

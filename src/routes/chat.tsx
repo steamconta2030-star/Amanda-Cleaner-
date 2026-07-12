@@ -558,12 +558,20 @@ function BookingConfirmCard({
           You're set for <b>{formatSlot(proposal.scheduled_at_iso)}</b>. We'll
           email {userEmail ?? proposal.customer_email} the details.
         </p>
-        <Link
-          to="/bookings"
-          className="mt-3 inline-flex rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:bg-primary/90"
-        >
-          View bookings
-        </Link>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link
+            to="/thanks"
+            className="inline-flex rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:bg-primary/90"
+          >
+            See what's next
+          </Link>
+          <Link
+            to="/bookings"
+            className="inline-flex rounded-full border border-input bg-background px-4 py-2 text-xs font-medium hover:bg-secondary"
+          >
+            View bookings
+          </Link>
+        </div>
       </div>
     );
   }

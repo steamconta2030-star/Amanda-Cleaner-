@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 
@@ -6,13 +8,44 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const urls = [
+        const url = process.env.SUPABASE_URL;
+        const key = process.env.SUPABASE_PUBLISHABLE_KEY;
+        let audiences: string[] = [];
+        if (url && key) {
+          try {
+            const sb = createClient<Database>(url, key, {
+              auth: {
+                storage: undefined,
+                persistSession: false,
+                autoRefreshToken: false,
+              },
+            });
+            const { data } = await sb
+              .from("services_catalog")
+              .select("audience")
+              .eq("active", true);
+            audiences = Array.from(
+              new Set((data ?? []).map((s) => s.audience).filter(Boolean) as string[]),
+            );
+          } catch {
+            // fall through with empty audiences
+          }
+        }
+
+        const urls: { loc: string; changefreq: string; priority: string }[] = [
           { loc: `${SITE_URL}/`, changefreq: "weekly", priority: "1.0" },
           { loc: `${SITE_URL}/services`, changefreq: "weekly", priority: "0.9" },
           { loc: `${SITE_URL}/chat`, changefreq: "weekly", priority: "0.8" },
+          { loc: `${SITE_URL}/host`, changefreq: "monthly", priority: "0.6" },
           { loc: `${SITE_URL}/auth`, changefreq: "monthly", priority: "0.4" },
         ];
-
+        for (const a of audiences) {
+          urls.push({
+            loc: `${SITE_URL}/chat?audience=${encodeURIComponent(a)}`,
+            changefreq: "weekly",
+            priority: "0.7",
+          });
+        }
 
         const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -25,9 +58,13 @@ ${urls
 </urlset>`;
 
         return new Response(body, {
-          headers: { "Content-Type": "application/xml; charset=utf-8" },
+          headers: {
+            "Content-Type": "application/xml; charset=utf-8",
+            "Cache-Control": "public, max-age=3600",
+          },
         });
       },
     },
   },
 });
+

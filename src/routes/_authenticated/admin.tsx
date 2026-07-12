@@ -319,7 +319,353 @@ function AdminPage() {
         )}
       </section>
 
+      <CleanersAdmin isAdmin={!!isAdmin} />
     </div>
+  );
+}
+
+function CleanersAdmin({ isAdmin }: { isAdmin: boolean }) {
+  const listFn = useServerFn(adminListCleaners);
+  const upsertFn = useServerFn(adminUpsertCleaner);
+  const publishFn = useServerFn(adminSetCleanerPublished);
+  const qc = useQueryClient();
+  const [showForm, setShowForm] = useState(false);
+
+  const { data: cleaners = [], isLoading } = useQuery({
+    queryKey: ["admin-cleaners"],
+    queryFn: () => listFn(),
+    enabled: isAdmin,
+  });
+
+  const publish = useMutation({
+    mutationFn: (v: { id: string; published: boolean }) => publishFn({ data: v }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-cleaners"] }),
+  });
+
+  if (!isAdmin) return null;
+
+  return (
+    <section className="mx-auto max-w-6xl px-5 pb-20 md:px-8">
+      <div className="mt-10 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Network
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+            Cleaners ({cleaners.length})
+          </h2>
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowForm((s) => !s)}
+          className="rounded-full bg-foreground px-4 py-2 text-xs font-medium text-background hover:bg-foreground/85"
+        >
+          {showForm ? "Close form" : "+ Add cleaner"}
+        </button>
+      </div>
+
+      {showForm && (
+        <CleanerForm
+          onSubmit={async (payload) => {
+            await upsertFn({ data: payload });
+            qc.invalidateQueries({ queryKey: ["admin-cleaners"] });
+            setShowForm(false);
+          }}
+        />
+      )}
+
+      {isLoading ? (
+        <p className="mt-6 text-sm text-muted-foreground">Loading…</p>
+      ) : cleaners.length === 0 ? (
+        <p className="mt-6 text-sm text-muted-foreground">
+          No cleaners yet. Add the first one.
+        </p>
+      ) : (
+        <ul className="mt-6 divide-y divide-border rounded-2xl border border-border">
+          {cleaners.map((c: AdminCleaner) => (
+            <li
+              key={c.id}
+              className="flex flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between"
+            >
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <span
+                    className={`rounded-full px-2 py-0.5 uppercase tracking-widest ${
+                      c.published
+                        ? "bg-primary/10 text-primary"
+                        : "bg-foreground/10"
+                    }`}
+                  >
+                    {c.published ? "published" : "draft"}
+                  </span>
+                  <span>/cleaners/{c.slug}</span>
+                  <span>· ★ {c.rating.toFixed(1)} ({c.review_count})</span>
+                </div>
+                <p className="mt-1 truncate text-sm font-medium">
+                  {c.display_name}
+                </p>
+                <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                  {c.audiences.join(", ") || "—"} · {c.zips.slice(0, 5).join(", ") || "no ZIPs"}
+                </p>
+              </div>
+              <div className="flex shrink-0 gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    publish.mutate({ id: c.id, published: !c.published })
+                  }
+                  disabled={publish.isPending}
+                  className="rounded-full border border-input px-3 py-1.5 text-xs font-medium hover:bg-secondary disabled:opacity-60"
+                >
+                  {c.published ? "Unpublish" : "Publish"}
+                </button>
+                {c.published && (
+                  <Link
+                    to="/cleaners/$slug"
+                    params={{ slug: c.slug }}
+                    className="rounded-full border border-input px-3 py-1.5 text-xs font-medium hover:bg-secondary"
+                  >
+                    View
+                  </Link>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+type CleanerFormPayload = {
+  email: string;
+  display_name: string;
+  slug: string;
+  headline: string | null;
+  bio: string | null;
+  photo_url: string | null;
+  years_experience: number | null;
+  languages: string[];
+  zips: string[];
+  audiences: ("home" | "rental" | "move")[];
+  published: boolean;
+  active: boolean;
+};
+
+function CleanerForm({
+  onSubmit,
+}: {
+  onSubmit: (payload: CleanerFormPayload) => Promise<void>;
+}) {
+  const [state, setState] = useState<"idle" | "saving" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    email: "",
+    display_name: "",
+    slug: "",
+    headline: "",
+    bio: "",
+    photo_url: "",
+    years_experience: "",
+    languages: "en",
+    zips: "",
+    audiences: { home: true, rental: false, move: false },
+    published: false,
+  });
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setState("saving");
+    setError(null);
+    try {
+      await onSubmit({
+        email: form.email.trim(),
+        display_name: form.display_name.trim(),
+        slug: form.slug.trim().toLowerCase(),
+        headline: form.headline.trim() || null,
+        bio: form.bio.trim() || null,
+        photo_url: form.photo_url.trim() || null,
+        years_experience: form.years_experience
+          ? Number(form.years_experience)
+          : null,
+        languages: form.languages
+          .split(",")
+          .map((s) => s.trim().toLowerCase())
+          .filter(Boolean),
+        zips: form.zips
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        audiences: (["home", "rental", "move"] as const).filter(
+          (k) => form.audiences[k],
+        ),
+        published: form.published,
+        active: true,
+      });
+      setState("idle");
+    } catch (err) {
+      setState("error");
+      setError(err instanceof Error ? err.message : "Failed to save");
+    }
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="mt-4 grid grid-cols-1 gap-3 rounded-2xl border border-border bg-card p-4 md:grid-cols-2"
+    >
+      <label className="text-xs">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Cleaner email (must already have signed up)
+        </span>
+        <input
+          type="email"
+          required
+          value={form.email}
+          onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Display name
+        </span>
+        <input
+          required
+          value={form.display_name}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, display_name: e.target.value }))
+          }
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Slug (used in /cleaners/…)
+        </span>
+        <input
+          required
+          value={form.slug}
+          onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))}
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Years of experience
+        </span>
+        <input
+          type="number"
+          min={0}
+          max={80}
+          value={form.years_experience}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, years_experience: e.target.value }))
+          }
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs md:col-span-2">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Headline
+        </span>
+        <input
+          value={form.headline}
+          onChange={(e) => setForm((f) => ({ ...f, headline: e.target.value }))}
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs md:col-span-2">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Bio
+        </span>
+        <textarea
+          rows={3}
+          value={form.bio}
+          onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))}
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs md:col-span-2">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Photo URL
+        </span>
+        <input
+          type="url"
+          value={form.photo_url}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, photo_url: e.target.value }))
+          }
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Languages (comma sep, e.g. en, es, pt)
+        </span>
+        <input
+          value={form.languages}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, languages: e.target.value }))
+          }
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <label className="text-xs">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          ZIPs served (comma sep)
+        </span>
+        <input
+          value={form.zips}
+          onChange={(e) => setForm((f) => ({ ...f, zips: e.target.value }))}
+          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
+        />
+      </label>
+      <div className="text-xs md:col-span-2">
+        <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+          Services
+        </span>
+        <div className="flex flex-wrap gap-4 text-sm">
+          {(["home", "rental", "move"] as const).map((a) => (
+            <label key={a} className="inline-flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={form.audiences[a]}
+                onChange={(e) =>
+                  setForm((f) => ({
+                    ...f,
+                    audiences: { ...f.audiences, [a]: e.target.checked },
+                  }))
+                }
+              />
+              {a === "home" ? "Homes" : a === "rental" ? "Airbnb" : "Move-in/out"}
+            </label>
+          ))}
+        </div>
+      </div>
+      <label className="inline-flex items-center gap-2 text-sm md:col-span-2">
+        <input
+          type="checkbox"
+          checked={form.published}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, published: e.target.checked }))
+          }
+        />
+        Publish immediately
+      </label>
+      <div className="md:col-span-2">
+        <button
+          type="submit"
+          disabled={state === "saving"}
+          className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
+        >
+          {state === "saving" ? "Saving…" : "Save cleaner"}
+        </button>
+        {error && (
+          <span className="ml-3 text-xs text-destructive">{error}</span>
+        )}
+      </div>
+    </form>
   );
 }
 

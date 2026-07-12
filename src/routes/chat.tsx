@@ -8,6 +8,7 @@ import { Nav } from "@/components/tidly/Nav";
 import { supabase } from "@/integrations/supabase/client";
 import { createBooking } from "@/lib/tidly.functions";
 import { useServerFn } from "@tanstack/react-start";
+import { detectLang, t, type Lang } from "@/lib/i18n";
 
 const chatSearchSchema = z.object({
   audience: z.enum(["home", "rental", "move"]).optional(),
@@ -29,18 +30,14 @@ export const Route = createFileRoute("/chat")({
   }),
 });
 
-const AUDIENCE_LABEL: Record<string, string> = {
-  home: "My home",
-  rental: "Rental turnover",
-  move: "Move in / out",
-};
-
 function ChatPage() {
   const { audience } = Route.useSearch();
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [lang, setLang] = useState<Lang>("en");
 
   useEffect(() => {
+    setLang(detectLang());
     supabase.auth.getUser().then(({ data }) => {
       setSignedIn(!!data.user);
       setUserEmail(data.user?.email ?? null);
@@ -52,13 +49,20 @@ function ChatPage() {
     return () => sub.subscription.unsubscribe();
   }, []);
 
+  const strings = t(lang);
+  const audienceLabel: Record<string, string> = {
+    home: strings.home_label,
+    rental: strings.rental_label,
+    move: strings.move_label,
+  };
+
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
         api: "/api/chat",
-        body: { audience },
+        body: { audience, lang },
       }),
-    [audience],
+    [audience, lang],
   );
 
   const initialMessages = useMemo<UIMessage[]>(
@@ -70,24 +74,27 @@ function ChatPage() {
           {
             type: "text",
             text: audience
-              ? `Hey! Let's set up your ${AUDIENCE_LABEL[audience].toLowerCase()} clean. What's the address (or neighborhood) and how many bedrooms/bathrooms?`
-              : `Hey! I'm Tidly. Is this for **your home**, a **rental turnover**, or a **move in/out**?`,
+              ? strings.chat_welcome_audience(audienceLabel[audience])
+              : strings.chat_welcome_new,
           },
         ],
       },
     ],
-    [audience],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [audience, lang],
   );
 
   const { messages, sendMessage, status, error } = useChat({
-    id: audience ?? "new",
+    id: `${audience ?? "new"}-${lang}`,
     messages: initialMessages,
     transport,
   });
 
   const [input, setInput] = useState("");
+  const [files, setFiles] = useState<FileList | null>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     scroller.current?.scrollTo({
@@ -105,9 +112,15 @@ function ChatPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const text = input.trim();
-    if (!text || busy) return;
+    if ((!text && !files?.length) || busy) return;
     setInput("");
-    await sendMessage({ text });
+    const attached = files;
+    setFiles(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    await sendMessage({
+      text: text || (attached?.length ? "Here are photos of the place." : ""),
+      files: attached ?? undefined,
+    });
   };
 
   return (
@@ -116,7 +129,7 @@ function ChatPage() {
       <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-6 md:px-6">
         <header className="mb-4">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {audience ? AUDIENCE_LABEL[audience] : "New quote"}
+            {audience ? audienceLabel[audience] : strings.nav_quote}
           </p>
           <h1 className="mt-1.5 text-2xl font-semibold tracking-tight md:text-3xl">
             Chat with Tidly
@@ -151,7 +164,47 @@ function ChatPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-4">
+          {files && files.length > 0 && (
+            <div className="mb-2 flex flex-wrap gap-2 px-2">
+              {Array.from(files).map((f, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 text-xs text-muted-foreground"
+                >
+                  📷 {f.name.length > 24 ? f.name.slice(0, 22) + "…" : f.name}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="flex items-end gap-2 rounded-3xl border border-border bg-card p-2">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              hidden
+              onChange={(e) => setFiles(e.target.files)}
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={busy}
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground disabled:opacity-40"
+              aria-label={strings.chat_attach}
+              title={strings.chat_attach}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden
+              >
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+              </svg>
+            </button>
             <textarea
               ref={inputRef}
               value={input}
@@ -162,14 +215,14 @@ function ChatPage() {
                   handleSubmit(e);
                 }
               }}
-              placeholder="Message Tidly…"
+              placeholder={strings.chat_placeholder}
               rows={1}
-              className="flex-1 resize-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground"
+              className="flex-1 resize-none bg-transparent px-2 py-2.5 text-sm outline-none placeholder:text-muted-foreground"
               style={{ maxHeight: 160 }}
             />
             <button
               type="submit"
-              disabled={busy || !input.trim()}
+              disabled={busy || (!input.trim() && !files?.length)}
               className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground transition hover:bg-primary/90 disabled:opacity-40"
               aria-label="Send"
             >
@@ -188,11 +241,11 @@ function ChatPage() {
           </div>
           {!signedIn && (
             <p className="mt-2 px-2 text-xs text-muted-foreground">
-              You can start now — you'll{" "}
+              {strings.chat_signed_out_hint_a}{" "}
               <Link to="/auth" className="underline hover:text-foreground">
-                sign in
+                {strings.chat_signed_out_hint_b}
               </Link>{" "}
-              to confirm your booking.
+              {strings.chat_signed_out_hint_c}
             </p>
           )}
         </form>
@@ -260,7 +313,7 @@ function MessageBubble({
   const isUser = message.role === "user";
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-      <div className={`max-w-[88%] space-y-2`}>
+      <div className="max-w-[88%] space-y-2">
         {message.parts.map((part, i) => {
           if (part.type === "text") {
             if (!part.text) return null;
@@ -283,9 +336,18 @@ function MessageBubble({
               </div>
             );
           }
+          if (part.type === "file" && part.mediaType?.startsWith("image/")) {
+            return (
+              <img
+                key={i}
+                src={part.url}
+                alt="attachment"
+                className="max-h-48 rounded-2xl border border-border object-cover"
+              />
+            );
+          }
           if (part.type === "tool-estimate_quote") {
-            const state = part.state;
-            if (state !== "output-available") {
+            if (part.state !== "output-available") {
               return (
                 <div
                   key={i}
@@ -298,8 +360,7 @@ function MessageBubble({
             return <QuoteCard key={i} quote={part.output as QuoteData} />;
           }
           if (part.type === "tool-propose_booking") {
-            const state = part.state;
-            if (state !== "output-available") {
+            if (part.state !== "output-available") {
               return (
                 <div
                   key={i}

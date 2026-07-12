@@ -180,7 +180,43 @@ function BookingsPage() {
             ))}
           </ul>
         )}
+
+        {chats && chats.length > 0 && (
+          <div className="mt-14">
+            <h2 className="text-lg font-semibold tracking-tight">Recent chats</h2>
+            <ul className="mt-4 space-y-2">
+              {chats.map((c) => {
+                const firstUser = (c.messages as Array<{ role?: string; parts?: Array<{ type?: string; text?: string }> }>)?.find(
+                  (m) => m?.role === "user",
+                );
+                const preview =
+                  firstUser?.parts?.find((p) => p?.type === "text")?.text ??
+                  "New conversation";
+                return (
+                  <li key={c.id}>
+                    <Link
+                      to="/chat"
+                      search={{
+                        audience: (c.audience as "home" | "rental" | "move" | undefined) ?? undefined,
+                        session: c.session_token,
+                      }}
+                      className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-primary/40"
+                    >
+                      <span className="line-clamp-1 text-sm text-foreground">
+                        {preview.slice(0, 90)}
+                      </span>
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        {new Date(c.updated_at).toLocaleDateString()}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </section>
     </div>
   );
 }
+

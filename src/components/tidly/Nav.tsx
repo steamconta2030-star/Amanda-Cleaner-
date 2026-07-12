@@ -7,6 +7,17 @@ import { LANGS, detectLang, setLang, type Lang } from "@/lib/i18n";
 
 export function Nav() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [lang, setLangState] = useState<Lang>("en");
+
+  useEffect(() => {
+    setLangState(detectLang());
+  }, []);
+
+  function changeLang(next: Lang) {
+    setLang(next);
+    setLangState(next);
+    if (typeof window !== "undefined") window.location.reload();
+  }
 
   useEffect(() => {
     let cancelled = false;

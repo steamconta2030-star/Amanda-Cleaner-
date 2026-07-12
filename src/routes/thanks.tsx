@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Nav } from "@/components/tidly/Nav";
 import { NewsletterForm } from "@/components/tidly/NewsletterForm";
+import { trackConversion } from "@/lib/analytics";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
 

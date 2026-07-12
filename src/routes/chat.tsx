@@ -12,7 +12,9 @@ import { detectLang, t, type Lang } from "@/lib/i18n";
 
 const chatSearchSchema = z.object({
   audience: z.enum(["home", "rental", "move"]).optional(),
+  session: z.string().optional(),
 });
+
 
 export const Route = createFileRoute("/chat")({
   validateSearch: chatSearchSchema,

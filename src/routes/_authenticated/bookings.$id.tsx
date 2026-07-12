@@ -279,10 +279,6 @@ function BookingDetailPage() {
     </div>
   );
 }
-      </section>
-    </div>
-  );
-}
 
 function Row({
   label,

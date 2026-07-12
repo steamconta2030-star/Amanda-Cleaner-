@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Nav } from "@/components/tidly/Nav";
 import {
   adminListBookings,
+  adminListLeads,
   adminUpdateBookingStatus,
   amIAdmin,
   type AdminBooking,
+  type AdminLead,
 } from "@/lib/tidly.functions";
+
 
 export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
@@ -25,8 +29,11 @@ type Status = (typeof STATUSES)[number];
 function AdminPage() {
   const checkAdminFn = useServerFn(amIAdmin);
   const listFn = useServerFn(adminListBookings);
+  const leadsFn = useServerFn(adminListLeads);
   const updateFn = useServerFn(adminUpdateBookingStatus);
   const qc = useQueryClient();
+  const [q, setQ] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | Status>("all");
 
   const { data: isAdmin, isLoading: checking } = useQuery({
     queryKey: ["am-i-admin"],
@@ -39,12 +46,34 @@ function AdminPage() {
     enabled: !!isAdmin,
   });
 
+  const { data: leads = [] } = useQuery({
+    queryKey: ["admin-leads"],
+    queryFn: () => leadsFn(),
+    enabled: !!isAdmin,
+  });
+
   const mut = useMutation({
     mutationFn: (v: { id: string; status: Status }) => updateFn({ data: v }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-bookings"] }),
   });
 
-  const rows: AdminBooking[] = data ?? [];
+
+  const rowsAll: AdminBooking[] = data ?? [];
+  const rows = useMemo(() => {
+    const term = q.trim().toLowerCase();
+    return rowsAll.filter((r) => {
+      if (statusFilter !== "all" && r.status !== statusFilter) return false;
+      if (!term) return true;
+      return (
+        r.customer_name?.toLowerCase().includes(term) ||
+        r.customer_email?.toLowerCase().includes(term) ||
+        r.customer_phone?.toLowerCase().includes(term) ||
+        r.address_line1?.toLowerCase().includes(term) ||
+        r.service_slug?.toLowerCase().includes(term)
+      );
+    });
+  }, [rowsAll, q, statusFilter]);
+
 
   if (checking) {
     return (
@@ -119,11 +148,36 @@ function AdminPage() {
           ))}
         </div>
 
+        <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center">
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search name, email, address, service…"
+            className="w-full rounded-full border border-input bg-background px-4 py-2 text-sm md:max-w-sm"
+          />
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value as "all" | Status)}
+            className="rounded-full border border-input bg-background px-3 py-2 text-xs font-medium"
+          >
+            <option value="all">All statuses</option>
+            {STATUSES.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+          <span className="text-xs text-muted-foreground">
+            {rows.length} of {rowsAll.length}
+          </span>
+        </div>
+
         {isLoading ? (
           <p className="mt-8 text-sm text-muted-foreground">Loading…</p>
         ) : rows.length === 0 ? (
-          <p className="mt-8 text-sm text-muted-foreground">No bookings yet.</p>
+          <p className="mt-8 text-sm text-muted-foreground">No bookings match.</p>
         ) : (
+
           <div className="mt-8 overflow-x-auto rounded-2xl border border-border">
             <table className="w-full text-sm">
               <thead className="bg-secondary/40 text-left text-xs uppercase tracking-widest text-muted-foreground">
@@ -197,7 +251,47 @@ function AdminPage() {
             </table>
           </div>
         )}
+
+        <div className="mt-14 flex items-baseline justify-between">
+          <h2 className="text-2xl font-semibold tracking-tight">Recent leads</h2>
+          <span className="text-xs text-muted-foreground">{leads.length} sessions</span>
+        </div>
+        {leads.length === 0 ? (
+          <p className="mt-4 text-sm text-muted-foreground">No chat sessions yet.</p>
+        ) : (
+          <ul className="mt-4 divide-y divide-border rounded-2xl border border-border">
+            {leads.map((l: AdminLead) => {
+              const first = l.messages?.[0] as { content?: string } | undefined;
+              const preview =
+                typeof first?.content === "string"
+                  ? first.content.slice(0, 120)
+                  : `${l.messages?.length ?? 0} messages`;
+              return (
+                <li key={l.id} className="flex flex-col gap-1 px-4 py-3 md:flex-row md:items-center md:justify-between">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span className="rounded-full bg-secondary px-2 py-0.5">
+                        {l.audience ?? "—"}
+                      </span>
+                      <span>{new Date(l.updated_at).toLocaleString()}</span>
+                      <span>· {l.lang ?? "en"}</span>
+                    </div>
+                    <p className="mt-1 truncate text-sm">{preview}</p>
+                  </div>
+                  <Link
+                    to="/chat"
+                    search={{ audience: (l.audience ?? "home") as "home" | "rental" | "move", session: l.session_token }}
+                    className="shrink-0 rounded-full border border-input px-3 py-1.5 text-xs font-medium hover:bg-secondary"
+                  >
+                    Open
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </section>
+
     </div>
   );
 }

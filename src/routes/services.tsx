@@ -13,29 +13,57 @@ const servicesQuery = queryOptions({
 export const Route = createFileRoute("/services")({
   loader: ({ context }) => context.queryClient.ensureQueryData(servicesQuery),
   component: ServicesPage,
-  head: () => ({
-    meta: [
-      { title: "Cleaning services & pricing in Tampa — Tidly" },
-      {
-        name: "description",
-        content:
-          "Standard, deep, move-in/out, and short-term rental turnovers in Tampa Bay. Transparent starting prices and book by chat.",
-      },
-      {
-        property: "og:title",
-        content: "Cleaning services & pricing in Tampa — Tidly",
-      },
-      {
-        property: "og:description",
-        content:
-          "Transparent starting prices for homes, rentals and moves. Book instantly by chat.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/services` }],
-  }),
+  head: ({ loaderData }) => {
+    const services = (loaderData as Service[] | undefined) ?? [];
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: services.map((s, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name: s.name,
+          description: s.description ?? undefined,
+          areaServed: "Tampa, FL",
+          provider: { "@type": "LocalBusiness", name: "Tidly" },
+          offers: {
+            "@type": "Offer",
+            price: (s.base_price_cents / 100).toFixed(0),
+            priceCurrency: "USD",
+            url: `${SITE_URL}/services`,
+          },
+        },
+      })),
+    };
+    return {
+      meta: [
+        { title: "Cleaning services & pricing in Tampa — Tidly" },
+        {
+          name: "description",
+          content:
+            "Standard, deep, move-in/out, and short-term rental turnovers in Tampa Bay. Transparent starting prices and book by chat.",
+        },
+        {
+          property: "og:title",
+          content: "Cleaning services & pricing in Tampa — Tidly",
+        },
+        {
+          property: "og:description",
+          content:
+            "Transparent starting prices for homes, rentals and moves. Book instantly by chat.",
+        },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary" },
+      ],
+      links: [{ rel: "canonical", href: `${SITE_URL}/services` }],
+      scripts: [
+        { type: "application/ld+json", children: JSON.stringify(jsonLd) },
+      ],
+    };
+  },
 });
+
 
 const AUDIENCE_LABEL: Record<Service["audience"], string> = {
   home: "Homeowners",

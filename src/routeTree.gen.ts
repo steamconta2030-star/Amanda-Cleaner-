@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThanksRouteImport } from './routes/thanks'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ChatRouteImport } from './routes/chat'
@@ -39,6 +40,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thanks': typeof ThanksRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thanks': typeof ThanksRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/chat': typeof ChatRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thanks': typeof ThanksRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/contact'
     | '/faq'
+    | '/reviews'
     | '/services'
     | '/sitemap.xml'
     | '/thanks'
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/contact'
     | '/faq'
+    | '/reviews'
     | '/services'
     | '/sitemap.xml'
     | '/thanks'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/contact'
     | '/faq'
+    | '/reviews'
     | '/services'
     | '/sitemap.xml'
     | '/thanks'
@@ -223,6 +235,7 @@ export interface RootRouteChildren {
   ChatRoute: typeof ChatRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ThanksRoute: typeof ThanksRoute
@@ -250,6 +263,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -380,6 +400,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChatRoute: ChatRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ThanksRoute: ThanksRoute,

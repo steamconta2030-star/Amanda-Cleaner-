@@ -1,5 +1,6 @@
 import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
 import { Nav } from "@/components/tidly/Nav";
+import { NewsletterForm } from "@/components/tidly/NewsletterForm";
 import { POSTS } from "@/lib/blog";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
@@ -97,7 +98,15 @@ function BlogIndex() {
           ))}
         </ul>
 
-        <div className="mt-14 rounded-2xl border border-border bg-card p-6 text-center">
+        <div className="mt-14">
+          <NewsletterForm
+            source="blog-index"
+            title="Get one great cleaning tip a month"
+            subtitle="Tampa-specific, short, actionable. No spam."
+          />
+        </div>
+
+        <div className="mt-8 rounded-2xl border border-border bg-card p-6 text-center">
           <p className="text-sm text-muted-foreground">Need a real price now?</p>
           <Link
             to="/chat"

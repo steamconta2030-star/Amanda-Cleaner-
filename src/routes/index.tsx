@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Nav } from "@/components/tidly/Nav";
 import { Logo } from "@/components/tidly/Logo";
+import { Testimonials } from "@/components/tidly/Testimonials";
+import { NewsletterForm } from "@/components/tidly/NewsletterForm";
 import { listServices } from "@/lib/tidly.functions";
 
 const SITE_URL = "https://amanda-cleaning.lovable.app";
@@ -121,6 +123,8 @@ function Home() {
       <AudiencePicker />
       <HowItWorks />
       <ServicesGrid services={services} />
+      <Testimonials />
+      <NewsletterSection />
       <Cta />
       <Footer />
     </div>
@@ -511,5 +515,19 @@ function Footer() {
         <p className="text-xs">© {new Date().getFullYear()} Tidly</p>
       </div>
     </footer>
+  );
+}
+
+function NewsletterSection() {
+  return (
+    <section className="border-t border-border/60 bg-secondary/40">
+      <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
+        <NewsletterForm
+          source="home"
+          title="Cleaning tips for Tampa homes"
+          subtitle="One short email a month — cadence guides, host tips, and open slots. Unsubscribe anytime."
+        />
+      </div>
+    </section>
   );
 }

@@ -8,9 +8,13 @@ import { LANGS, detectLang, setLang, type Lang } from "@/lib/i18n";
 export function Nav() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [lang, setLangState] = useState<Lang>("en");
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     setLangState(detectLang());
+    if (typeof document !== "undefined") {
+      setDark(document.documentElement.classList.contains("dark"));
+    }
   }, []);
 
   function changeLang(next: Lang) {
@@ -18,6 +22,19 @@ export function Nav() {
     setLangState(next);
     if (typeof window !== "undefined") window.location.reload();
   }
+
+  function toggleTheme() {
+    if (typeof document === "undefined") return;
+    const next = !document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", next);
+    try {
+      localStorage.setItem("tidly_theme", next ? "dark" : "light");
+    } catch {
+      // ignore
+    }
+    setDark(next);
+  }
+
 
   useEffect(() => {
     let cancelled = false;

@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThanksRouteImport } from './routes/thanks'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ChatRouteImport } from './routes/chat'
@@ -20,6 +21,11 @@ import { Route as AuthenticatedHostRouteImport } from './routes/_authenticated/h
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const ThanksRoute = ThanksRouteImport.update({
+  id: '/thanks',
+  path: '/thanks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/chat': typeof ChatRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRoute
   '/host': typeof AuthenticatedHostRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRoute
   '/host': typeof AuthenticatedHostRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/chat': typeof ChatRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thanks': typeof ThanksRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
   '/_authenticated/host': typeof AuthenticatedHostRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/services'
     | '/sitemap.xml'
+    | '/thanks'
     | '/admin'
     | '/bookings'
     | '/host'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/services'
     | '/sitemap.xml'
+    | '/thanks'
     | '/admin'
     | '/bookings'
     | '/host'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/services'
     | '/sitemap.xml'
+    | '/thanks'
     | '/_authenticated/admin'
     | '/_authenticated/bookings'
     | '/_authenticated/host'
@@ -149,11 +161,19 @@ export interface RootRouteChildren {
   ChatRoute: typeof ChatRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ThanksRoute: typeof ThanksRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/thanks': {
+      id: '/thanks'
+      path: '/thanks'
+      fullPath: '/thanks'
+      preLoaderRoute: typeof ThanksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -249,6 +269,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChatRoute: ChatRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ThanksRoute: ThanksRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport

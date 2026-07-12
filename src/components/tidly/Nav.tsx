@@ -7,6 +7,7 @@ import { LANGS, detectLang, setLang, type Lang } from "@/lib/i18n";
 
 export function Nav() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isCleaner, setIsCleaner] = useState(false);
   const [lang, setLangState] = useState<Lang>("en");
   const [dark, setDark] = useState(false);
 
@@ -41,14 +42,23 @@ export function Nav() {
     async function check() {
       const { data: userRes } = await supabase.auth.getUser();
       if (cancelled || !userRes.user) {
-        if (!cancelled) setIsAdmin(false);
+        if (!cancelled) {
+          setIsAdmin(false);
+          setIsCleaner(false);
+        }
         return;
       }
-      const { data } = await supabase.rpc("has_role", {
-        _user_id: userRes.user.id,
-        _role: "admin",
-      });
-      if (!cancelled) setIsAdmin(!!data);
+      const [admin, cleaner] = await Promise.all([
+        supabase.rpc("has_role", {
+          _user_id: userRes.user.id,
+          _role: "admin",
+        }),
+        supabase.rpc("has_cleaner_role", { _uid: userRes.user.id }),
+      ]);
+      if (!cancelled) {
+        setIsAdmin(!!admin.data);
+        setIsCleaner(!!cleaner.data);
+      }
     }
     check();
     const { data: sub } = supabase.auth.onAuthStateChange(() => check());
@@ -102,11 +112,25 @@ export function Nav() {
             Contact
           </Link>
           <Link
+            to="/cleaners"
+            className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
+          >
+            Our cleaners
+          </Link>
+          <Link
             to="/host"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
             For hosts
           </Link>
+          {isCleaner && (
+            <Link
+              to="/cleaner"
+              className="hidden rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/15 sm:inline-block"
+            >
+              Cleaner
+            </Link>
+          )}
           {isAdmin && (
             <Link
               to="/admin"

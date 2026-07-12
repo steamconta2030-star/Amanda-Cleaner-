@@ -15,15 +15,18 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CleanersRouteImport } from './routes/cleaners'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CleanersSlugRouteImport } from './routes/cleaners.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedHostRouteImport } from './routes/_authenticated/host'
+import { Route as AuthenticatedCleanerRouteImport } from './routes/_authenticated/cleaner'
 import { Route as AuthenticatedBookingsRouteImport } from './routes/_authenticated/bookings'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
@@ -57,6 +60,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CleanersRoute = CleanersRouteImport.update({
+  id: '/cleaners',
+  path: '/cleaners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
@@ -86,6 +94,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CleanersSlugRoute = CleanersSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CleanersRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -99,6 +112,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
 const AuthenticatedHostRoute = AuthenticatedHostRouteImport.update({
   id: '/host',
   path: '/host',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCleanerRoute = AuthenticatedCleanerRouteImport.update({
+  id: '/cleaner',
+  path: '/cleaner',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedBookingsRoute = AuthenticatedBookingsRouteImport.update({
@@ -118,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/chat': typeof ChatRoute
+  '/cleaners': typeof CleanersRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/reviews': typeof ReviewsRoute
@@ -126,9 +145,11 @@ export interface FileRoutesByFullPath {
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRoute
+  '/cleaner': typeof AuthenticatedCleanerRoute
   '/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cleaners/$slug': typeof CleanersSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -136,6 +157,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/chat': typeof ChatRoute
+  '/cleaners': typeof CleanersRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/reviews': typeof ReviewsRoute
@@ -144,9 +166,11 @@ export interface FileRoutesByTo {
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRoute
+  '/cleaner': typeof AuthenticatedCleanerRoute
   '/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cleaners/$slug': typeof CleanersSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -156,6 +180,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
   '/chat': typeof ChatRoute
+  '/cleaners': typeof CleanersRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/reviews': typeof ReviewsRoute
@@ -164,9 +189,11 @@ export interface FileRoutesById {
   '/thanks': typeof ThanksRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRoute
+  '/_authenticated/cleaner': typeof AuthenticatedCleanerRoute
   '/_authenticated/host': typeof AuthenticatedHostRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cleaners/$slug': typeof CleanersSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -176,6 +203,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/chat'
+    | '/cleaners'
     | '/contact'
     | '/faq'
     | '/reviews'
@@ -184,9 +212,11 @@ export interface FileRouteTypes {
     | '/thanks'
     | '/admin'
     | '/bookings'
+    | '/cleaner'
     | '/host'
     | '/api/chat'
     | '/blog/$slug'
+    | '/cleaners/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -194,6 +224,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/chat'
+    | '/cleaners'
     | '/contact'
     | '/faq'
     | '/reviews'
@@ -202,9 +233,11 @@ export interface FileRouteTypes {
     | '/thanks'
     | '/admin'
     | '/bookings'
+    | '/cleaner'
     | '/host'
     | '/api/chat'
     | '/blog/$slug'
+    | '/cleaners/$slug'
   id:
     | '__root__'
     | '/'
@@ -213,6 +246,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/blog'
     | '/chat'
+    | '/cleaners'
     | '/contact'
     | '/faq'
     | '/reviews'
@@ -221,9 +255,11 @@ export interface FileRouteTypes {
     | '/thanks'
     | '/_authenticated/admin'
     | '/_authenticated/bookings'
+    | '/_authenticated/cleaner'
     | '/_authenticated/host'
     | '/api/chat'
     | '/blog/$slug'
+    | '/cleaners/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -233,6 +269,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
   ChatRoute: typeof ChatRoute
+  CleanersRoute: typeof CleanersRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   ReviewsRoute: typeof ReviewsRoute
@@ -286,6 +323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cleaners': {
+      id: '/cleaners'
+      path: '/cleaners'
+      fullPath: '/cleaners'
+      preLoaderRoute: typeof CleanersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/chat': {
       id: '/chat'
       path: '/chat'
@@ -328,6 +372,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cleaners/$slug': {
+      id: '/cleaners/$slug'
+      path: '/$slug'
+      fullPath: '/cleaners/$slug'
+      preLoaderRoute: typeof CleanersSlugRouteImport
+      parentRoute: typeof CleanersRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -347,6 +398,13 @@ declare module '@tanstack/react-router' {
       path: '/host'
       fullPath: '/host'
       preLoaderRoute: typeof AuthenticatedHostRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/cleaner': {
+      id: '/_authenticated/cleaner'
+      path: '/cleaner'
+      fullPath: '/cleaner'
+      preLoaderRoute: typeof AuthenticatedCleanerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/bookings': {
@@ -369,12 +427,14 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedBookingsRoute: typeof AuthenticatedBookingsRoute
+  AuthenticatedCleanerRoute: typeof AuthenticatedCleanerRoute
   AuthenticatedHostRoute: typeof AuthenticatedHostRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedBookingsRoute: AuthenticatedBookingsRoute,
+  AuthenticatedCleanerRoute: AuthenticatedCleanerRoute,
   AuthenticatedHostRoute: AuthenticatedHostRoute,
 }
 
@@ -391,6 +451,18 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface CleanersRouteChildren {
+  CleanersSlugRoute: typeof CleanersSlugRoute
+}
+
+const CleanersRouteChildren: CleanersRouteChildren = {
+  CleanersSlugRoute: CleanersSlugRoute,
+}
+
+const CleanersRouteWithChildren = CleanersRoute._addFileChildren(
+  CleanersRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -398,6 +470,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
   ChatRoute: ChatRoute,
+  CleanersRoute: CleanersRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   ReviewsRoute: ReviewsRoute,

@@ -11,6 +11,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const url = process.env.SUPABASE_URL;
         const key = process.env.SUPABASE_PUBLISHABLE_KEY;
         let audiences: string[] = [];
+        let cleanerSlugs: string[] = [];
         if (url && key) {
           try {
             const sb = createClient<Database>(url, key, {
@@ -27,8 +28,14 @@ export const Route = createFileRoute("/sitemap.xml")({
             audiences = Array.from(
               new Set((data ?? []).map((s) => s.audience).filter(Boolean) as string[]),
             );
+            const { data: cleaners } = await sb
+              .from("cleaner_profiles")
+              .select("slug")
+              .eq("published", true)
+              .eq("active", true);
+            cleanerSlugs = (cleaners ?? []).map((c) => c.slug);
           } catch {
-            // fall through with empty audiences
+            // fall through with empty lists
           }
         }
 
@@ -41,10 +48,18 @@ export const Route = createFileRoute("/sitemap.xml")({
           { loc: `${SITE_URL}/about`, changefreq: "monthly", priority: "0.6" },
           { loc: `${SITE_URL}/contact`, changefreq: "monthly", priority: "0.6" },
           { loc: `${SITE_URL}/reviews`, changefreq: "monthly", priority: "0.7" },
+          { loc: `${SITE_URL}/cleaners`, changefreq: "weekly", priority: "0.8" },
           { loc: `${SITE_URL}/chat`, changefreq: "weekly", priority: "0.8" },
           { loc: `${SITE_URL}/host`, changefreq: "monthly", priority: "0.6" },
           { loc: `${SITE_URL}/auth`, changefreq: "monthly", priority: "0.4" },
         ];
+        for (const slug of cleanerSlugs) {
+          urls.push({
+            loc: `${SITE_URL}/cleaners/${slug}`,
+            changefreq: "weekly",
+            priority: "0.7",
+          });
+        }
         for (const p of POSTS) {
           urls.push({
             loc: `${SITE_URL}/blog/${p.slug}`,

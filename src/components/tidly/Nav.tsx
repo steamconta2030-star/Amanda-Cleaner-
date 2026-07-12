@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 import { supabase } from "@/integrations/supabase/client";
+import { LANGS, detectLang, setLang, type Lang } from "@/lib/i18n";
+
 
 export function Nav() {
   const [isAdmin, setIsAdmin] = useState(false);

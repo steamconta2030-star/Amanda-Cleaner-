@@ -348,11 +348,290 @@ function MyJobsPanel() {
               >
                 Directions
               </a>
+              <Link
+                to="/bookings/$id"
+                params={{ id: job.id }}
+                className="rounded-full border border-input px-4 py-1.5 text-xs font-medium hover:bg-secondary"
+              >
+                Open · Chat
+              </Link>
             </div>
           </li>
         );
       })}
     </ul>
+  );
+}
+
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function SchedulePanel() {
+  const listAvailFn = useServerFn(listMyAvailability);
+  const addAvailFn = useServerFn(addAvailabilitySlot);
+  const rmAvailFn = useServerFn(removeAvailabilitySlot);
+  const listToFn = useServerFn(listMyTimeOff);
+  const addToFn = useServerFn(addTimeOff);
+  const rmToFn = useServerFn(removeTimeOff);
+  const qc = useQueryClient();
+
+  const { data: slots = [], isLoading } = useQuery({
+    queryKey: ["my-availability"],
+    queryFn: () => listAvailFn(),
+  });
+  const { data: offs = [] } = useQuery({
+    queryKey: ["my-time-off"],
+    queryFn: () => listToFn(),
+  });
+
+  const [newSlot, setNewSlot] = useState({
+    weekday: 1,
+    start_time: "09:00",
+    end_time: "17:00",
+  });
+  const [newOff, setNewOff] = useState({
+    starts_at: "",
+    ends_at: "",
+    reason: "",
+  });
+
+  const addAvail = useMutation({
+    mutationFn: () => addAvailFn({ data: newSlot }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["my-availability"] }),
+  });
+  const rmAvail = useMutation({
+    mutationFn: (id: string) => rmAvailFn({ data: { id } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["my-availability"] }),
+  });
+  const addOff = useMutation({
+    mutationFn: () =>
+      addToFn({
+        data: {
+          starts_at: new Date(newOff.starts_at).toISOString(),
+          ends_at: new Date(newOff.ends_at).toISOString(),
+          reason: newOff.reason || null,
+        },
+      }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["my-time-off"] });
+      setNewOff({ starts_at: "", ends_at: "", reason: "" });
+    },
+  });
+  const rmOff = useMutation({
+    mutationFn: (id: string) => rmToFn({ data: { id } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["my-time-off"] }),
+  });
+
+  return (
+    <div className="grid gap-8 md:grid-cols-2">
+      <div>
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+          Weekly availability
+        </h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Hours you're generally free to take jobs. Shown on your public
+          profile.
+        </p>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addAvail.mutate();
+          }}
+          className="mt-4 flex flex-wrap items-end gap-2"
+        >
+          <label className="text-xs">
+            <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+              Day
+            </span>
+            <select
+              value={newSlot.weekday}
+              onChange={(e) =>
+                setNewSlot((s) => ({ ...s, weekday: Number(e.target.value) }))
+              }
+              className="rounded-xl border border-input bg-background px-2 py-1.5 text-sm"
+            >
+              {WEEKDAYS.map((d, i) => (
+                <option key={d} value={i}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="text-xs">
+            <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+              From
+            </span>
+            <input
+              type="time"
+              value={newSlot.start_time}
+              onChange={(e) =>
+                setNewSlot((s) => ({ ...s, start_time: e.target.value }))
+              }
+              className="rounded-xl border border-input bg-background px-2 py-1.5 text-sm"
+            />
+          </label>
+          <label className="text-xs">
+            <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+              To
+            </span>
+            <input
+              type="time"
+              value={newSlot.end_time}
+              onChange={(e) =>
+                setNewSlot((s) => ({ ...s, end_time: e.target.value }))
+              }
+              className="rounded-xl border border-input bg-background px-2 py-1.5 text-sm"
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={addAvail.isPending}
+            className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
+          >
+            Add
+          </button>
+        </form>
+
+        {isLoading ? (
+          <p className="mt-4 text-sm text-muted-foreground">Loading…</p>
+        ) : slots.length === 0 ? (
+          <p className="mt-4 text-sm text-muted-foreground">
+            No hours set yet.
+          </p>
+        ) : (
+          <ul className="mt-4 space-y-2">
+            {slots.map((s: AvailabilitySlot) => (
+              <li
+                key={s.id}
+                className="flex items-center justify-between rounded-xl border border-border bg-card px-3 py-2 text-sm"
+              >
+                <span>
+                  <strong>{WEEKDAYS[s.weekday]}</strong> ·{" "}
+                  {s.start_time.slice(0, 5)} – {s.end_time.slice(0, 5)}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => rmAvail.mutate(s.id)}
+                  className="text-xs text-muted-foreground hover:text-destructive"
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div>
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+          Time off
+        </h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Vacations or blocks when you can't take jobs. Private to you.
+        </p>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addOff.mutate();
+          }}
+          className="mt-4 space-y-2"
+        >
+          <div className="grid grid-cols-2 gap-2">
+            <label className="text-xs">
+              <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+                Start
+              </span>
+              <input
+                type="datetime-local"
+                required
+                value={newOff.starts_at}
+                onChange={(e) =>
+                  setNewOff((o) => ({ ...o, starts_at: e.target.value }))
+                }
+                className="w-full rounded-xl border border-input bg-background px-2 py-1.5 text-sm"
+              />
+            </label>
+            <label className="text-xs">
+              <span className="mb-1 block uppercase tracking-widest text-muted-foreground">
+                End
+              </span>
+              <input
+                type="datetime-local"
+                required
+                value={newOff.ends_at}
+                onChange={(e) =>
+                  setNewOff((o) => ({ ...o, ends_at: e.target.value }))
+                }
+                className="w-full rounded-xl border border-input bg-background px-2 py-1.5 text-sm"
+              />
+            </label>
+          </div>
+          <input
+            value={newOff.reason}
+            onChange={(e) =>
+              setNewOff((o) => ({ ...o, reason: e.target.value }))
+            }
+            placeholder="Reason (optional)"
+            maxLength={200}
+            className="w-full rounded-xl border border-input bg-background px-3 py-1.5 text-sm"
+          />
+          <button
+            type="submit"
+            disabled={addOff.isPending}
+            className="rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
+          >
+            Block time
+          </button>
+          {addOff.isError && (
+            <p className="text-xs text-destructive">
+              {(addOff.error as Error).message}
+            </p>
+          )}
+        </form>
+
+        {offs.length === 0 ? (
+          <p className="mt-4 text-sm text-muted-foreground">No time off.</p>
+        ) : (
+          <ul className="mt-4 space-y-2">
+            {offs.map((o: TimeOff) => (
+              <li
+                key={o.id}
+                className="flex items-center justify-between rounded-xl border border-border bg-card px-3 py-2 text-sm"
+              >
+                <span>
+                  {new Date(o.starts_at).toLocaleString([], {
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}{" "}
+                  →{" "}
+                  {new Date(o.ends_at).toLocaleString([], {
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}
+                  {o.reason && (
+                    <span className="ml-2 text-xs text-muted-foreground">
+                      · {o.reason}
+                    </span>
+                  )}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => rmOff.mutate(o.id)}
+                  className="text-xs text-muted-foreground hover:text-destructive"
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
   );
 }
 

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThanksRouteImport } from './routes/thanks'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReviewsRouteImport } from './routes/reviews'
@@ -37,6 +38,11 @@ import { Route as AuthenticatedBookingsIdRouteImport } from './routes/_authentic
 const ThanksRoute = ThanksRouteImport.update({
   id: '/thanks',
   path: '/thanks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRouteWithChildren
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/thanks': typeof ThanksRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/bookings': typeof AuthenticatedBookingsRouteWithChildren
@@ -221,6 +229,7 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/thanks': typeof ThanksRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/bookings': typeof AuthenticatedBookingsRouteWithChildren
@@ -248,6 +257,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/services'
     | '/sitemap.xml'
+    | '/terms'
     | '/thanks'
     | '/admin'
     | '/bookings'
@@ -273,6 +283,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/services'
     | '/sitemap.xml'
+    | '/terms'
     | '/thanks'
     | '/admin'
     | '/bookings'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/services'
     | '/sitemap.xml'
+    | '/terms'
     | '/thanks'
     | '/_authenticated/admin'
     | '/_authenticated/bookings'
@@ -326,6 +338,7 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
   ThanksRoute: typeof ThanksRoute
   ApiChatRoute: typeof ApiChatRoute
 }
@@ -337,6 +350,13 @@ declare module '@tanstack/react-router' {
       path: '/thanks'
       fullPath: '/thanks'
       preLoaderRoute: typeof ThanksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -571,6 +591,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
   ThanksRoute: ThanksRoute,
   ApiChatRoute: ApiChatRoute,
 }

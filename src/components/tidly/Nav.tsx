@@ -68,6 +68,18 @@ export function Nav() {
               Admin
             </Link>
           )}
+          <select
+            aria-label="Language"
+            value={lang}
+            onChange={(e) => changeLang(e.target.value as Lang)}
+            className="rounded-full border border-border bg-background px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+          >
+            {LANGS.map((l) => (
+              <option key={l} value={l}>
+                {l.toUpperCase()}
+              </option>
+            ))}
+          </select>
           <Link
             to="/auth"
             className="text-sm text-muted-foreground hover:text-foreground"

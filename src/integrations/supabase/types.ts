@@ -23,6 +23,8 @@ export type Database = {
           bedrooms: number | null
           chat_session_id: string | null
           city: string
+          claimed_at: string | null
+          cleaner_id: string | null
           created_at: string
           customer_email: string
           customer_name: string
@@ -48,6 +50,8 @@ export type Database = {
           bedrooms?: number | null
           chat_session_id?: string | null
           city?: string
+          claimed_at?: string | null
+          cleaner_id?: string | null
           created_at?: string
           customer_email: string
           customer_name: string
@@ -73,6 +77,8 @@ export type Database = {
           bedrooms?: number | null
           chat_session_id?: string | null
           city?: string
+          claimed_at?: string | null
+          cleaner_id?: string | null
           created_at?: string
           customer_email?: string
           customer_name?: string
@@ -133,6 +139,66 @@ export type Database = {
           session_token?: string
           updated_at?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      cleaner_profiles: {
+        Row: {
+          active: boolean
+          audiences: string[]
+          bio: string | null
+          created_at: string
+          display_name: string
+          headline: string | null
+          id: string
+          languages: string[]
+          photo_url: string | null
+          published: boolean
+          rating: number
+          review_count: number
+          slug: string
+          updated_at: string
+          user_id: string
+          years_experience: number | null
+          zips: string[]
+        }
+        Insert: {
+          active?: boolean
+          audiences?: string[]
+          bio?: string | null
+          created_at?: string
+          display_name: string
+          headline?: string | null
+          id?: string
+          languages?: string[]
+          photo_url?: string | null
+          published?: boolean
+          rating?: number
+          review_count?: number
+          slug: string
+          updated_at?: string
+          user_id: string
+          years_experience?: number | null
+          zips?: string[]
+        }
+        Update: {
+          active?: boolean
+          audiences?: string[]
+          bio?: string | null
+          created_at?: string
+          display_name?: string
+          headline?: string | null
+          id?: string
+          languages?: string[]
+          photo_url?: string | null
+          published?: boolean
+          rating?: number
+          review_count?: number
+          slug?: string
+          updated_at?: string
+          user_id?: string
+          years_experience?: number | null
+          zips?: string[]
         }
         Relationships: []
       }
@@ -305,6 +371,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_job: {
+        Args: { _booking_id: string }
+        Returns: {
+          claimed_at: string
+          cleaner_id: string
+          id: string
+          status: string
+        }[]
+      }
+      has_cleaner_role: { Args: { _uid: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -312,9 +388,26 @@ export type Database = {
         }
         Returns: boolean
       }
+      list_open_jobs: {
+        Args: never
+        Returns: {
+          audience: string
+          bathrooms: number
+          bedrooms: number
+          city: string
+          created_at: string
+          duration_minutes: number
+          id: string
+          price_cents: number
+          scheduled_at: string
+          service_slug: string
+          square_feet: number
+          zip: string
+        }[]
+      }
     }
     Enums: {
-      app_role: "admin"
+      app_role: "admin" | "cleaner"
       conversation_status:
         | "new"
         | "in_progress"
@@ -449,7 +542,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin"],
+      app_role: ["admin", "cleaner"],
       conversation_status: [
         "new",
         "in_progress",

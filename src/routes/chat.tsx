@@ -127,7 +127,7 @@ function ChatPage() {
     loadFn({ data: { session_token: sessionToken } })
       .then((row) => {
         if (row && Array.isArray(row.messages) && row.messages.length > 1) {
-          setMessages(row.messages as UIMessage[]);
+          setMessages(row.messages as unknown as UIMessage[]);
         }
       })
       .catch(() => {});

@@ -174,6 +174,13 @@ function BookingsPage() {
                   </div>
                 ) : b.status !== "cancelled" ? (
                   <div className="mt-4 flex flex-wrap gap-2">
+                    <Link
+                      to="/bookings/$id"
+                      params={{ id: b.id }}
+                      className="rounded-full bg-primary px-3.5 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90"
+                    >
+                      Open · Chat
+                    </Link>
                     <button
                       onClick={() => handleDownloadIcs(b.id)}
                       className="rounded-full border border-input bg-background px-3.5 py-1.5 text-xs font-medium hover:bg-accent"

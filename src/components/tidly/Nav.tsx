@@ -112,11 +112,25 @@ export function Nav() {
             Contact
           </Link>
           <Link
+            to="/cleaners"
+            className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
+          >
+            Our cleaners
+          </Link>
+          <Link
             to="/host"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
             For hosts
           </Link>
+          {isCleaner && (
+            <Link
+              to="/cleaner"
+              className="hidden rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/15 sm:inline-block"
+            >
+              Cleaner
+            </Link>
+          )}
           {isAdmin && (
             <Link
               to="/admin"

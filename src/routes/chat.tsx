@@ -38,10 +38,32 @@ export const Route = createFileRoute("/chat")({
 });
 
 function ChatPage() {
-  const { audience } = Route.useSearch();
+  const { audience, session } = Route.useSearch();
+  const navigate = useNavigate();
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [lang, setLang] = useState<Lang>("en");
+  const saveFn = useServerFn(saveChatSession);
+  const loadFn = useServerFn(getChatSession);
+
+  // Session token: from URL or generated once (persists in URL for shareable resume)
+  const [sessionToken] = useState<string>(() => {
+    if (session) return session;
+    if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
+    return `s_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  });
+
+  useEffect(() => {
+    if (!session) {
+      // Reflect the token in the URL so refresh/share works
+      navigate({
+        to: "/chat",
+        search: { audience, session: sessionToken },
+        replace: true,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setLang(detectLang());
@@ -91,11 +113,48 @@ function ChatPage() {
     [audience, lang],
   );
 
-  const { messages, sendMessage, status, error } = useChat({
-    id: `${audience ?? "new"}-${lang}`,
+  const { messages, sendMessage, setMessages, status, error } = useChat({
+    id: `${sessionToken}-${lang}`,
     messages: initialMessages,
     transport,
   });
+
+  // Load persisted session on mount (if signed-in and token exists)
+  const loadedRef = useRef(false);
+  useEffect(() => {
+    if (!signedIn || loadedRef.current) return;
+    loadedRef.current = true;
+    loadFn({ data: { session_token: sessionToken } })
+      .then((row) => {
+        if (row && Array.isArray(row.messages) && row.messages.length > 1) {
+          setMessages(row.messages as UIMessage[]);
+        }
+      })
+      .catch(() => {});
+  }, [signedIn, sessionToken, loadFn, setMessages]);
+
+  // Debounced auto-save on message change (signed-in users only)
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!signedIn) return;
+    if (messages.length <= 1) return; // skip empty/welcome-only
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      saveFn({
+        data: {
+          session_token: sessionToken,
+          audience: audience ?? null,
+          lang,
+          messages: messages as never,
+        },
+      }).catch(() => {});
+    }, 800);
+    return () => {
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+    };
+  }, [messages, signedIn, sessionToken, audience, lang, saveFn]);
+
+
 
   const [input, setInput] = useState("");
   const [files, setFiles] = useState<FileList | null>(null);

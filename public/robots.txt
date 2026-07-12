@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /bookings
+Disallow: /host
+Disallow: /api/
 
 Sitemap: https://amanda-cleaning.lovable.app/sitemap.xml

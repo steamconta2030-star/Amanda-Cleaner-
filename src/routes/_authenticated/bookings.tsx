@@ -88,7 +88,7 @@ function BookingsPage() {
             Your bookings
           </h1>
           <Link
-            to="/host"
+            to="/str"
             className="text-sm text-muted-foreground underline hover:text-foreground"
           >
             Rental host? Import your Airbnb calendar →

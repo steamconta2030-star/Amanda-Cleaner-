@@ -6,6 +6,13 @@ import { Logo } from "@/components/tidly/Logo";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
+  head: () => ({
+    meta: [
+      { title: "Sign in — Tidly" },
+      { name: "description", content: "Sign in to Tidly to manage your bookings and chats." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
 });
 
 function AuthPage() {

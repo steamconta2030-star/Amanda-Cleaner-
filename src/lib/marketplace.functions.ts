@@ -437,10 +437,11 @@ export const cancelBookingWithReason = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabase } = context;
-    const { error } = await supabase.rpc("cancel_booking", {
+    const args: { _booking_id: string; _reason?: string } = {
       _booking_id: data.id,
-      _reason: data.reason ?? null,
-    });
+    };
+    if (data.reason) args._reason = data.reason;
+    const { error } = await supabase.rpc("cancel_booking", args);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

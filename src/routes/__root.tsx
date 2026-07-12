@@ -143,6 +143,15 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <InstallPromptLazy />
     </QueryClientProvider>
   );
+}
+
+import { InstallPrompt } from "@/components/tidly/InstallPrompt";
+function InstallPromptLazy() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return <InstallPrompt />;
 }

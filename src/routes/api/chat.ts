@@ -200,12 +200,16 @@ export const Route = createFileRoute("/api/chat")({
           return new Response("Message too large", { status: 413 });
         }
 
-        const key = process.env.LOVABLE_API_KEY;
-        if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
+        const key = process.env.GOOGLE_AI_API_KEY;
+        if (!key) return new Response("Missing GOOGLE_AI_API_KEY", { status: 500 });
 
         const catalog = await loadCatalog();
-        const gateway = createLovableAiGatewayProvider(key);
-        const model = gateway("google/gemini-2.5-flash");
+        const gemini = createOpenAICompatible({
+          name: "gemini",
+          baseURL: "https://generativelanguage.googleapis.com/v1beta/openai",
+          headers: { Authorization: `Bearer ${key}` },
+        });
+        const model = gemini("gemini-2.5-flash");
 
         const result = streamText({
           model,

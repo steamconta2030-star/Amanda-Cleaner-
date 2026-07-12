@@ -85,6 +85,15 @@ export function Nav() {
               Admin
             </Link>
           )}
+          <button
+            type="button"
+            aria-label="Toggle theme"
+            title={dark ? "Switch to light" : "Switch to dark"}
+            onClick={toggleTheme}
+            className="rounded-full border border-border bg-background px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+          >
+            {dark ? "☀︎" : "☾"}
+          </button>
           <select
             aria-label="Language"
             value={lang}

@@ -1,8 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Nav } from "@/components/tidly/Nav";
-import { listMyBookings, type Booking } from "@/lib/tidly.functions";
+import {
+  listMyBookings,
+  cancelBooking,
+  getBookingIcs,
+  type Booking,
+} from "@/lib/tidly.functions";
 
 export const Route = createFileRoute("/_authenticated/bookings")({
   component: BookingsPage,
@@ -16,12 +21,33 @@ export const Route = createFileRoute("/_authenticated/bookings")({
 
 function BookingsPage() {
   const fetchBookings = useServerFn(listMyBookings);
+  const cancelFn = useServerFn(cancelBooking);
+  const icsFn = useServerFn(getBookingIcs);
+  const qc = useQueryClient();
+
   const { data, isLoading } = useQuery({
     queryKey: ["my-bookings"],
     queryFn: () => fetchBookings(),
   });
 
   const bookings: Booking[] = data ?? [];
+
+  async function handleCancel(id: string) {
+    if (!confirm("Cancel this booking?")) return;
+    await cancelFn({ data: { id } });
+    qc.invalidateQueries({ queryKey: ["my-bookings"] });
+  }
+
+  async function handleDownloadIcs(id: string) {
+    const { filename, ics } = await icsFn({ data: { id } });
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -30,9 +56,17 @@ function BookingsPage() {
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
           Your account
         </p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
-          Your bookings
-        </h1>
+        <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
+          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+            Your bookings
+          </h1>
+          <Link
+            to="/host"
+            className="text-sm text-muted-foreground underline hover:text-foreground"
+          >
+            Rental host? Import your Airbnb calendar →
+          </Link>
+        </div>
 
         {isLoading ? (
           <p className="mt-6 text-sm text-muted-foreground">Loading…</p>
@@ -88,15 +122,33 @@ function BookingsPage() {
                       className={`mt-1 inline-block rounded-full px-2.5 py-0.5 text-[10px] uppercase tracking-widest ${
                         b.status === "confirmed"
                           ? "bg-primary/10 text-primary"
-                          : b.status === "completed"
-                            ? "bg-secondary text-muted-foreground"
-                            : "bg-secondary text-foreground"
+                          : b.status === "cancelled"
+                            ? "bg-destructive/10 text-destructive"
+                            : b.status === "completed"
+                              ? "bg-secondary text-muted-foreground"
+                              : "bg-secondary text-foreground"
                       }`}
                     >
                       {b.status}
                     </span>
                   </div>
                 </div>
+                {b.status !== "cancelled" && b.status !== "completed" && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <button
+                      onClick={() => handleDownloadIcs(b.id)}
+                      className="rounded-full border border-input bg-background px-3.5 py-1.5 text-xs font-medium hover:bg-accent"
+                    >
+                      Add to calendar
+                    </button>
+                    <button
+                      onClick={() => handleCancel(b.id)}
+                      className="rounded-full border border-input bg-background px-3.5 py-1.5 text-xs font-medium text-destructive hover:bg-destructive/10"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

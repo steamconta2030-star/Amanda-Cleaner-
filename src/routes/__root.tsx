@@ -164,9 +164,3 @@ function InstallPromptLazy() {
 function FooterLazy() {
   return <Footer />;
 }
-function InstallPromptLazy() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
-  return <InstallPrompt />;
-}

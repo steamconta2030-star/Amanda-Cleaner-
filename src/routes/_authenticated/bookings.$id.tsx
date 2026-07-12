@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Nav } from "@/components/tidly/Nav";
 import { BookingChat } from "@/components/tidly/BookingChat";
+import { RatingForm } from "@/components/tidly/RatingForm";
 import { supabase } from "@/integrations/supabase/client";
 import {
   getBookingDetail,

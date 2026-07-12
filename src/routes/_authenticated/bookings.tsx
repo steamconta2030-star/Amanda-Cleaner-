@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useEffect } from "react";
 import { Nav } from "@/components/tidly/Nav";
+import { supabase } from "@/integrations/supabase/client";
 import {
   listMyBookings,
   cancelBooking,
   getBookingIcs,
+  listChatSessions,
   type Booking,
 } from "@/lib/tidly.functions";
+
 
 export const Route = createFileRoute("/_authenticated/bookings")({
   component: BookingsPage,
@@ -21,6 +25,7 @@ export const Route = createFileRoute("/_authenticated/bookings")({
 
 function BookingsPage() {
   const fetchBookings = useServerFn(listMyBookings);
+  const fetchChats = useServerFn(listChatSessions);
   const cancelFn = useServerFn(cancelBooking);
   const icsFn = useServerFn(getBookingIcs);
   const qc = useQueryClient();
@@ -30,7 +35,29 @@ function BookingsPage() {
     queryFn: () => fetchBookings(),
   });
 
+  const { data: chats } = useQuery({
+    queryKey: ["my-chat-sessions"],
+    queryFn: () => fetchChats(),
+  });
+
   const bookings: Booking[] = data ?? [];
+
+  // Realtime: refetch on any booking row change for this user
+  useEffect(() => {
+    const channel = supabase
+      .channel("bookings-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "bookings" },
+        () => qc.invalidateQueries({ queryKey: ["my-bookings"] }),
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [qc]);
+
+
 
   async function handleCancel(id: string) {
     if (!confirm("Cancel this booking?")) return;
@@ -153,7 +180,43 @@ function BookingsPage() {
             ))}
           </ul>
         )}
+
+        {chats && chats.length > 0 && (
+          <div className="mt-14">
+            <h2 className="text-lg font-semibold tracking-tight">Recent chats</h2>
+            <ul className="mt-4 space-y-2">
+              {chats.map((c) => {
+                const firstUser = (c.messages as Array<{ role?: string; parts?: Array<{ type?: string; text?: string }> }>)?.find(
+                  (m) => m?.role === "user",
+                );
+                const preview =
+                  firstUser?.parts?.find((p) => p?.type === "text")?.text ??
+                  "New conversation";
+                return (
+                  <li key={c.id}>
+                    <Link
+                      to="/chat"
+                      search={{
+                        audience: (c.audience as "home" | "rental" | "move" | undefined) ?? undefined,
+                        session: c.session_token,
+                      }}
+                      className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-primary/40"
+                    >
+                      <span className="line-clamp-1 text-sm text-foreground">
+                        {preview.slice(0, 90)}
+                      </span>
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        {new Date(c.updated_at).toLocaleDateString()}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </section>
     </div>
   );
 }
+

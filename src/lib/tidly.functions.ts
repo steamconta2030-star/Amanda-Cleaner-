@@ -249,7 +249,7 @@ export type ChatSessionRow = {
   session_token: string;
   audience: string | null;
   lang: string | null;
-  messages: unknown;
+  messages: unknown[];
   updated_at: string;
 };
 

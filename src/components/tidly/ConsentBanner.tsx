@@ -27,7 +27,7 @@ export function ConsentBanner() {
       className="fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-2xl rounded-2xl border border-border bg-card p-4 shadow-lg backdrop-blur md:inset-x-auto md:right-4 md:left-auto md:bottom-4 md:w-[420px]"
     >
       <p className="text-sm text-foreground">
-        We use cookies for analytics and ads to improve Tidly. See our{" "}
+        We use cookies for analytics and ads to improve Amaneat. See our{" "}
         <a href="/privacy" className="underline">
           Privacy Policy
         </a>

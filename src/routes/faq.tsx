@@ -34,13 +34,13 @@ export const Route = createFileRoute("/faq")({
   component: FaqPage,
   head: () => ({
     meta: [
-      { title: "FAQ — Tidly cleaning in Tampa, FL" },
+      { title: "FAQ — Amaneat cleaning in Tampa, FL" },
       {
         name: "description",
         content:
-          "Answers about pricing, service areas, Airbnb turnovers, move-in/out cleans, and cancellations for Tidly in Tampa.",
+          "Answers about pricing, service areas, Airbnb turnovers, move-in/out cleans, and cancellations for Amaneat in Tampa.",
       },
-      { property: "og:title", content: "FAQ — Tidly cleaning in Tampa" },
+      { property: "og:title", content: "FAQ — Amaneat cleaning in Tampa" },
       {
         property: "og:description",
         content: "Everything you'd ask before booking a cleaning in Tampa Bay.",
@@ -92,7 +92,7 @@ function FaqPage() {
           Questions, answered.
         </h1>
         <p className="mt-3 text-base text-muted-foreground md:text-lg">
-          Anything else? Ask Tidly directly by chat — a real answer takes about
+          Anything else? Ask Amaneat directly by chat — a real answer takes about
           a minute.
         </p>
 

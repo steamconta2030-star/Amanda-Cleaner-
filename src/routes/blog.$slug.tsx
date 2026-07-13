@@ -14,7 +14,7 @@ export const Route = createFileRoute("/blog/$slug")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Post not found — Tidly" },
+          { title: "Post not found — Amaneat" },
           { name: "robots", content: "noindex" },
         ],
       };
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/blog/$slug")({
     const url = `${SITE_URL}/blog/${p.slug}`;
     return {
       meta: [
-        { title: `${p.title} — Tidly` },
+        { title: `${p.title} — Amaneat` },
         { name: "description", content: p.description },
         { property: "og:title", content: p.title },
         { property: "og:description", content: p.description },
@@ -43,10 +43,10 @@ export const Route = createFileRoute("/blog/$slug")({
             datePublished: p.date,
             dateModified: p.date,
             mainEntityOfPage: url,
-            author: { "@type": "Organization", name: "Tidly" },
+            author: { "@type": "Organization", name: "Amaneat" },
             publisher: {
               "@type": "Organization",
-              name: "Tidly",
+              name: "Amaneat",
               url: SITE_URL,
             },
           }),

@@ -4,13 +4,13 @@ import { Nav } from "@/components/tidly/Nav";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service | Tidly" },
+      { title: "Terms of Service | Amaneat" },
       {
         name: "description",
-        content: "The rules for using Tidly as a customer or as a cleaner in our network.",
+        content: "The rules for using Amaneat as a customer or as a cleaner in our network.",
       },
-      { property: "og:title", content: "Tidly — Terms of Service" },
-      { property: "og:description", content: "Rules for using Tidly." },
+      { property: "og:title", content: "Amaneat — Terms of Service" },
+      { property: "og:description", content: "Rules for using Amaneat." },
       { property: "og:type", content: "article" },
     ],
   }),
@@ -29,10 +29,10 @@ function TermsPage() {
         <p className="mt-2 text-sm text-muted-foreground">Last updated: July 12, 2026</p>
 
         <div className="prose prose-neutral mt-10 max-w-none dark:prose-invert">
-          <h2>1. What Tidly is</h2>
+          <h2>1. What Amaneat is</h2>
           <p>
-            Tidly is a marketplace that connects customers with independent professional cleaners.
-            Cleaners are not employees of Tidly. Tidly does not perform the cleaning services
+            Amaneat is a marketplace that connects customers with independent professional cleaners.
+            Cleaners are not employees of Amaneat. Amaneat does not perform the cleaning services
             itself.
           </p>
 
@@ -66,7 +66,7 @@ function TermsPage() {
 
           <h2>6. Liability</h2>
           <p>
-            Tidly is not liable for indirect, incidental or consequential damages. Total liability
+            Amaneat is not liable for indirect, incidental or consequential damages. Total liability
             is limited to the amount you paid for the specific booking in dispute. Nothing in
             these terms limits liability where such limitation is not allowed by law.
           </p>
@@ -86,7 +86,7 @@ function TermsPage() {
 
           <h2>9. Changes</h2>
           <p>
-            We may update these terms. Continued use of Tidly after changes take effect means you
+            We may update these terms. Continued use of Amaneat after changes take effect means you
             accept the updated version.
           </p>
 

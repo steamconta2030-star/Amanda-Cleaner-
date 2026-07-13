@@ -7,13 +7,13 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Tidly — Cleaning by chat in Tampa" },
+      { title: "About Amaneat — Cleaning by chat in Tampa" },
       {
         name: "description",
         content:
-          "Tidly is a Tampa cleaning service built around chat. Real quotes in 60 seconds, photo checklists, and a small team that actually cares.",
+          "Amaneat is a Tampa cleaning service built around chat. Real quotes in 60 seconds, photo checklists, and a small team that actually cares.",
       },
-      { property: "og:title", content: "About Tidly — Cleaning by chat" },
+      { property: "og:title", content: "About Amaneat — Cleaning by chat" },
       {
         property: "og:description",
         content:
@@ -55,7 +55,7 @@ function AboutPage() {
           A tiny Tampa team, obsessed with clean handoffs.
         </h1>
         <p className="mt-5 text-base text-muted-foreground md:text-lg">
-          Tidly started because getting a real cleaning quote in Tampa was
+          Amaneat started because getting a real cleaning quote in Tampa was
           harder than the clean itself. We built a chat that gives you a
           straight price in about a minute, and a small crew that shows up on
           time with a photo checklist when they're done.

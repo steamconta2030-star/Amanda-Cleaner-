@@ -30,7 +30,7 @@ export const Route = createFileRoute("/_authenticated/cleaner")({
   component: CleanerDashboard,
   head: () => ({
     meta: [
-      { title: "Cleaner dashboard — Tidly" },
+      { title: "Cleaner dashboard — Amaneat" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -65,7 +65,7 @@ function CleanerDashboard() {
         <section className="mx-auto max-w-2xl px-5 py-16">
           <h1 className="text-2xl font-semibold">Not a cleaner yet</h1>
           <p className="mt-3 text-muted-foreground">
-            This area is for cleaners in the Tidly network. Apply below and
+            This area is for cleaners in the Amaneat network. Apply below and
             Amanda will review your profile.
           </p>
           <Link
@@ -87,7 +87,7 @@ function CleanerDashboard() {
           Cleaner dashboard
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
-          Your Tidly workshop.
+          Your Amaneat workshop.
         </h1>
 
         <div className="mt-8 inline-flex flex-wrap gap-1 rounded-full border border-border bg-card p-1 text-sm">

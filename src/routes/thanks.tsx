@@ -10,13 +10,13 @@ export const Route = createFileRoute("/thanks")({
   component: ThanksPage,
   head: () => ({
     meta: [
-      { title: "You're booked — Tidly" },
+      { title: "You're booked — Amaneat" },
       {
         name: "description",
         content:
-          "Thanks for booking with Tidly. See what to expect and share with a friend.",
+          "Thanks for booking with Amaneat. See what to expect and share with a friend.",
       },
-      { property: "og:title", content: "You're booked — Tidly" },
+      { property: "og:title", content: "You're booked — Amaneat" },
       {
         property: "og:description",
         content: "Your Tampa cleaning is scheduled. Here's what happens next.",
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/thanks")({
 
 function ThanksPage() {
   const shareUrl = `${SITE_URL}/`;
-  const shareText = "Booked my Tampa cleaning by chat with Tidly — took a minute:";
+  const shareText = "Booked my Tampa cleaning by chat with Amaneat — took a minute:";
 
   useEffect(() => {
     // Meta standard "Schedule" + GA4 "generate_lead"
@@ -82,10 +82,10 @@ function ThanksPage() {
 
         <div className="mt-8 rounded-2xl border border-primary/30 bg-primary/5 p-5">
           <p className="text-xs uppercase tracking-widest text-primary">
-            Share Tidly
+            Share Amaneat
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Know a neighbor who could use a spotless place? Send them Tidly.
+            Know a neighbor who could use a spotless place? Send them Amaneat.
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <a
@@ -95,7 +95,7 @@ function ThanksPage() {
               Text
             </a>
             <a
-              href={`mailto:?subject=${encodeURIComponent("Tidly — Tampa cleaning by chat")}&body=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
+              href={`mailto:?subject=${encodeURIComponent("Amaneat — Tampa cleaning by chat")}&body=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
               className="rounded-full border border-input bg-background px-4 py-2 text-xs font-medium hover:bg-secondary"
             >
               Email

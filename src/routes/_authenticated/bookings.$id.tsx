@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_authenticated/bookings/$id")({
   component: BookingDetailPage,
   head: () => ({
     meta: [
-      { title: "Booking — Tidly" },
+      { title: "Booking — Amaneat" },
       { name: "robots", content: "noindex" },
     ],
   }),

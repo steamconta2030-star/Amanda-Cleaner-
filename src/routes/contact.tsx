@@ -7,16 +7,16 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact Tidly — Tampa cleaning" },
+      { title: "Contact Amaneat — Tampa cleaning" },
       {
         name: "description",
         content:
-          "Reach Tidly in Tampa by chat, email, or phone. Same-day answers on quotes, rescheduling, and Airbnb turnovers.",
+          "Reach Amaneat in Tampa by chat, email, or phone. Same-day answers on quotes, rescheduling, and Airbnb turnovers.",
       },
-      { property: "og:title", content: "Contact Tidly — Tampa cleaning" },
+      { property: "og:title", content: "Contact Amaneat — Tampa cleaning" },
       {
         property: "og:description",
-        content: "Chat, email, or call Tidly for Tampa cleaning quotes and support.",
+        content: "Chat, email, or call Amaneat for Tampa cleaning quotes and support.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/contact` }],
@@ -51,7 +51,7 @@ function ContactPage() {
           Contact
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">
-          Talk to a human — or Tidly.
+          Talk to a human — or Amaneat.
         </h1>
         <p className="mt-4 text-base text-muted-foreground md:text-lg">
           Fastest answer is the chat. Prefer email? Also fine. We're a small

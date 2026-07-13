@@ -166,16 +166,16 @@ export const getBookingIcs = createServerFn({ method: "GET" })
     const ics = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Tidly//Booking//EN",
+      "PRODID:-//Amaneat//Booking//EN",
       "CALSCALE:GREGORIAN",
       "BEGIN:VEVENT",
       `UID:${uid}`,
       `DTSTAMP:${now}`,
       `DTSTART:${icsDate(start)}`,
       `DTEND:${icsDate(end)}`,
-      `SUMMARY:Tidly cleaning — ${b.service_slug}`,
+      `SUMMARY:Amaneat cleaning — ${b.service_slug}`,
       `LOCATION:${b.address_line1}, ${b.city}, ${b.state} ${b.zip}`,
-      `DESCRIPTION:Tidly cleaning booking for ${b.customer_name}.`,
+      `DESCRIPTION:Amaneat cleaning booking for ${b.customer_name}.`,
       "END:VEVENT",
       "END:VCALENDAR",
     ].join("\r\n");
@@ -235,7 +235,7 @@ export const importStrCalendar = createServerFn({ method: "POST" })
   )
   .handler(async ({ data }): Promise<StrCheckout[]> => {
     const res = await fetch(data.url, {
-      headers: { "User-Agent": "Tidly/1.0 (+https://tidly.app)" },
+      headers: { "User-Agent": "Amaneat/1.0 (+https://tidly.app)" },
     });
     if (!res.ok) throw new Error(`Calendar fetch failed (${res.status})`);
     const text = await res.text();

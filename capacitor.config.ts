@@ -1,43 +1,32 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 /**
- * Tidly — Capacitor configuration for iOS / Android native shells.
+ * Amaneat — Capacitor configuration for iOS native shell.
  *
- * Usage (run locally on your machine, NOT inside Lovable):
+ * Local setup (run on a Mac, NOT inside Lovable):
  *   1. npm i -D @capacitor/cli
- *      npm i @capacitor/core @capacitor/ios @capacitor/android
- *   2. npx cap init "Tidly" "app.tidly.mobile" --web-dir=dist
+ *      npm i @capacitor/core @capacitor/ios
+ *   2. npx cap init "Amaneat" "app.amaneat.mobile" --web-dir=dist
  *   3. npm run build      (produces the SPA in dist/)
  *   4. npx cap add ios
- *      npx cap add android
  *   5. npx cap sync
- *   6. npx cap open ios       # opens Xcode
- *      npx cap open android   # opens Android Studio
+ *   6. npx cap open ios   # opens Xcode
  *
- * Store submission:
- *   • iOS  → Xcode → Archive → Upload to App Store Connect
- *   • Android → Android Studio → Build → Generate Signed Bundle (.aab)
- *              → upload on Google Play Console
- *
- * Alternative (Android + Windows only, zero code):
- *   Use https://pwabuilder.com — paste your published URL and download the
- *   store-ready packages. Uses this same manifest.webmanifest.
+ * App Store submission:
+ *   Xcode → Product → Archive → Distribute App → App Store Connect
+ *   (requires an Apple Developer account — $99/year)
  */
 const config: CapacitorConfig = {
-  appId: "app.tidly.mobile",
-  appName: "Tidly",
+  appId: "app.amaneat.mobile",
+  appName: "Amaneat",
   webDir: "dist",
   backgroundColor: "#FAFAF7",
   ios: {
     contentInset: "always",
     limitsNavigationsToAppBoundDomains: false,
   },
-  android: {
-    allowMixedContent: false,
-  },
   server: {
-    // Point at the live PWA so app content updates instantly without a store release.
-    // Set to `undefined` and comment this out to ship bundled offline assets instead.
+    // Points at the live PWA so app content updates without a store release.
     url: "https://amanda-cleaning.lovable.app",
     cleartext: false,
   },

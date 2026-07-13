@@ -54,7 +54,7 @@
 
 :root {
   --radius: 1rem;
-  /* Tidly — warm off-white + coral */
+  /* Amaneat — warm off-white + coral */
   --background: oklch(0.985 0.005 80);           /* #FAFAF7 warm off-white */
   --foreground: oklch(0.18 0.01 60);             /* near black warm */
   --card: oklch(1 0 0);

@@ -14,16 +14,16 @@ export const Route = createFileRoute("/reviews")({
   component: ReviewsPage,
   head: () => ({
     meta: [
-      { title: "Reviews — Tidly Tampa cleaning (4.9★)" },
+      { title: "Reviews — Amaneat Tampa cleaning (4.9★)" },
       {
         name: "description",
         content:
-          "Real reviews from Tampa families, Airbnb hosts, and move-out clients. See why Tidly holds a 4.9-star average.",
+          "Real reviews from Tampa families, Airbnb hosts, and move-out clients. See why Amaneat holds a 4.9-star average.",
       },
-      { property: "og:title", content: "Tidly reviews — 4.9★ in Tampa" },
+      { property: "og:title", content: "Amaneat reviews — 4.9★ in Tampa" },
       {
         property: "og:description",
-        content: "Homes, rentals, and moves — what Tampa customers say about Tidly.",
+        content: "Homes, rentals, and moves — what Tampa customers say about Amaneat.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/reviews` }],
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/reviews")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "HouseCleaningService",
-          name: "Tidly",
+          name: "Amaneat",
           url: SITE_URL,
           aggregateRating: {
             "@type": "AggregateRating",

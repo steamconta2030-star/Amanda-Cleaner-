@@ -10,14 +10,14 @@ export const Route = createFileRoute("/become-a-cleaner")({
   head: () => ({
     meta: [
       {
-        title: "Become a cleaner — Join the Tidly network",
+        title: "Become a cleaner — Join the Amaneat network",
       },
       {
         name: "description",
         content:
           "Apply to join Amanda's curated network of professional cleaners. Set your own schedule, pick jobs in your area, and grow with a trusted brand.",
       },
-      { property: "og:title", content: "Become a Tidly cleaner" },
+      { property: "og:title", content: "Become a Amaneat cleaner" },
       {
         property: "og:description",
         content:
@@ -97,7 +97,7 @@ function BecomeACleanerPage() {
           Join the network
         </p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">
-          Clean with Tidly.
+          Clean with Amaneat.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-muted-foreground">
           Curated by Amanda. Real jobs, set your own hours, keep your

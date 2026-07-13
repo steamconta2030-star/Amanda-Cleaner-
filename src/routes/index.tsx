@@ -201,17 +201,6 @@ function Hero() {
   );
 }
 
-function StarRow() {
-  return (
-    <span className="inline-flex items-center gap-0.5 text-primary">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-          <path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7z" />
-        </svg>
-      ))}
-    </span>
-  );
-}
 
 function ChatMock() {
   return (

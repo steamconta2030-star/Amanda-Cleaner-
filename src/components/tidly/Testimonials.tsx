@@ -13,7 +13,7 @@ export const TESTIMONIALS = [
     name: "Daniel P.",
     area: "Airbnb host · South Tampa",
     quote:
-      "Turnovers are on autopilot. I get pings when the property is ready and a full photo report. Guest reviews jumped after switching to Tidly.",
+      "Turnovers are on autopilot. I get pings when the property is ready and a full photo report. Guest reviews jumped after switching to Amaneat.",
     tag: "Rental",
     rating: 5,
   },

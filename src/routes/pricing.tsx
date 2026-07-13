@@ -4,13 +4,13 @@ import { Nav } from "@/components/tidly/Nav";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Transparent cleaning rates | Tidly" },
+      { title: "Pricing — Transparent cleaning rates | Amaneat" },
       {
         name: "description",
         content:
           "Transparent, flat pricing for homes, Airbnbs and move-outs in Tampa. No hidden fees. See what you pay and what cleaners keep.",
       },
-      { property: "og:title", content: "Tidly Pricing — Transparent cleaning rates" },
+      { property: "og:title", content: "Amaneat Pricing — Transparent cleaning rates" },
       {
         property: "og:description",
         content: "Flat, honest pricing. See exactly what you pay and what our cleaners keep.",
@@ -136,7 +136,7 @@ function PricingPage() {
             How we split the money
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Tidly is a curated network. Cleaners are independent pros — we handle marketing,
+            Amaneat is a curated network. Cleaners are independent pros — we handle marketing,
             scheduling, payments and support so they can focus on the work.
           </p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
@@ -149,7 +149,7 @@ function PricingPage() {
             <div>
               <div className="text-4xl font-semibold text-foreground">20–25%</div>
               <p className="mt-2 text-sm text-muted-foreground">
-                Tidly's take rate — covers app, payments, insurance, support and vetting.
+                Amaneat's take rate — covers app, payments, insurance, support and vetting.
               </p>
             </div>
             <div>

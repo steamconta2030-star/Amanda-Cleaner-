@@ -26,11 +26,11 @@ export const Route = createFileRoute("/chat")({
   component: ChatPage,
   head: () => ({
     meta: [
-      { title: "Chat with Tidly — Book your cleaning" },
+      { title: "Chat with Amaneat — Book your cleaning" },
       {
         name: "description",
         content:
-          "Get a real cleaning quote and book in Tampa by chatting with Tidly.",
+          "Get a real cleaning quote and book in Tampa by chatting with Amaneat.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -198,7 +198,7 @@ function ChatPage() {
             {audience ? audienceLabel[audience] : strings.nav_quote}
           </p>
           <h1 className="mt-1.5 text-2xl font-semibold tracking-tight md:text-3xl">
-            Chat with Tidly
+            Chat with Amaneat
           </h1>
         </header>
 

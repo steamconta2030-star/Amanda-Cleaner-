@@ -12,13 +12,13 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Tidly — Book cleaning in Tampa, FL by chat" },
+      { title: "Amaneat — Book cleaning in Tampa, FL by chat" },
       {
         name: "description",
         content:
           "AI-powered cleaning for Tampa homes, rentals and moves. Get a real quote and book in 60 seconds — no forms.",
       },
-      { property: "og:title", content: "Tidly — Book cleaning in Tampa by chat" },
+      { property: "og:title", content: "Amaneat — Book cleaning in Tampa by chat" },
       {
         property: "og:description",
         content:
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "HouseCleaningService",
-          name: "Tidly",
+          name: "Amaneat",
           url: SITE_URL,
           image: `${SITE_URL}/icon-512.png`,
           telephone: "+1-813-000-0000",
@@ -165,7 +165,7 @@ function Hero() {
               Not by filling forms.
             </h1>
             <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-muted-foreground">
-              Tell Tidly about your place — or send a couple of photos. You'll
+              Tell Amaneat about your place — or send a couple of photos. You'll
               get a real price and open times in about 60 seconds.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -236,7 +236,7 @@ function ChatMock() {
           <div className="h-2 w-2 rounded-full bg-muted-foreground/25" aria-hidden />
           <div className="h-2 w-2 rounded-full bg-muted-foreground/25" aria-hidden />
           <span className="ml-auto text-[10px] uppercase tracking-widest text-muted-foreground">
-            Tidly chat
+            Amaneat chat
           </span>
         </div>
         <div className="space-y-2.5 rounded-2xl bg-secondary/60 p-4">
@@ -255,7 +255,7 @@ function ChatMock() {
           <div className="flex items-center gap-2 rounded-full bg-background px-3 py-2">
             <input
               disabled
-              placeholder="Message Tidly…"
+              placeholder="Message Amaneat…"
               className="flex-1 bg-transparent text-sm text-muted-foreground outline-none"
             />
             <button
@@ -368,7 +368,7 @@ function HowItWorks() {
     {
       n: "01",
       title: "Chat or upload photos",
-      body: "Tell Tidly your address, bedrooms, and cadence — or send a few photos of the rooms.",
+      body: "Tell Amaneat your address, bedrooms, and cadence — or send a few photos of the rooms.",
     },
     {
       n: "02",
@@ -549,7 +549,7 @@ function Footer() {
             Sign in
           </Link>
         </div>
-        <p className="text-xs">© {new Date().getFullYear()} Tidly</p>
+        <p className="text-xs">© {new Date().getFullYear()} Amaneat</p>
       </div>
     </footer>
   );

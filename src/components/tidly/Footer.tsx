@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="mt-24 border-t border-border/60 bg-background">
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-4 md:px-8">
         <div>
-          <p className="font-serif text-2xl italic text-foreground">Tidly</p>
+          <p className="font-serif text-2xl italic text-foreground">Amaneat</p>
           <p className="mt-2 text-sm text-muted-foreground">
             Cleaning, curated. A network of pros — one honest platform.
           </p>
@@ -43,7 +43,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border/60">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-5 text-xs text-muted-foreground md:px-8">
-          <p>© {year} Tidly. All rights reserved.</p>
+          <p>© {year} Amaneat. All rights reserved.</p>
           <p>Made with care in Tampa, FL</p>
         </div>
       </div>

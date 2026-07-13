@@ -1,4 +1,4 @@
-// Minimal i18n for Tidly. Auto-detects EN/ES/PT from navigator.
+// Minimal i18n for Amaneat. Auto-detects EN/ES/PT from navigator.
 export type Lang = "en" | "es" | "pt";
 
 export const LANGS: Lang[] = ["en", "es", "pt"];
@@ -14,7 +14,7 @@ const DICT = {
     hero_title_b: "chatting",
     hero_title_c: ". Not by filling forms.",
     hero_sub:
-      "Tell Tidly about your place — or send a couple of photos. You'll get a real price and open times in about 60 seconds.",
+      "Tell Amaneat about your place — or send a couple of photos. You'll get a real price and open times in about 60 seconds.",
     hero_cta: "Start a quote",
     hero_how: "How it works",
     audience_kicker: "What are we cleaning?",
@@ -33,7 +33,7 @@ const DICT = {
     how_title: "Sixty seconds to a booked cleaning.",
     step1_title: "Chat or upload photos",
     step1_body:
-      "Tell Tidly your address, bedrooms, and cadence — or send a few photos of the rooms.",
+      "Tell Amaneat your address, bedrooms, and cadence — or send a few photos of the rooms.",
     step2_title: "See your price instantly",
     step2_body:
       "Get a real estimate and open times without waiting for a callback.",
@@ -44,21 +44,21 @@ const DICT = {
     cta_title: "Your next cleaning is one conversation away.",
     cta_sub:
       "Serving Tampa, Westchase, Carrollwood, South Tampa, and greater Hillsborough County.",
-    chat_placeholder: "Message Tidly…",
+    chat_placeholder: "Message Amaneat…",
     chat_welcome_new:
-      "Hey! I'm Tidly. Is this for **your home**, a **rental turnover**, or a **move in/out**?",
+      "Hey! I'm Amaneat. Is this for **your home**, a **rental turnover**, or a **move in/out**?",
     chat_welcome_audience: (label: string) =>
       `Hey! Let's set up your ${label.toLowerCase()} clean. What's the address (or neighborhood) and how many bedrooms/bathrooms?`,
     chat_attach: "Attach photos",
     chat_signed_out_hint_a: "You can start now — you'll",
     chat_signed_out_hint_b: "sign in",
     chat_signed_out_hint_c: "to confirm your booking.",
-    install_title: "Install Tidly",
+    install_title: "Install Amaneat",
     install_body: "Add to your home screen for one-tap booking.",
     install_cta: "Install",
     install_dismiss: "Not now",
     install_ios_body:
-      "In Safari, tap Share then Add to Home Screen to install Tidly.",
+      "In Safari, tap Share then Add to Home Screen to install Amaneat.",
   },
   es: {
     nav_how: "Cómo funciona",
@@ -70,7 +70,7 @@ const DICT = {
     hero_title_b: "chateando",
     hero_title_c: ". Sin formularios.",
     hero_sub:
-      "Cuéntale a Tidly cómo es tu casa — o mándale un par de fotos. Recibes precio real y horarios en unos 60 segundos.",
+      "Cuéntale a Amaneat cómo es tu casa — o mándale un par de fotos. Recibes precio real y horarios en unos 60 segundos.",
     hero_cta: "Empezar cotización",
     hero_how: "Cómo funciona",
     audience_kicker: "¿Qué limpiamos?",
@@ -89,7 +89,7 @@ const DICT = {
     how_title: "Sesenta segundos para reservar tu limpieza.",
     step1_title: "Chatea o sube fotos",
     step1_body:
-      "Dile a Tidly tu dirección, habitaciones y frecuencia — o manda fotos.",
+      "Dile a Amaneat tu dirección, habitaciones y frecuencia — o manda fotos.",
     step2_title: "Precio al instante",
     step2_body: "Estimado real y horarios abiertos sin esperar llamadas.",
     step3_title: "Confirma en un toque",
@@ -99,21 +99,21 @@ const DICT = {
     cta_title: "Tu próxima limpieza está a una conversación.",
     cta_sub:
       "Servimos Tampa, Westchase, Carrollwood, South Tampa y todo Hillsborough.",
-    chat_placeholder: "Escríbele a Tidly…",
+    chat_placeholder: "Escríbele a Amaneat…",
     chat_welcome_new:
-      "¡Hola! Soy Tidly. ¿Es para **tu casa**, un **turnover de renta**, o una **mudanza**?",
+      "¡Hola! Soy Amaneat. ¿Es para **tu casa**, un **turnover de renta**, o una **mudanza**?",
     chat_welcome_audience: (label: string) =>
       `¡Hola! Vamos con tu limpieza de ${label.toLowerCase()}. ¿Dirección (o zona) y cuántos cuartos/baños?`,
     chat_attach: "Adjuntar fotos",
     chat_signed_out_hint_a: "Puedes empezar ya — luego",
     chat_signed_out_hint_b: "ingresa",
     chat_signed_out_hint_c: "para confirmar tu reserva.",
-    install_title: "Instalar Tidly",
+    install_title: "Instalar Amaneat",
     install_body: "Añádelo a tu pantalla de inicio y reserva en un toque.",
     install_cta: "Instalar",
     install_dismiss: "Ahora no",
     install_ios_body:
-      "En Safari, toca Compartir y luego Añadir a inicio para instalar Tidly.",
+      "En Safari, toca Compartir y luego Añadir a inicio para instalar Amaneat.",
   },
   pt: {
     nav_how: "Como funciona",
@@ -125,7 +125,7 @@ const DICT = {
     hero_title_b: "conversando",
     hero_title_c: ". Sem formulário.",
     hero_sub:
-      "Conte pra Tidly como é sua casa — ou mande umas fotos. Você recebe preço real e horários em cerca de 60 segundos.",
+      "Conte pra Amaneat como é sua casa — ou mande umas fotos. Você recebe preço real e horários em cerca de 60 segundos.",
     hero_cta: "Começar cotação",
     hero_how: "Como funciona",
     audience_kicker: "O que a gente limpa?",
@@ -154,16 +154,16 @@ const DICT = {
     cta_title: "Sua próxima faxina está a uma conversa.",
     cta_sub:
       "Atendendo Tampa, Westchase, Carrollwood, South Tampa e todo Hillsborough.",
-    chat_placeholder: "Fale com a Tidly…",
+    chat_placeholder: "Fale com a Amaneat…",
     chat_welcome_new:
-      "Oi! Sou a Tidly. É pra **sua casa**, um **turnover de aluguel** ou uma **mudança**?",
+      "Oi! Sou a Amaneat. É pra **sua casa**, um **turnover de aluguel** ou uma **mudança**?",
     chat_welcome_audience: (label: string) =>
       `Oi! Bora fechar sua faxina de ${label.toLowerCase()}. Qual o endereço (ou bairro) e quantos quartos/banheiros?`,
     chat_attach: "Anexar fotos",
     chat_signed_out_hint_a: "Pode começar agora —",
     chat_signed_out_hint_b: "entre",
     chat_signed_out_hint_c: "para confirmar a reserva.",
-    install_title: "Instalar Tidly",
+    install_title: "Instalar Amaneat",
     install_body: "Adicione à tela inicial e agende em um toque.",
     install_cta: "Instalar",
     install_dismiss: "Agora não",

@@ -55,7 +55,7 @@ export function NewsletterForm({
       <form
         onSubmit={onSubmit}
         className="mt-5 flex flex-col gap-2 sm:flex-row"
-        aria-label="Subscribe to Tidly newsletter"
+        aria-label="Subscribe to Amaneat newsletter"
       >
         <input
           type="email"

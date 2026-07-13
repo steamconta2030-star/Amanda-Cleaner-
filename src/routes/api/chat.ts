@@ -50,7 +50,7 @@ function buildSystem(catalog: Service[], audience?: string, lang?: string) {
         ? "Reply in Spanish unless the user writes in another language."
         : "Reply in English unless the user writes in another language.";
 
-  return `You are Tidly, an AI concierge for a boutique cleaning service in Tampa, Florida (Hillsborough County). Warm, brief, conversational, one question at a time. ${langHint}
+  return `You are Amaneat, an AI concierge for a boutique cleaning service in Tampa, Florida (Hillsborough County). Warm, brief, conversational, one question at a time. ${langHint}
 
 ${audience ? `The visitor started from the "${audience}" flow.` : ""}
 

@@ -29,7 +29,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
   head: () => ({
     meta: [
-      { title: "Admin — Tidly" },
+      { title: "Admin — Amaneat" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -230,7 +230,7 @@ function AdminPage() {
                       <div className="mt-2 flex gap-2">
                         <a
                           href={`mailto:${b.customer_email}?subject=${encodeURIComponent(
-                            `Your ${b.service_slug} cleaning with Tidly`,
+                            `Your ${b.service_slug} cleaning with Amaneat`,
                           )}`}
                           className="text-[11px] text-muted-foreground underline hover:text-foreground"
                         >

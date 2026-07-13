@@ -96,14 +96,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "viewport",
         content: "width=device-width, initial-scale=1, viewport-fit=cover",
       },
-      { title: "Tidly — Book cleaning in Tampa, FL by chat" },
+      { title: "Amaneat — Book cleaning in Tampa, FL by chat" },
       {
         name: "description",
         content:
-          "Tidly is an AI-powered cleaning service for Tampa, FL. Get a quote and book in 60 seconds — homes, Airbnbs, and move-in/out. No forms, just chat.",
+          "Amaneat is an AI-powered cleaning service for Tampa, FL. Get a quote and book in 60 seconds — homes, Airbnbs, and move-in/out. No forms, just chat.",
       },
       { name: "theme-color", content: "#FF6B57" },
-      { property: "og:title", content: "Tidly — Book cleaning in Tampa by chat" },
+      { property: "og:title", content: "Amaneat — Book cleaning in Tampa by chat" },
       {
         property: "og:description",
         content:
@@ -113,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:url", content: SITE_URL },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
-      { name: "apple-mobile-web-app-title", content: "Tidly" },
+      { name: "apple-mobile-web-app-title", content: "Amaneat" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
     ],
     links: [

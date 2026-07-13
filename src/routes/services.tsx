@@ -26,7 +26,7 @@ export const Route = createFileRoute("/services")({
           name: s.name,
           description: s.description ?? undefined,
           areaServed: "Tampa, FL",
-          provider: { "@type": "LocalBusiness", name: "Tidly" },
+          provider: { "@type": "LocalBusiness", name: "Amaneat" },
           offers: {
             "@type": "Offer",
             price: (s.base_price_cents / 100).toFixed(0),
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/services")({
     };
     return {
       meta: [
-        { title: "Cleaning services & pricing in Tampa — Tidly" },
+        { title: "Cleaning services & pricing in Tampa — Amaneat" },
         {
           name: "description",
           content:
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/services")({
         },
         {
           property: "og:title",
-          content: "Cleaning services & pricing in Tampa — Tidly",
+          content: "Cleaning services & pricing in Tampa — Amaneat",
         },
         {
           property: "og:description",
@@ -110,7 +110,7 @@ function ServicesPage() {
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
           Starting prices for the Tampa Bay area. Your final quote depends on
-          the size and condition of your place — Tidly chats with you to nail
+          the size and condition of your place — Amaneat chats with you to nail
           it down in under a minute.
         </p>
 
@@ -166,7 +166,7 @@ function ServicesPage() {
             Not sure which one?
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Send a couple photos in the chat and Tidly picks the right service.
+            Send a couple photos in the chat and Amaneat picks the right service.
           </p>
           <Link
             to="/chat"

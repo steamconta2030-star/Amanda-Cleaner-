@@ -4,12 +4,12 @@ import { Nav } from "@/components/tidly/Nav";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy | Tidly" },
+      { title: "Privacy Policy | Amaneat" },
       {
         name: "description",
-        content: "How Tidly collects, uses and protects your personal information.",
+        content: "How Amaneat collects, uses and protects your personal information.",
       },
-      { property: "og:title", content: "Tidly — Privacy Policy" },
+      { property: "og:title", content: "Amaneat — Privacy Policy" },
       { property: "og:description", content: "How we handle your data." },
       { property: "og:type", content: "article" },
     ],
@@ -49,7 +49,7 @@ function PrivacyPage() {
           <p>
             We share the minimum data needed with the cleaner assigned to your booking (name,
             address, service details, contact if you choose to share it), with payment processors,
-            and with service providers who help us run Tidly. We do not sell your personal data.
+            and with service providers who help us run Amaneat. We do not sell your personal data.
           </p>
 
           <h2>4. Data retention</h2>
@@ -72,7 +72,7 @@ function PrivacyPage() {
           </p>
 
           <h2>7. Children</h2>
-          <p>Tidly is not intended for anyone under 18.</p>
+          <p>Amaneat is not intended for anyone under 18.</p>
 
           <h2>8. Changes</h2>
           <p>

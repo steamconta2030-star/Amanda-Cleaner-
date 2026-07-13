@@ -74,7 +74,7 @@ export const POSTS: BlogPost[] = [
         type: "quote",
         text: "The photo handoff is the single change that dropped our refund requests from about 1 in 20 stays to under 1 in 100.",
       },
-      { type: "h2", text: "What we do differently at Tidly" },
+      { type: "h2", text: "What we do differently at Amaneat" },
       {
         type: "p",
         text: "We sync your Airbnb or VRBO calendar so turnovers auto-appear the day a guest checks out — you don't have to text us. Every clean ends with a photo checklist in your inbox. Get a real turnover quote by chat in about a minute.",

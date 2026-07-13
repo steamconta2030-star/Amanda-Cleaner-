@@ -9,13 +9,13 @@ export const Route = createFileRoute("/cleaners")({
   component: CleanersLayout,
   head: () => ({
     meta: [
-      { title: "Our cleaners — Tidly network in Tampa" },
+      { title: "Our cleaners — Amaneat network in Tampa" },
       {
         name: "description",
         content:
-          "Meet the Tampa cleaners in the Tidly network — each one hand-picked and vetted by Amanda. Homes, Airbnbs and move-ins.",
+          "Meet the Tampa cleaners in the Amaneat network — each one hand-picked and vetted by Amanda. Homes, Airbnbs and move-ins.",
       },
-      { property: "og:title", content: "Our cleaners — Tidly Tampa network" },
+      { property: "og:title", content: "Our cleaners — Amaneat Tampa network" },
       {
         property: "og:description",
         content: "Vetted Tampa cleaners for homes, rentals and moves.",
@@ -68,14 +68,14 @@ function CleanersIndex() {
         </nav>
 
         <p className="mt-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          The Tidly network
+          The Amaneat network
         </p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">
           Cleaners hand-picked by Amanda.
         </h1>
         <p className="mt-5 max-w-2xl text-base text-muted-foreground md:text-lg">
           Every cleaner in the network is vetted, insured, and rated after each
-          job. Chat with Tidly and we route your booking to the right person for
+          job. Chat with Amaneat and we route your booking to the right person for
           your home, rental, or move.
         </p>
 
@@ -87,7 +87,7 @@ function CleanersIndex() {
             Book a cleaning
           </Link>
           <a
-            href="mailto:hello@amandacleaning.com?subject=Join%20the%20Tidly%20network"
+            href="mailto:hello@amandacleaning.com?subject=Join%20the%20Amaneat%20network"
             className="rounded-full border border-input px-6 py-3 text-sm font-medium hover:bg-secondary"
           >
             Cleaner? Join the network

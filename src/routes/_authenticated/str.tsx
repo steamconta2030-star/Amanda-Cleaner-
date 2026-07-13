@@ -9,11 +9,11 @@ export const Route = createFileRoute("/_authenticated/str")({
   component: HostPage,
   head: () => ({
     meta: [
-      { title: "STR Host — Airbnb turnovers | Tidly" },
+      { title: "STR Host — Airbnb turnovers | Amaneat" },
       {
         name: "description",
         content:
-          "Import your Airbnb iCal and Tidly schedules turnover cleanings automatically.",
+          "Import your Airbnb iCal and Amaneat schedules turnover cleanings automatically.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -41,7 +41,7 @@ function HostPage() {
           Turnovers on autopilot
         </h1>
         <p className="mt-3 max-w-xl text-muted-foreground">
-          Paste your Airbnb (or Vrbo) iCal export URL. Tidly reads upcoming
+          Paste your Airbnb (or Vrbo) iCal export URL. Amaneat reads upcoming
           check-outs and lets you book turnover cleanings in one tap.
         </p>
 

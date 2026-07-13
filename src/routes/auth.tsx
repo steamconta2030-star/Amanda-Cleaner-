@@ -8,8 +8,8 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Sign in — Tidly" },
-      { name: "description", content: "Sign in to Tidly to manage your bookings and chats." },
+      { title: "Sign in — Amaneat" },
+      { name: "description", content: "Sign in to Amaneat to manage your bookings and chats." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -81,7 +81,7 @@ function AuthPage() {
           <p className="text-sm text-muted-foreground">
             {mode === "signin"
               ? "Sign in to book and manage cleanings."
-              : "Create your Tidly account."}
+              : "Create your Amaneat account."}
           </p>
         </div>
 

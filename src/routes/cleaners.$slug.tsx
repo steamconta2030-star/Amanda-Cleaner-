@@ -29,16 +29,16 @@ export const Route = createFileRoute("/cleaners/$slug")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Cleaner not found — Tidly" },
+          { title: "Cleaner not found — Amaneat" },
           { name: "robots", content: "noindex" },
         ],
       };
     }
     const c = loaderData.cleaner;
-    const title = `${c.display_name} — Tidly cleaner in Tampa`;
+    const title = `${c.display_name} — Amaneat cleaner in Tampa`;
     const description =
       c.headline ??
-      `Meet ${c.display_name}, a hand-picked cleaner in the Tidly Tampa network.`;
+      `Meet ${c.display_name}, a hand-picked cleaner in the Amaneat Tampa network.`;
     return {
       meta: [
         { title },
@@ -82,7 +82,7 @@ export const Route = createFileRoute("/cleaners/$slug")({
             name: c.display_name,
             image: c.photo_url ?? undefined,
             jobTitle: "Professional cleaner",
-            worksFor: { "@type": "Organization", name: "Tidly" },
+            worksFor: { "@type": "Organization", name: "Amaneat" },
             areaServed: c.zips.map((z) => ({
               "@type": "PostalAddress",
               addressLocality: "Tampa",
@@ -203,7 +203,7 @@ function CleanerDetail() {
             to="/chat"
             className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Book with the Tidly network
+            Book with the Amaneat network
           </Link>
           <Link
             to="/cleaners"

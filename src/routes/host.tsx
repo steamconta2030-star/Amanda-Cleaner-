@@ -4,13 +4,13 @@ import { Nav } from "@/components/tidly/Nav";
 export const Route = createFileRoute("/host")({
   head: () => ({
     meta: [
-      { title: "Tidly for Airbnb Hosts — Turnover cleaning in Tampa" },
+      { title: "Amaneat for Airbnb Hosts — Turnover cleaning in Tampa" },
       {
         name: "description",
         content:
           "Automated Airbnb turnover cleaning in Tampa. Photo reports, linen restock, damage alerts. Book from your phone.",
       },
-      { property: "og:title", content: "Tidly for Airbnb hosts" },
+      { property: "og:title", content: "Amaneat for Airbnb hosts" },
       { property: "og:description", content: "Turnover cleaning built for short-term rentals." },
       { property: "og:type", content: "website" },
     ],
@@ -48,7 +48,7 @@ function HostPage() {
             Turnovers, handled.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Tidly is built for Airbnb, VRBO and short-term rental hosts in Tampa. Consistent
+            Amaneat is built for Airbnb, VRBO and short-term rental hosts in Tampa. Consistent
             cleaners, photo reports, restock alerts — and one honest price per turnover.
           </p>
           <div className="mt-6 flex gap-3">
@@ -84,7 +84,7 @@ function HostPage() {
             Manage from your phone
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Schedule, get photo reports, message your cleaner and pay — all from the Tidly app.
+            Schedule, get photo reports, message your cleaner and pay — all from the Amaneat app.
           </p>
           <Link
             to="/chat"

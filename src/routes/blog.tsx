@@ -9,13 +9,13 @@ export const Route = createFileRoute("/blog")({
   component: BlogLayout,
   head: () => ({
     meta: [
-      { title: "Blog — Tidly cleaning in Tampa, FL" },
+      { title: "Blog — Amaneat cleaning in Tampa, FL" },
       {
         name: "description",
         content:
           "Practical cleaning guides for Tampa homes, Airbnb hosts, and renters: turnover checklists, move-out tips, and a cleaning cadence that fits Florida.",
       },
-      { property: "og:title", content: "Tidly Blog — Cleaning guides for Tampa" },
+      { property: "og:title", content: "Amaneat Blog — Cleaning guides for Tampa" },
       {
         property: "og:description",
         content:

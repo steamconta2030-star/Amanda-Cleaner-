@@ -100,12 +100,6 @@ export function Nav() {
             Blog
           </Link>
           <Link
-            to="/reviews"
-            className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
-          >
-            Reviews
-          </Link>
-          <Link
             to="/contact"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >

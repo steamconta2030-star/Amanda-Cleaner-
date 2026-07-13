@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Nav } from "@/components/tidly/Nav";
 import { Logo } from "@/components/tidly/Logo";
-import { Testimonials } from "@/components/tidly/Testimonials";
+
 import { NewsletterForm } from "@/components/tidly/NewsletterForm";
 import { listServices } from "@/lib/tidly.functions";
 
@@ -47,13 +47,6 @@ export const Route = createFileRoute("/")({
             { "@type": "City", name: "Tampa" },
             { "@type": "AdministrativeArea", name: "Hillsborough County, FL" },
           ],
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.9",
-            reviewCount: "120",
-            bestRating: "5",
-            worstRating: "1",
-          },
         }),
       },
 
@@ -139,7 +132,7 @@ function Home() {
       <AudiencePicker />
       <HowItWorks />
       <ServicesGrid services={services} />
-      <Testimonials />
+      
       <NewsletterSection />
       <Cta />
       <Footer />
@@ -195,14 +188,7 @@ function Hero() {
               </a>
             </div>
             <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1.5">
-                <StarRow />
-                <span className="ml-1">4.9 · Tampa families</span>
-              </div>
-              <div className="hidden items-center gap-1.5 sm:flex">
-                <span aria-hidden>·</span>
-                <span>English · Español · Português</span>
-              </div>
+              <span>English · Español · Português</span>
             </div>
           </div>
 

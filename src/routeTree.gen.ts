@@ -13,7 +13,6 @@ import { Route as ThanksRouteImport } from './routes/thanks'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as HostRouteImport } from './routes/host'
@@ -54,11 +53,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReviewsRoute = ReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -179,7 +173,6 @@ export interface FileRoutesByFullPath {
   '/host': typeof HostRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
-  '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -206,7 +199,6 @@ export interface FileRoutesByTo {
   '/host': typeof HostRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
-  '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -235,7 +227,6 @@ export interface FileRoutesById {
   '/host': typeof HostRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
-  '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -264,7 +255,6 @@ export interface FileRouteTypes {
     | '/host'
     | '/pricing'
     | '/privacy'
-    | '/reviews'
     | '/services'
     | '/sitemap.xml'
     | '/terms'
@@ -291,7 +281,6 @@ export interface FileRouteTypes {
     | '/host'
     | '/pricing'
     | '/privacy'
-    | '/reviews'
     | '/services'
     | '/sitemap.xml'
     | '/terms'
@@ -319,7 +308,6 @@ export interface FileRouteTypes {
     | '/host'
     | '/pricing'
     | '/privacy'
-    | '/reviews'
     | '/services'
     | '/sitemap.xml'
     | '/terms'
@@ -348,7 +336,6 @@ export interface RootRouteChildren {
   HostRoute: typeof HostRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
-  ReviewsRoute: typeof ReviewsRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -384,13 +371,6 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reviews': {
-      id: '/reviews'
-      path: '/reviews'
-      fullPath: '/reviews'
-      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -609,7 +589,6 @@ const rootRouteChildren: RootRouteChildren = {
   HostRoute: HostRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
-  ReviewsRoute: ReviewsRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
@@ -619,13 +598,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

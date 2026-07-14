@@ -404,15 +404,16 @@ function ServicesGrid({
         <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Services
+              Serviços
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-              Base prices, before your details.
+              Preços base, antes dos detalhes.
             </h2>
           </div>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Real quotes come from the chat, based on square footage and cadence.
+            O orçamento real sai pelo chat, com base no tamanho do imóvel e na frequência.
           </p>
+
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (

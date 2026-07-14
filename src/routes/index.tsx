@@ -12,17 +12,17 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Amaneat — Book cleaning in Ipatinga, MG by chat" },
+      { title: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         name: "description",
         content:
-          "AI-powered cleaning for Ipatinga homes, rentals and moves. Get a real quote and book in 60 seconds — no forms.",
+          "Faxina com IA em Ipatinga: casas, aluguéis e mudanças. Orçamento real e agendamento em 60 segundos, sem formulário.",
       },
-      { property: "og:title", content: "Amaneat — Book cleaning in Ipatinga by chat" },
+      { property: "og:title", content: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         property: "og:description",
         content:
-          "Homes, Airbnbs, and moves in Ipatinga. Quote and book in a single conversation.",
+          "Casas, Airbnbs e mudanças em Ipatinga e Vale do Aço. Orçamento e agendamento em uma conversa.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
@@ -58,34 +58,34 @@ export const Route = createFileRoute("/")({
           mainEntity: [
             {
               "@type": "Question",
-              name: "How fast can I book a cleaning in Ipatinga?",
+              name: "Em quanto tempo consigo agendar uma faxina em Ipatinga?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Most quotes take about 60 seconds by chat, and same-week times are usually open.",
+                text: "A maioria dos orçamentos sai em uns 60 segundos pelo chat, e normalmente há horários abertos na mesma semana.",
               },
             },
             {
               "@type": "Question",
-              name: "Do you clean Airbnb and short-term rentals?",
+              name: "Vocês limpam Airbnb e aluguéis de temporada?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes — Airbnb and VRBO turnovers with a photo checklist and STR calendar sync.",
+                text: "Sim — turnover de Airbnb e temporada com checklist com fotos e sincronia de calendário.",
               },
             },
             {
               "@type": "Question",
-              name: "Do you offer move-in and move-out cleanings?",
+              name: "Vocês fazem limpeza de mudança e pós-obra?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes, deposit-ready move-in / move-out cleans are available on short notice.",
+                text: "Sim, faxina pós-obra e limpeza de entrega das chaves em prazo curto.",
               },
             },
             {
               "@type": "Question",
-              name: "How is pricing calculated?",
+              name: "Como o preço é calculado?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "You get a real, transparent price based on home size, service type, and add-ons before booking.",
+                text: "Você recebe um preço real e transparente com base no tamanho do imóvel, tipo de serviço e adicionais antes de confirmar.",
               },
             },
           ],
@@ -94,6 +94,7 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
+
 
 const AUDIENCES = [
   {

@@ -349,29 +349,30 @@ function HowItWorks() {
   const steps = [
     {
       n: "01",
-      title: "Chat or upload photos",
-      body: "Tell Amaneat your address, bedrooms, and cadence — or send a few photos of the rooms.",
+      title: "Converse ou mande fotos",
+      body: "Diga endereço, quartos e frequência — ou mande fotos dos cômodos.",
     },
     {
       n: "02",
-      title: "See your price instantly",
-      body: "Get a real estimate and open times without waiting for a callback.",
+      title: "Preço na hora",
+      body: "Estimativa real e horários abertos sem esperar retorno.",
     },
     {
       n: "03",
-      title: "Confirm in one tap",
-      body: "Sign in with Google, confirm the slot, and we'll show up ready.",
+      title: "Confirme em 1 toque",
+      body: "Entre com Google, confirme o horário e a gente chega pronto.",
     },
   ];
   return (
     <section id="how-it-works" className="border-t border-border/60">
       <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          How it works
+          Como funciona
         </p>
         <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl">
-          Sixty seconds to a booked cleaning.
+          Sessenta segundos pra fechar a faxina.
         </h2>
+
         <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
           {steps.map((s) => (
             <div key={s.n}>

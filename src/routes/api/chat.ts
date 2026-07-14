@@ -50,7 +50,7 @@ function buildSystem(catalog: Service[], audience?: string, lang?: string) {
         ? "Reply in Spanish unless the user writes in another language."
         : "Reply in English unless the user writes in another language.";
 
-  return `You are Amaneat, an AI concierge for a boutique cleaning service in Tampa, Florida (Hillsborough County). Warm, brief, conversational, one question at a time. ${langHint}
+  return `You are Amaneat, an AI concierge for a boutique cleaning service in Ipatinga, Florida (Vale do Aço). Warm, brief, conversational, one question at a time. ${langHint}
 
 ${audience ? `The visitor started from the "${audience}" flow.` : ""}
 
@@ -60,7 +60,7 @@ ${catalogText}
 FLOW (adapt, don't robot-march):
 1. Confirm audience: home / rental / move.
 2. Bedrooms, bathrooms, approx sqft. If the visitor sends photos, use them to estimate size, style, and mess level.
-3. Neighborhood / zip in Tampa Bay.
+3. Neighborhood / zip in Ipatinga.
 4. Cadence: one-time / weekly / bi-weekly / monthly.
 5. Preferred day/time window.
 
@@ -108,7 +108,7 @@ const proposeBookingTool = tool({
     duration_minutes: z.number().int(),
     price_cents: z.number().int(),
     address_line1: z.string(),
-    city: z.string().default("Tampa"),
+    city: z.string().default("Ipatinga"),
     state: z.string().default("FL"),
     zip: z.string(),
     bedrooms: z.number().int().min(0).nullable(),

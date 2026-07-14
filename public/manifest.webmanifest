@@ -1,8 +1,8 @@
 {
   "id": "/?source=pwa",
-  "name": "Amaneat — Cleaning in Tampa",
+  "name": "Amaneat — Cleaning in Ipatinga",
   "short_name": "Amaneat",
-  "description": "Book cleaning in Tampa by chat. Homes, Airbnbs, and moves.",
+  "description": "Book cleaning in Ipatinga by chat. Homes, Airbnbs, and moves.",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
@@ -47,7 +47,7 @@
     {
       "name": "Browse cleaners",
       "short_name": "Cleaners",
-      "description": "Browse verified cleaners in Tampa",
+      "description": "Browse verified cleaners in Ipatinga",
       "url": "/cleaners?source=pwa_shortcut",
       "icons": [{ "src": "/icon-512.png", "sizes": "512x512" }]
     }

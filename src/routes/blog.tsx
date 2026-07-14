@@ -9,17 +9,17 @@ export const Route = createFileRoute("/blog")({
   component: BlogLayout,
   head: () => ({
     meta: [
-      { title: "Blog — Amaneat cleaning in Tampa, FL" },
+      { title: "Blog — Amaneat cleaning in Ipatinga, MG" },
       {
         name: "description",
         content:
-          "Practical cleaning guides for Tampa homes, Airbnb hosts, and renters: turnover checklists, move-out tips, and a cleaning cadence that fits Florida.",
+          "Practical cleaning guides for Ipatinga homes, Airbnb hosts, and renters: turnover checklists, move-out tips, and a cleaning cadence that fits Florida.",
       },
-      { property: "og:title", content: "Amaneat Blog — Cleaning guides for Tampa" },
+      { property: "og:title", content: "Amaneat Blog — Cleaning guides for Ipatinga" },
       {
         property: "og:description",
         content:
-          "Turnover checklists, move-out tips, and a Tampa-specific cleaning cadence.",
+          "Turnover checklists, move-out tips, and a Ipatinga-specific cleaning cadence.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/blog` }],
@@ -61,7 +61,7 @@ function BlogIndex() {
           Blog
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">
-          Cleaning guides for Tampa homes & hosts.
+          Cleaning guides for Ipatinga homes & hosts.
         </h1>
         <p className="mt-5 text-base text-muted-foreground md:text-lg">
           Turnover checklists, move-out tips, and a cleaning cadence that fits
@@ -102,7 +102,7 @@ function BlogIndex() {
           <NewsletterForm
             source="blog-index"
             title="Get one great cleaning tip a month"
-            subtitle="Tampa-specific, short, actionable. No spam."
+            subtitle="Ipatinga-specific, short, actionable. No spam."
           />
         </div>
 

@@ -4,11 +4,11 @@ import { Nav } from "@/components/tidly/Nav";
 export const Route = createFileRoute("/host")({
   head: () => ({
     meta: [
-      { title: "Amaneat for Airbnb Hosts — Turnover cleaning in Tampa" },
+      { title: "Amaneat for Airbnb Hosts — Turnover cleaning in Ipatinga" },
       {
         name: "description",
         content:
-          "Automated Airbnb turnover cleaning in Tampa. Photo reports, linen restock, damage alerts. Book from your phone.",
+          "Automated Airbnb turnover cleaning in Ipatinga. Photo reports, linen restock, damage alerts. Book from your phone.",
       },
       { property: "og:title", content: "Amaneat for Airbnb hosts" },
       { property: "og:description", content: "Turnover cleaning built for short-term rentals." },
@@ -48,7 +48,7 @@ function HostPage() {
             Turnovers, handled.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Amaneat is built for Airbnb, VRBO and short-term rental hosts in Tampa. Consistent
+            Amaneat is built for Airbnb, VRBO and short-term rental hosts in Ipatinga. Consistent
             cleaners, photo reports, restock alerts — and one honest price per turnover.
           </p>
           <div className="mt-6 flex gap-3">

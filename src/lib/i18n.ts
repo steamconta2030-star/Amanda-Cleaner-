@@ -9,7 +9,7 @@ const DICT = {
     nav_services: "Services",
     nav_signin: "Sign in",
     nav_quote: "Get a quote",
-    hero_badge: "Now booking in Tampa Bay",
+    hero_badge: "Now booking in Ipatinga",
     hero_title_a: "Book a cleaning by",
     hero_title_b: "chatting",
     hero_title_c: ". Not by filling forms.",
@@ -43,7 +43,7 @@ const DICT = {
     cta_kicker: "Ready when you are",
     cta_title: "Your next cleaning is one conversation away.",
     cta_sub:
-      "Serving Tampa, Westchase, Carrollwood, South Tampa, and greater Hillsborough County.",
+      "Serving Ipatinga, Cariru, Bethânia, Centro e todo o Vale do Aço.",
     chat_placeholder: "Message Amaneat…",
     chat_welcome_new:
       "Hey! I'm Amaneat. Is this for **your home**, a **rental turnover**, or a **move in/out**?",
@@ -65,7 +65,7 @@ const DICT = {
     nav_services: "Servicios",
     nav_signin: "Ingresar",
     nav_quote: "Cotizar",
-    hero_badge: "Reservando en Tampa Bay",
+    hero_badge: "Reservando en Ipatinga",
     hero_title_a: "Reserva tu limpieza",
     hero_title_b: "chateando",
     hero_title_c: ". Sin formularios.",
@@ -98,7 +98,7 @@ const DICT = {
     cta_kicker: "Cuando estés listo",
     cta_title: "Tu próxima limpieza está a una conversación.",
     cta_sub:
-      "Servimos Tampa, Westchase, Carrollwood, South Tampa y todo Hillsborough.",
+      "Servimos Ipatinga, Cariru, Bethânia, Centro e todo o Vale do Aço.",
     chat_placeholder: "Escríbele a Amaneat…",
     chat_welcome_new:
       "¡Hola! Soy Amaneat. ¿Es para **tu casa**, un **turnover de renta**, o una **mudanza**?",
@@ -120,7 +120,7 @@ const DICT = {
     nav_services: "Serviços",
     nav_signin: "Entrar",
     nav_quote: "Cotação",
-    hero_badge: "Agendando em Tampa Bay",
+    hero_badge: "Agendando em Ipatinga",
     hero_title_a: "Reserve sua faxina",
     hero_title_b: "conversando",
     hero_title_c: ". Sem formulário.",
@@ -153,7 +153,7 @@ const DICT = {
     cta_kicker: "Quando quiser",
     cta_title: "Sua próxima faxina está a uma conversa.",
     cta_sub:
-      "Atendendo Tampa, Westchase, Carrollwood, South Tampa e todo Hillsborough.",
+      "Atendendo Ipatinga, Cariru, Bethânia, Centro e todo o Vale do Aço.",
     chat_placeholder: "Fale com a Amaneat…",
     chat_welcome_new:
       "Oi! Sou a Amaneat. É pra **sua casa**, um **turnover de aluguel** ou uma **mudança**?",

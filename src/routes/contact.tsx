@@ -7,16 +7,16 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact Amaneat — Tampa cleaning" },
+      { title: "Contact Amaneat — Ipatinga cleaning" },
       {
         name: "description",
         content:
-          "Reach Amaneat in Tampa by chat, email, or phone. Same-day answers on quotes, rescheduling, and Airbnb turnovers.",
+          "Reach Amaneat in Ipatinga by chat, email, or phone. Same-day answers on quotes, rescheduling, and Airbnb turnovers.",
       },
-      { property: "og:title", content: "Contact Amaneat — Tampa cleaning" },
+      { property: "og:title", content: "Contact Amaneat — Ipatinga cleaning" },
       {
         property: "og:description",
-        content: "Chat, email, or call Amaneat for Tampa cleaning quotes and support.",
+        content: "Chat, email, or call Amaneat for Ipatinga cleaning quotes and support.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/contact` }],
@@ -55,7 +55,7 @@ function ContactPage() {
         </h1>
         <p className="mt-4 text-base text-muted-foreground md:text-lg">
           Fastest answer is the chat. Prefer email? Also fine. We're a small
-          Tampa team; you'll hear back the same day.
+          Ipatinga team; you'll hear back the same day.
         </p>
 
         <div className="mt-10 grid gap-3 md:grid-cols-3">
@@ -88,7 +88,7 @@ function ContactPage() {
             v="Mon–Sat, 8am – 6pm ET"
             cta={
               <span className="mt-3 inline-flex text-xs text-muted-foreground">
-                Tampa, FL
+                Ipatinga, MG
               </span>
             }
           />

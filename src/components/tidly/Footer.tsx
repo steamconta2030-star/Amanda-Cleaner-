@@ -44,7 +44,7 @@ export function Footer() {
       <div className="border-t border-border/60">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-5 text-xs text-muted-foreground md:px-8">
           <p>© {year} Amaneat. All rights reserved.</p>
-          <p>Made with care in Tampa, FL</p>
+          <p>Made with care in Ipatinga, MG</p>
         </div>
       </div>
     </footer>

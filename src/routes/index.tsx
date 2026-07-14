@@ -12,17 +12,17 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Amaneat — Book cleaning in Tampa, FL by chat" },
+      { title: "Amaneat — Book cleaning in Ipatinga, MG by chat" },
       {
         name: "description",
         content:
-          "AI-powered cleaning for Tampa homes, rentals and moves. Get a real quote and book in 60 seconds — no forms.",
+          "AI-powered cleaning for Ipatinga homes, rentals and moves. Get a real quote and book in 60 seconds — no forms.",
       },
-      { property: "og:title", content: "Amaneat — Book cleaning in Tampa by chat" },
+      { property: "og:title", content: "Amaneat — Book cleaning in Ipatinga by chat" },
       {
         property: "og:description",
         content:
-          "Homes, Airbnbs, and moves in Tampa Bay. Quote and book in a single conversation.",
+          "Homes, Airbnbs, and moves in Ipatinga. Quote and book in a single conversation.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
@@ -35,17 +35,17 @@ export const Route = createFileRoute("/")({
           name: "Amaneat",
           url: SITE_URL,
           image: `${SITE_URL}/icon-512.png`,
-          telephone: "+1-813-000-0000",
+          telephone: "+55-31-0000-0000",
           priceRange: "$$",
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Tampa",
-            addressRegion: "FL",
-            addressCountry: "US",
+            addressLocality: "Ipatinga",
+            addressRegion: "MG",
+            addressCountry: "BR",
           },
           areaServed: [
-            { "@type": "City", name: "Tampa" },
-            { "@type": "AdministrativeArea", name: "Hillsborough County, FL" },
+            { "@type": "City", name: "Ipatinga" },
+            { "@type": "AdministrativeArea", name: "Vale do Aço, MG" },
           ],
         }),
       },
@@ -58,7 +58,7 @@ export const Route = createFileRoute("/")({
           mainEntity: [
             {
               "@type": "Question",
-              name: "How fast can I book a cleaning in Tampa?",
+              name: "How fast can I book a cleaning in Ipatinga?",
               acceptedAnswer: {
                 "@type": "Answer",
                 text: "Most quotes take about 60 seconds by chat, and same-week times are usually open.",
@@ -148,7 +148,7 @@ function Hero() {
           <div className="md:col-span-7">
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
-              <span className="text-muted-foreground">Now booking in Tampa Bay</span>
+              <span className="text-muted-foreground">Now booking in Ipatinga</span>
             </div>
             <h1
               className="mt-6 text-balance font-semibold tracking-[-0.03em] text-foreground"
@@ -217,7 +217,7 @@ function ChatMock() {
         <div className="space-y-2.5 rounded-2xl bg-secondary/60 p-4">
           <Bubble side="left">Hey! What are we cleaning?</Bubble>
           <Bubble side="right" tone="primary">
-            3 bed, 2 bath in Westchase. Bi-weekly.
+            3 bed, 2 bath in Cariru. Bi-weekly.
           </Bubble>
           <Bubble side="left">
             Got it — <b>$149</b> every 2 weeks, ~2h 30m.
@@ -474,7 +474,7 @@ function Cta() {
             Your next cleaning is one conversation away.
           </h2>
           <p className="mt-4 max-w-md text-background/70">
-            Serving Tampa, Westchase, Carrollwood, South Tampa, and greater Hillsborough County.
+            Serving Ipatinga, Cariru, Bethânia, Centro e todo o Vale do Aço.
           </p>
           <div className="mt-8">
             <Link
@@ -508,7 +508,7 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-5 py-10 text-sm text-muted-foreground md:flex-row md:items-center md:px-8">
         <div className="flex items-center gap-3">
           <Logo className="text-lg" />
-          <span>· Tampa, FL</span>
+          <span>· Ipatinga, MG</span>
         </div>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <a href="#how-it-works" className="hover:text-foreground">
@@ -536,7 +536,7 @@ function NewsletterSection() {
       <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
         <NewsletterForm
           source="home"
-          title="Cleaning tips for Tampa homes"
+          title="Cleaning tips for Ipatinga homes"
           subtitle="One short email a month — cadence guides, host tips, and open slots. Unsubscribe anytime."
         />
       </div>

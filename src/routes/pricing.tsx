@@ -8,7 +8,7 @@ export const Route = createFileRoute("/pricing")({
       {
         name: "description",
         content:
-          "Transparent, flat pricing for homes, Airbnbs and move-outs in Tampa. No hidden fees. See what you pay and what cleaners keep.",
+          "Transparent, flat pricing for homes, Airbnbs and move-outs in Ipatinga. No hidden fees. See what you pay and what cleaners keep.",
       },
       { property: "og:title", content: "Amaneat Pricing — Transparent cleaning rates" },
       {

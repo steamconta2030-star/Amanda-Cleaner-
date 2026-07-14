@@ -32,17 +32,17 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">404</p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground">
-          Page not found
+          Página não encontrada
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          This page doesn't exist yet — or has moved.
+          Essa página ainda não existe — ou foi movida.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Back to Amaneat
+            Voltar pra Amaneat
           </Link>
         </div>
       </div>
@@ -61,10 +61,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          Essa página não carregou
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong. Try again or head back home.
+          Algo deu errado. Tente de novo ou volte pra home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -74,19 +74,20 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Try again
+            Tentar de novo
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-full border border-input bg-background px-5 py-2.5 text-sm font-medium text-foreground hover:bg-accent"
           >
-            Go home
+            Ir pra home
           </a>
         </div>
       </div>
     </div>
   );
 }
+
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({

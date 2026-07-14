@@ -523,16 +523,16 @@ function Footer() {
         </div>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <a href="#how-it-works" className="hover:text-foreground">
-            How it works
+            Como funciona
           </a>
           <a href="#services" className="hover:text-foreground">
-            Services
+            Serviços
           </a>
           <Link to="/chat" className="hover:text-foreground">
-            Get a quote
+            Fazer orçamento
           </Link>
           <Link to="/auth" className="hover:text-foreground">
-            Sign in
+            Entrar
           </Link>
         </div>
         <p className="text-xs">© {new Date().getFullYear()} Amaneat</p>
@@ -547,10 +547,11 @@ function NewsletterSection() {
       <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
         <NewsletterForm
           source="home"
-          title="Cleaning tips for Ipatinga homes"
-          subtitle="One short email a month — cadence guides, host tips, and open slots. Unsubscribe anytime."
+          title="Dicas de limpeza pra Ipatinga"
+          subtitle="Um e-mail curto por mês — guia de frequência, dicas pra anfitriões e horários abertos. Cancele quando quiser."
         />
       </div>
+
     </section>
   );
 }

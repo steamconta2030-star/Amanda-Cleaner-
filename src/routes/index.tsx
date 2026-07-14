@@ -322,7 +322,8 @@ function AudiencePicker() {
                 {a.tagline}
               </p>
               <div className="mt-8 flex items-center gap-2 text-sm font-medium text-primary">
-                Start chat
+                Abrir chat
+
                 <svg
                   width="14"
                   height="14"

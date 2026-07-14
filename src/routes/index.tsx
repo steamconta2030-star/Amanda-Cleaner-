@@ -251,7 +251,8 @@ function ChatMock() {
         </div>
       </div>
       <div className="pointer-events-none absolute -right-6 -top-4 hidden rotate-6 rounded-2xl bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg md:block">
-        ~60 seconds
+        ~60 segundos
+
       </div>
     </div>
   );

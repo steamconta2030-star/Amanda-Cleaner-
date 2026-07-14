@@ -150,25 +150,25 @@ function Hero() {
           <div className="md:col-span-7">
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
-              <span className="text-muted-foreground">Now booking in Ipatinga</span>
+              <span className="text-muted-foreground">Atendendo Ipatinga e Vale do Aço</span>
             </div>
             <h1
               className="mt-6 text-balance font-semibold tracking-[-0.03em] text-foreground"
               style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)", lineHeight: 0.95 }}
             >
-              Book a cleaning by <span className="font-serif italic text-primary">chatting</span>.
-              Not by filling forms.
+              Agende sua faxina <span className="font-serif italic text-primary">conversando</span>.
+              Sem formulário.
             </h1>
             <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-muted-foreground">
-              Tell Amaneat about your place — or send a couple of photos. You'll
-              get a real price and open times in about 60 seconds.
+              Conte pra Amaneat como é sua casa — ou mande umas fotos. Você
+              recebe preço real e horários em cerca de 60 segundos.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 to="/chat"
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-base font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90"
               >
-                Start a quote
+                Começar orçamento
                 <svg
                   width="16"
                   height="16"
@@ -186,12 +186,13 @@ function Hero() {
                 href="#how-it-works"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-base text-foreground hover:bg-secondary"
               >
-                How it works
+                Como funciona
               </a>
             </div>
             <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground">
-              <span>English · Español · Português</span>
+              <span>Português · English · Español</span>
             </div>
+
           </div>
 
           <div className="md:col-span-5">

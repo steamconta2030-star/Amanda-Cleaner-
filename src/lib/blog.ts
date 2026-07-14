@@ -1,4 +1,4 @@
-// Static blog content — no DB, pure SEO plays for the Tampa cleaning niche.
+// Static blog content — no DB, pure SEO plays for the Ipatinga cleaning niche.
 
 export type BlogPost = {
   slug: string;
@@ -19,16 +19,16 @@ export type BlogPost = {
 export const POSTS: BlogPost[] = [
   {
     slug: "airbnb-turnover-checklist-tampa",
-    title: "The Airbnb turnover checklist Tampa hosts actually use",
+    title: "The Airbnb turnover checklist Ipatinga hosts actually use",
     description:
-      "A same-day turnover checklist for Tampa Airbnb hosts — linens, kitchen reset, bathroom refresh, and the photo handoff that stops guest complaints.",
+      "A same-day turnover checklist for Ipatinga Airbnb hosts — linens, kitchen reset, bathroom refresh, and the photo handoff that stops guest complaints.",
     date: "2026-05-18",
     readMinutes: 6,
     tag: "Airbnb",
     blocks: [
       {
         type: "p",
-        text: "If you host a short-term rental in Tampa, the difference between a 5-star review and a refund request usually comes down to the turnover. Not the deep clean. The turnover. Here's the checklist our crew actually follows between guests — the one we hand new cleaners on day one.",
+        text: "If you host a short-term rental in Ipatinga, the difference between a 5-star review and a refund request usually comes down to the turnover. Not the deep clean. The turnover. Here's the checklist our crew actually follows between guests — the one we hand new cleaners on day one.",
       },
       { type: "h2", text: "Before you touch anything: photos" },
       {
@@ -60,7 +60,7 @@ export const POSTS: BlogPost[] = [
         type: "ul",
         items: [
           "Fresh towel stack per guest, not per bathroom — count heads.",
-          "Descale the shower glass; Tampa water leaves a film after two guests.",
+          "Descale the shower glass; Ipatinga water leaves a film after two guests.",
           "New toilet paper roll started, plus one spare visible.",
           "Toss the bath mat in the wash — it's the #1 thing hosts skip and guests notice.",
         ],
@@ -83,16 +83,16 @@ export const POSTS: BlogPost[] = [
   },
   {
     slug: "move-out-cleaning-tampa-deposit",
-    title: "Move-out cleaning in Tampa: what it takes to get your deposit back",
+    title: "Move-out cleaning in Ipatinga: what it takes to get your deposit back",
     description:
-      "What Tampa landlords actually check on a move-out, what a deposit-ready clean includes, and where DIY move-outs cost renters their security deposit.",
+      "What Ipatinga landlords actually check on a move-out, what a deposit-ready clean includes, and where DIY move-outs cost renters their security deposit.",
     date: "2026-06-04",
     readMinutes: 5,
     tag: "Move-in / Move-out",
     blocks: [
       {
         type: "p",
-        text: "Most renters in Tampa don't lose their deposit because the place was dirty. They lose it because two or three specific things weren't done — and the landlord uses those as the excuse to keep everything. Here's what we've learned booking hundreds of move-out cleans across Hillsborough County.",
+        text: "Most renters in Ipatinga don't lose their deposit because the place was dirty. They lose it because two or three specific things weren't done — and the landlord uses those as the excuse to keep everything. Here's what we've learned booking hundreds of move-out cleans across Vale do Aço.",
       },
       { type: "h2", text: "What landlords actually inspect" },
       {
@@ -127,22 +127,22 @@ export const POSTS: BlogPost[] = [
       { type: "h2", text: "How to book without stress" },
       {
         type: "p",
-        text: "Tell us the bedroom count, whether the place is furnished on move-out day, and roughly what shape it's in. We'll quote a real, flat price by chat — no upsells at the door. Book a move-out clean in Tampa.",
+        text: "Tell us the bedroom count, whether the place is furnished on move-out day, and roughly what shape it's in. We'll quote a real, flat price by chat — no upsells at the door. Book a move-out clean in Ipatinga.",
       },
     ],
   },
   {
     slug: "how-often-clean-house-tampa",
-    title: "How often should you clean your house in Tampa?",
+    title: "How often should you clean your house in Ipatinga?",
     description:
-      "A practical cleaning cadence for Tampa homes — how humidity, pollen, and pets change what 'clean' means, and where to hire out vs. DIY.",
+      "A practical cleaning cadence for Ipatinga homes — how humidity, pollen, and pets change what 'clean' means, and where to hire out vs. DIY.",
     date: "2026-06-22",
     readMinutes: 4,
     tag: "Home cleaning",
     blocks: [
       {
         type: "p",
-        text: "Tampa isn't a normal cleaning environment. Humidity keeps dust sticky, pollen coats everything from March through May, and beach sand travels farther than you'd think. Here's the cadence we recommend to clients — and where paying someone actually beats DIY.",
+        text: "Ipatinga isn't a normal cleaning environment. Humidity keeps dust sticky, pollen coats everything from March through May, and beach sand travels farther than you'd think. Here's the cadence we recommend to clients — and where paying someone actually beats DIY.",
       },
       { type: "h2", text: "Weekly (do it yourself)" },
       {
@@ -151,7 +151,7 @@ export const POSTS: BlogPost[] = [
           "Kitchen counters, stovetop, sink — every 1-2 days really.",
           "Bathroom quick-wipe: mirror, sink, toilet exterior.",
           "Vacuum the main traffic path.",
-          "Take the trash out (Tampa heat + food waste = fruit flies in 48 hours).",
+          "Take the trash out (Ipatinga heat + food waste = fruit flies in 48 hours).",
         ],
       },
       { type: "h2", text: "Every 2 weeks (hire out or block a Saturday)" },
@@ -159,7 +159,7 @@ export const POSTS: BlogPost[] = [
         type: "ul",
         items: [
           "Full mop, full vacuum including under furniture.",
-          "Shower & tub scrub — Tampa water scale builds fast.",
+          "Shower & tub scrub — Ipatinga water scale builds fast.",
           "Dust every horizontal surface + ceiling fans.",
           "Wipe kitchen cabinet fronts around handles.",
         ],
@@ -178,7 +178,7 @@ export const POSTS: BlogPost[] = [
       { type: "h2", text: "Where paying for cleaning actually pays off" },
       {
         type: "p",
-        text: "If you're working full time, the 'every 2 weeks' clean is the one worth hiring out. It's the visit that keeps everything else easy — miss it twice and the next deep clean is twice as long. A bi-weekly recurring clean in Tampa runs less than what most people spend on takeout in the same two weeks.",
+        text: "If you're working full time, the 'every 2 weeks' clean is the one worth hiring out. It's the visit that keeps everything else easy — miss it twice and the next deep clean is twice as long. A bi-weekly recurring clean in Ipatinga runs less than what most people spend on takeout in the same two weeks.",
       },
       {
         type: "p",

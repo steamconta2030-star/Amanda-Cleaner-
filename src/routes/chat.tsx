@@ -30,7 +30,7 @@ export const Route = createFileRoute("/chat")({
       {
         name: "description",
         content:
-          "Get a real cleaning quote and book in Tampa by chatting with Amaneat.",
+          "Get a real cleaning quote and book in Ipatinga by chatting with Amaneat.",
       },
       { name: "robots", content: "noindex" },
     ],

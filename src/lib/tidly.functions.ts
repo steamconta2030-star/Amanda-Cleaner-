@@ -45,7 +45,7 @@ const bookingInputSchema = z.object({
   duration_minutes: z.number().int(),
   price_cents: z.number().int(),
   address_line1: z.string().min(1),
-  city: z.string().default("Tampa"),
+  city: z.string().default("Ipatinga"),
   state: z.string().default("FL"),
   zip: z.string().min(3),
   bedrooms: z.number().int().nullable(),

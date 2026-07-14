@@ -725,7 +725,7 @@ function ProfilePanel() {
             setForm((f) => ({ ...f, headline: e.target.value || null }))
           }
           maxLength={140}
-          placeholder="e.g. 8 yrs of Airbnb turnovers in South Tampa"
+          placeholder="e.g. 8 yrs of Airbnb turnovers in Centro de Ipatinga"
           className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
         />
       </Field>

@@ -12,17 +12,17 @@ export const Route = createFileRoute("/")({
   component: Home,
   head: () => ({
     meta: [
-      { title: "Amaneat — Book cleaning in Tampa, FL by chat" },
+      { title: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         name: "description",
         content:
-          "AI-powered cleaning for Tampa homes, rentals and moves. Get a real quote and book in 60 seconds — no forms.",
+          "Faxina com IA em Ipatinga: casas, aluguéis e mudanças. Orçamento real e agendamento em 60 segundos, sem formulário.",
       },
-      { property: "og:title", content: "Amaneat — Book cleaning in Tampa by chat" },
+      { property: "og:title", content: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         property: "og:description",
         content:
-          "Homes, Airbnbs, and moves in Tampa Bay. Quote and book in a single conversation.",
+          "Casas, Airbnbs e mudanças em Ipatinga e Vale do Aço. Orçamento e agendamento em uma conversa.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/` }],
@@ -35,17 +35,17 @@ export const Route = createFileRoute("/")({
           name: "Amaneat",
           url: SITE_URL,
           image: `${SITE_URL}/icon-512.png`,
-          telephone: "+1-813-000-0000",
+          telephone: "+55-31-0000-0000",
           priceRange: "$$",
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Tampa",
-            addressRegion: "FL",
-            addressCountry: "US",
+            addressLocality: "Ipatinga",
+            addressRegion: "MG",
+            addressCountry: "BR",
           },
           areaServed: [
-            { "@type": "City", name: "Tampa" },
-            { "@type": "AdministrativeArea", name: "Hillsborough County, FL" },
+            { "@type": "City", name: "Ipatinga" },
+            { "@type": "AdministrativeArea", name: "Vale do Aço, MG" },
           ],
         }),
       },
@@ -58,34 +58,34 @@ export const Route = createFileRoute("/")({
           mainEntity: [
             {
               "@type": "Question",
-              name: "How fast can I book a cleaning in Tampa?",
+              name: "Em quanto tempo consigo agendar uma faxina em Ipatinga?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Most quotes take about 60 seconds by chat, and same-week times are usually open.",
+                text: "A maioria dos orçamentos sai em uns 60 segundos pelo chat, e normalmente há horários abertos na mesma semana.",
               },
             },
             {
               "@type": "Question",
-              name: "Do you clean Airbnb and short-term rentals?",
+              name: "Vocês limpam Airbnb e aluguéis de temporada?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes — Airbnb and VRBO turnovers with a photo checklist and STR calendar sync.",
+                text: "Sim — turnover de Airbnb e temporada com checklist com fotos e sincronia de calendário.",
               },
             },
             {
               "@type": "Question",
-              name: "Do you offer move-in and move-out cleanings?",
+              name: "Vocês fazem limpeza de mudança e pós-obra?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes, deposit-ready move-in / move-out cleans are available on short notice.",
+                text: "Sim, faxina pós-obra e limpeza de entrega das chaves em prazo curto.",
               },
             },
             {
               "@type": "Question",
-              name: "How is pricing calculated?",
+              name: "Como o preço é calculado?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "You get a real, transparent price based on home size, service type, and add-ons before booking.",
+                text: "Você recebe um preço real e transparente com base no tamanho do imóvel, tipo de serviço e adicionais antes de confirmar.",
               },
             },
           ],
@@ -95,29 +95,31 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+
 const AUDIENCES = [
   {
     key: "home" as const,
-    label: "My home",
-    tagline: "Weekly, bi-weekly, or a one-time deep clean.",
-    tag: "Families",
+    label: "Minha casa",
+    tagline: "Semanal, quinzenal ou uma faxina pesada.",
+    tag: "Famílias",
     emoji: "🏡",
   },
   {
     key: "rental" as const,
-    label: "My rental",
-    tagline: "Airbnb & VRBO turnovers with photo checklist.",
-    tag: "Hosts",
+    label: "Meu aluguel",
+    tagline: "Turnover de Airbnb com checklist e fotos.",
+    tag: "Anfitriões",
     emoji: "🛎️",
   },
   {
     key: "move" as const,
-    label: "Move in / out",
-    tagline: "Deposit-ready cleans on short notice.",
-    tag: "Realtors",
+    label: "Mudança / pós-obra",
+    tagline: "Faxina pesada pra entrega ou pós-reforma.",
+    tag: "Corretores",
     emoji: "📦",
   },
 ];
+
 
 function Home() {
   const { data: services = [] } = useQuery({
@@ -148,25 +150,25 @@ function Hero() {
           <div className="md:col-span-7">
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
-              <span className="text-muted-foreground">Now booking in Tampa Bay</span>
+              <span className="text-muted-foreground">Atendendo Ipatinga e Vale do Aço</span>
             </div>
             <h1
               className="mt-6 text-balance font-semibold tracking-[-0.03em] text-foreground"
               style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)", lineHeight: 0.95 }}
             >
-              Book a cleaning by <span className="font-serif italic text-primary">chatting</span>.
-              Not by filling forms.
+              Agende sua faxina <span className="font-serif italic text-primary">conversando</span>.
+              Sem formulário.
             </h1>
             <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-muted-foreground">
-              Tell Amaneat about your place — or send a couple of photos. You'll
-              get a real price and open times in about 60 seconds.
+              Conte pra Amaneat como é sua casa — ou mande umas fotos. Você
+              recebe preço real e horários em cerca de 60 segundos.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 to="/chat"
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-base font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90"
               >
-                Start a quote
+                Começar orçamento
                 <svg
                   width="16"
                   height="16"
@@ -184,12 +186,13 @@ function Hero() {
                 href="#how-it-works"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-base text-foreground hover:bg-secondary"
               >
-                How it works
+                Como funciona
               </a>
             </div>
             <div className="mt-10 flex items-center gap-6 text-sm text-muted-foreground">
-              <span>English · Español · Português</span>
+              <span>Português · English · Español</span>
             </div>
+
           </div>
 
           <div className="md:col-span-5">
@@ -211,43 +214,45 @@ function ChatMock() {
           <div className="h-2 w-2 rounded-full bg-muted-foreground/25" aria-hidden />
           <div className="h-2 w-2 rounded-full bg-muted-foreground/25" aria-hidden />
           <span className="ml-auto text-[10px] uppercase tracking-widest text-muted-foreground">
-            Amaneat chat
+            Chat Amaneat
           </span>
         </div>
         <div className="space-y-2.5 rounded-2xl bg-secondary/60 p-4">
-          <Bubble side="left">Hey! What are we cleaning?</Bubble>
+          <Bubble side="left">Oi! O que a gente vai limpar?</Bubble>
           <Bubble side="right" tone="primary">
-            3 bed, 2 bath in Westchase. Bi-weekly.
+            3 quartos, 2 banheiros no Cariru. Quinzenal.
           </Bubble>
           <Bubble side="left">
-            Got it — <b>$149</b> every 2 weeks, ~2h 30m.
+            Beleza — <b>R$ 249</b> a cada 2 semanas, ~2h30.
             <br />
-            First slot: <b>Tue 9am</b>. Book it?
+            Primeiro horário: <b>Ter 9h</b>. Confirma?
           </Bubble>
           <Bubble side="right" tone="primary">
-            Yes 🙌
+            Sim 🙌
           </Bubble>
           <div className="flex items-center gap-2 rounded-full bg-background px-3 py-2">
             <input
               disabled
-              placeholder="Message Amaneat…"
+              placeholder="Fale com a Amaneat…"
               className="flex-1 bg-transparent text-sm text-muted-foreground outline-none"
             />
             <button
               type="button"
               disabled
               className="grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground"
-              aria-label="Send"
+              aria-label="Enviar"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </button>
           </div>
+
         </div>
       </div>
       <div className="pointer-events-none absolute -right-6 -top-4 hidden rotate-6 rounded-2xl bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg md:block">
-        ~60 seconds
+        ~60 segundos
+
       </div>
     </div>
   );
@@ -285,11 +290,12 @@ function AudiencePicker() {
         <div className="mb-10 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              What are we cleaning?
+              O que a gente limpa?
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-              Pick your fit — pricing adapts.
+              Escolha o seu caso — o preço se adapta.
             </h2>
+
           </div>
         </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
@@ -316,7 +322,8 @@ function AudiencePicker() {
                 {a.tagline}
               </p>
               <div className="mt-8 flex items-center gap-2 text-sm font-medium text-primary">
-                Start chat
+                Abrir chat
+
                 <svg
                   width="14"
                   height="14"
@@ -342,29 +349,30 @@ function HowItWorks() {
   const steps = [
     {
       n: "01",
-      title: "Chat or upload photos",
-      body: "Tell Amaneat your address, bedrooms, and cadence — or send a few photos of the rooms.",
+      title: "Converse ou mande fotos",
+      body: "Diga endereço, quartos e frequência — ou mande fotos dos cômodos.",
     },
     {
       n: "02",
-      title: "See your price instantly",
-      body: "Get a real estimate and open times without waiting for a callback.",
+      title: "Preço na hora",
+      body: "Estimativa real e horários abertos sem esperar retorno.",
     },
     {
       n: "03",
-      title: "Confirm in one tap",
-      body: "Sign in with Google, confirm the slot, and we'll show up ready.",
+      title: "Confirme em 1 toque",
+      body: "Entre com Google, confirme o horário e a gente chega pronto.",
     },
   ];
   return (
     <section id="how-it-works" className="border-t border-border/60">
       <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          How it works
+          Como funciona
         </p>
         <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl">
-          Sixty seconds to a booked cleaning.
+          Sessenta segundos pra fechar a faxina.
         </h2>
+
         <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
           {steps.map((s) => (
             <div key={s.n}>
@@ -396,15 +404,16 @@ function ServicesGrid({
         <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Services
+              Serviços
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-              Base prices, before your details.
+              Preços base, antes dos detalhes.
             </h2>
           </div>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Real quotes come from the chat, based on square footage and cadence.
+            O orçamento real sai pelo chat, com base no tamanho do imóvel e na frequência.
           </p>
+
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
@@ -426,10 +435,10 @@ function ServicesGrid({
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">
                   {s.audience === "home"
-                    ? "Home"
+                    ? "Casa"
                     : s.audience === "rental"
-                      ? "Rental"
-                      : "Move"}
+                      ? "Aluguel"
+                      : "Mudança"}
                 </p>
               </div>
               <h3 className="mt-6 font-serif text-2xl font-normal leading-tight tracking-tight text-foreground">
@@ -442,14 +451,15 @@ function ServicesGrid({
                 <div className="h-px w-8 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-primary" />
                 <div className="mt-4 flex items-baseline gap-2">
                   <span className="font-serif text-sm italic text-muted-foreground">
-                    from
+                    a partir de
                   </span>
-                  <span className="font-serif text-xs italic text-primary">$</span>
+                  <span className="font-serif text-xs italic text-primary">R$</span>
                   <span className="text-2xl font-semibold tracking-tight tabular-nums text-foreground">
                     {(s.base_price_cents / 100).toFixed(0)}
                   </span>
                 </div>
               </div>
+
             </div>
           ))}
         </div>
@@ -468,20 +478,21 @@ function Cta() {
             aria-hidden
           />
           <p className="text-xs uppercase tracking-[0.2em] text-background/60">
-            Ready when you are
+            Quando quiser
           </p>
           <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold tracking-tight md:text-5xl">
-            Your next cleaning is one conversation away.
+            Sua próxima faxina está a uma conversa.
           </h2>
           <p className="mt-4 max-w-md text-background/70">
-            Serving Tampa, Westchase, Carrollwood, South Tampa, and greater Hillsborough County.
+            Atendendo Ipatinga, Cariru, Bethânia, Centro e todo o Vale do Aço.
           </p>
           <div className="mt-8">
             <Link
               to="/chat"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 text-base font-medium text-primary-foreground hover:bg-primary/90"
             >
-              Start a quote
+              Começar orçamento
+
               <svg
                 width="16"
                 height="16"
@@ -508,20 +519,20 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-5 py-10 text-sm text-muted-foreground md:flex-row md:items-center md:px-8">
         <div className="flex items-center gap-3">
           <Logo className="text-lg" />
-          <span>· Tampa, FL</span>
+          <span>· Ipatinga, MG</span>
         </div>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <a href="#how-it-works" className="hover:text-foreground">
-            How it works
+            Como funciona
           </a>
           <a href="#services" className="hover:text-foreground">
-            Services
+            Serviços
           </a>
           <Link to="/chat" className="hover:text-foreground">
-            Get a quote
+            Fazer orçamento
           </Link>
           <Link to="/auth" className="hover:text-foreground">
-            Sign in
+            Entrar
           </Link>
         </div>
         <p className="text-xs">© {new Date().getFullYear()} Amaneat</p>
@@ -536,10 +547,11 @@ function NewsletterSection() {
       <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
         <NewsletterForm
           source="home"
-          title="Cleaning tips for Tampa homes"
-          subtitle="One short email a month — cadence guides, host tips, and open slots. Unsubscribe anytime."
+          title="Dicas de limpeza pra Ipatinga"
+          subtitle="Um e-mail curto por mês — guia de frequência, dicas pra anfitriões e horários abertos. Cancele quando quiser."
         />
       </div>
+
     </section>
   );
 }

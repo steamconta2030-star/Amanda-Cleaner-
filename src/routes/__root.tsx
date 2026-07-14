@@ -32,17 +32,17 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">404</p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground">
-          Page not found
+          Página não encontrada
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          This page doesn't exist yet — or has moved.
+          Essa página ainda não existe — ou foi movida.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Back to Amaneat
+            Voltar pra Amaneat
           </Link>
         </div>
       </div>
@@ -61,10 +61,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          Essa página não carregou
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong. Try again or head back home.
+          Algo deu errado. Tente de novo ou volte pra home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -74,19 +74,20 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Try again
+            Tentar de novo
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-full border border-input bg-background px-5 py-2.5 text-sm font-medium text-foreground hover:bg-accent"
           >
-            Go home
+            Ir pra home
           </a>
         </div>
       </div>
     </div>
   );
 }
+
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -96,19 +97,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "viewport",
         content: "width=device-width, initial-scale=1, viewport-fit=cover",
       },
-      { title: "Amaneat — Book cleaning in Tampa, FL by chat" },
+      { title: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         name: "description",
         content:
-          "Amaneat is an AI-powered cleaning service for Tampa, FL. Get a quote and book in 60 seconds — homes, Airbnbs, and move-in/out. No forms, just chat.",
+          "Amaneat é uma faxina com IA em Ipatinga, MG. Orçamento e agendamento em 60 segundos — casas, Airbnbs e mudanças. Sem formulário, só chat.",
       },
       { name: "theme-color", content: "#FF6B57" },
-      { property: "og:title", content: "Amaneat — Book cleaning in Tampa by chat" },
+      { property: "og:title", content: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         property: "og:description",
         content:
-          "AI-powered cleaning for Tampa homes, rentals, and moves. Quote and book in a single conversation.",
+          "Faxina com IA para casas, aluguéis e mudanças em Ipatinga. Orçamento e agendamento em uma conversa.",
       },
+
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL },
       { name: "twitter:card", content: "summary_large_image" },
@@ -172,7 +174,7 @@ const THEME_INIT = `(function(){try{var t=localStorage.getItem('tidly_theme');va
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />

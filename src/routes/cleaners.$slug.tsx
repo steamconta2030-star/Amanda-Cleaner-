@@ -35,10 +35,10 @@ export const Route = createFileRoute("/cleaners/$slug")({
       };
     }
     const c = loaderData.cleaner;
-    const title = `${c.display_name} — Amaneat cleaner in Tampa`;
+    const title = `${c.display_name} — Amaneat cleaner in Ipatinga`;
     const description =
       c.headline ??
-      `Meet ${c.display_name}, a hand-picked cleaner in the Amaneat Tampa network.`;
+      `Meet ${c.display_name}, a hand-picked cleaner in the Amaneat Ipatinga network.`;
     return {
       meta: [
         { title },
@@ -85,8 +85,8 @@ export const Route = createFileRoute("/cleaners/$slug")({
             worksFor: { "@type": "Organization", name: "Amaneat" },
             areaServed: c.zips.map((z) => ({
               "@type": "PostalAddress",
-              addressLocality: "Tampa",
-              addressRegion: "FL",
+              addressLocality: "Ipatinga",
+              addressRegion: "MG",
               postalCode: z,
             })),
             aggregateRating: {

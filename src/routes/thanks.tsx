@@ -19,7 +19,7 @@ export const Route = createFileRoute("/thanks")({
       { property: "og:title", content: "You're booked — Amaneat" },
       {
         property: "og:description",
-        content: "Your Tampa cleaning is scheduled. Here's what happens next.",
+        content: "Your Ipatinga cleaning is scheduled. Here's what happens next.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/thanks")({
 
 function ThanksPage() {
   const shareUrl = `${SITE_URL}/`;
-  const shareText = "Booked my Tampa cleaning by chat with Amaneat — took a minute:";
+  const shareText = "Booked my Ipatinga cleaning by chat with Amaneat — took a minute:";
 
   useEffect(() => {
     // Meta standard "Schedule" + GA4 "generate_lead"
@@ -95,7 +95,7 @@ function ThanksPage() {
               Text
             </a>
             <a
-              href={`mailto:?subject=${encodeURIComponent("Amaneat — Tampa cleaning by chat")}&body=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
+              href={`mailto:?subject=${encodeURIComponent("Amaneat — Ipatinga cleaning by chat")}&body=${encodeURIComponent(`${shareText} ${shareUrl}`)}`}
               className="rounded-full border border-input bg-background px-4 py-2 text-xs font-medium hover:bg-secondary"
             >
               Email
@@ -114,7 +114,7 @@ function ThanksPage() {
           <NewsletterForm
             source="thanks"
             title="Stay tidy between cleanings"
-            subtitle="Get one short cleaning tip a month, Tampa-specific."
+            subtitle="Get one short cleaning tip a month, Ipatinga-specific."
           />
         </div>
       </section>

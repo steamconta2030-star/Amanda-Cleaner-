@@ -9,16 +9,16 @@ export const Route = createFileRoute("/cleaners")({
   component: CleanersLayout,
   head: () => ({
     meta: [
-      { title: "Our cleaners — Amaneat network in Tampa" },
+      { title: "Our cleaners — Amaneat network in Ipatinga" },
       {
         name: "description",
         content:
-          "Meet the Tampa cleaners in the Amaneat network — each one hand-picked and vetted by Amanda. Homes, Airbnbs and move-ins.",
+          "Meet the Ipatinga cleaners in the Amaneat network — each one hand-picked and vetted by Amanda. Homes, Airbnbs and move-ins.",
       },
-      { property: "og:title", content: "Our cleaners — Amaneat Tampa network" },
+      { property: "og:title", content: "Our cleaners — Amaneat Ipatinga network" },
       {
         property: "og:description",
-        content: "Vetted Tampa cleaners for homes, rentals and moves.",
+        content: "Vetted Ipatinga cleaners for homes, rentals and moves.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/cleaners` }],

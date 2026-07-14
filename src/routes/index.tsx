@@ -478,20 +478,21 @@ function Cta() {
             aria-hidden
           />
           <p className="text-xs uppercase tracking-[0.2em] text-background/60">
-            Ready when you are
+            Quando quiser
           </p>
           <h2 className="mt-3 max-w-2xl text-balance text-4xl font-semibold tracking-tight md:text-5xl">
-            Your next cleaning is one conversation away.
+            Sua próxima faxina está a uma conversa.
           </h2>
           <p className="mt-4 max-w-md text-background/70">
-            Serving Ipatinga, Cariru, Bethânia, Centro e todo o Vale do Aço.
+            Atendendo Ipatinga, Cariru, Bethânia, Centro e todo o Vale do Aço.
           </p>
           <div className="mt-8">
             <Link
               to="/chat"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 text-base font-medium text-primary-foreground hover:bg-primary/90"
             >
-              Start a quote
+              Começar orçamento
+
               <svg
                 width="16"
                 height="16"

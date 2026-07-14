@@ -214,39 +214,40 @@ function ChatMock() {
           <div className="h-2 w-2 rounded-full bg-muted-foreground/25" aria-hidden />
           <div className="h-2 w-2 rounded-full bg-muted-foreground/25" aria-hidden />
           <span className="ml-auto text-[10px] uppercase tracking-widest text-muted-foreground">
-            Amaneat chat
+            Chat Amaneat
           </span>
         </div>
         <div className="space-y-2.5 rounded-2xl bg-secondary/60 p-4">
-          <Bubble side="left">Hey! What are we cleaning?</Bubble>
+          <Bubble side="left">Oi! O que a gente vai limpar?</Bubble>
           <Bubble side="right" tone="primary">
-            3 bed, 2 bath in Cariru. Bi-weekly.
+            3 quartos, 2 banheiros no Cariru. Quinzenal.
           </Bubble>
           <Bubble side="left">
-            Got it — <b>$149</b> every 2 weeks, ~2h 30m.
+            Beleza — <b>R$ 249</b> a cada 2 semanas, ~2h30.
             <br />
-            First slot: <b>Tue 9am</b>. Book it?
+            Primeiro horário: <b>Ter 9h</b>. Confirma?
           </Bubble>
           <Bubble side="right" tone="primary">
-            Yes 🙌
+            Sim 🙌
           </Bubble>
           <div className="flex items-center gap-2 rounded-full bg-background px-3 py-2">
             <input
               disabled
-              placeholder="Message Amaneat…"
+              placeholder="Fale com a Amaneat…"
               className="flex-1 bg-transparent text-sm text-muted-foreground outline-none"
             />
             <button
               type="button"
               disabled
               className="grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground"
-              aria-label="Send"
+              aria-label="Enviar"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </button>
           </div>
+
         </div>
       </div>
       <div className="pointer-events-none absolute -right-6 -top-4 hidden rotate-6 rounded-2xl bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg md:block">

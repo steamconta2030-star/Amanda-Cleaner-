@@ -435,10 +435,10 @@ function ServicesGrid({
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">
                   {s.audience === "home"
-                    ? "Home"
+                    ? "Casa"
                     : s.audience === "rental"
-                      ? "Rental"
-                      : "Move"}
+                      ? "Aluguel"
+                      : "Mudança"}
                 </p>
               </div>
               <h3 className="mt-6 font-serif text-2xl font-normal leading-tight tracking-tight text-foreground">
@@ -451,14 +451,15 @@ function ServicesGrid({
                 <div className="h-px w-8 bg-border transition-all duration-500 group-hover:w-16 group-hover:bg-primary" />
                 <div className="mt-4 flex items-baseline gap-2">
                   <span className="font-serif text-sm italic text-muted-foreground">
-                    from
+                    a partir de
                   </span>
-                  <span className="font-serif text-xs italic text-primary">$</span>
+                  <span className="font-serif text-xs italic text-primary">R$</span>
                   <span className="text-2xl font-semibold tracking-tight tabular-nums text-foreground">
                     {(s.base_price_cents / 100).toFixed(0)}
                   </span>
                 </div>
               </div>
+
             </div>
           ))}
         </div>

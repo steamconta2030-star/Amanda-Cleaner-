@@ -290,11 +290,12 @@ function AudiencePicker() {
         <div className="mb-10 flex items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              What are we cleaning?
+              O que a gente limpa?
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-              Pick your fit — pricing adapts.
+              Escolha o seu caso — o preço se adapta.
             </h2>
+
           </div>
         </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">

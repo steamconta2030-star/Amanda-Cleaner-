@@ -99,26 +99,27 @@ export const Route = createFileRoute("/")({
 const AUDIENCES = [
   {
     key: "home" as const,
-    label: "My home",
-    tagline: "Weekly, bi-weekly, or a one-time deep clean.",
-    tag: "Families",
+    label: "Minha casa",
+    tagline: "Semanal, quinzenal ou uma faxina pesada.",
+    tag: "Famílias",
     emoji: "🏡",
   },
   {
     key: "rental" as const,
-    label: "My rental",
-    tagline: "Airbnb & VRBO turnovers with photo checklist.",
-    tag: "Hosts",
+    label: "Meu aluguel",
+    tagline: "Turnover de Airbnb com checklist e fotos.",
+    tag: "Anfitriões",
     emoji: "🛎️",
   },
   {
     key: "move" as const,
-    label: "Move in / out",
-    tagline: "Deposit-ready cleans on short notice.",
-    tag: "Realtors",
+    label: "Mudança / pós-obra",
+    tagline: "Faxina pesada pra entrega ou pós-reforma.",
+    tag: "Corretores",
     emoji: "📦",
   },
 ];
+
 
 function Home() {
   const { data: services = [] } = useQuery({

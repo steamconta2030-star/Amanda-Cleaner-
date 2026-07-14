@@ -97,19 +97,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "viewport",
         content: "width=device-width, initial-scale=1, viewport-fit=cover",
       },
-      { title: "Amaneat — Book cleaning in Ipatinga, MG by chat" },
+      { title: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         name: "description",
         content:
-          "Amaneat is an AI-powered cleaning service for Ipatinga, MG. Get a quote and book in 60 seconds — homes, Airbnbs, and move-in/out. No forms, just chat.",
+          "Amaneat é uma faxina com IA em Ipatinga, MG. Orçamento e agendamento em 60 segundos — casas, Airbnbs e mudanças. Sem formulário, só chat.",
       },
       { name: "theme-color", content: "#FF6B57" },
-      { property: "og:title", content: "Amaneat — Book cleaning in Ipatinga by chat" },
+      { property: "og:title", content: "Amaneat — Faxina em Ipatinga pelo chat" },
       {
         property: "og:description",
         content:
-          "AI-powered cleaning for Ipatinga homes, rentals, and moves. Quote and book in a single conversation.",
+          "Faxina com IA para casas, aluguéis e mudanças em Ipatinga. Orçamento e agendamento em uma conversa.",
       },
+
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL },
       { name: "twitter:card", content: "summary_large_image" },

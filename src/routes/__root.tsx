@@ -174,7 +174,7 @@ const THEME_INIT = `(function(){try{var t=localStorage.getItem('tidly_theme');va
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />

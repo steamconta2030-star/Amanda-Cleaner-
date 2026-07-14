@@ -79,19 +79,19 @@ export function Nav() {
             to="/services"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
-            Services
+            Serviços
           </Link>
           <Link
             to="/faq"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >
-            FAQ
+            Dúvidas
           </Link>
           <Link
             to="/about"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >
-            About
+            Sobre
           </Link>
           <Link
             to="/blog"
@@ -103,26 +103,26 @@ export function Nav() {
             to="/contact"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >
-            Contact
+            Contato
           </Link>
           <Link
             to="/cleaners"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
-            Our cleaners
+            Nossas faxineiras
           </Link>
           <Link
             to="/pricing"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
-            Pricing
+            Preços
           </Link>
           {!isCleaner && (
             <Link
               to="/become-a-cleaner"
               className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
             >
-              Work with us
+              Trabalhe com a gente
             </Link>
           )}
           {isCleaner && (
@@ -130,9 +130,10 @@ export function Nav() {
               to="/cleaner"
               className="hidden rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/15 sm:inline-block"
             >
-              Cleaner
+              Faxineira
             </Link>
           )}
+
           {isAdmin && (
             <Link
               to="/admin"

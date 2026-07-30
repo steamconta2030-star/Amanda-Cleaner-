@@ -45,8 +45,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 ```bash
 # 1. Clone este repositório
-$ git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
-
+$ git https://github.com/steamconta2030-star/Amanda-Cleaner-.git
 # 2. Acesse a pasta do projeto
 $ cd seu-repositorio
 

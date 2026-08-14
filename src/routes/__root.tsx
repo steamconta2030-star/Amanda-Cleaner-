@@ -32,17 +32,17 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">404</p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground">
-          Página não encontrada
+          Page not found
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Essa página ainda não existe — ou foi movida.
+          This page does not exist yet — or it may have moved.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Voltar pra Amaneat
+            Back to Amaneat
           </Link>
         </div>
       </div>
@@ -61,10 +61,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Essa página não carregou
+          This page did not load
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Algo deu errado. Tente de novo ou volte pra home.
+          Something went wrong. Try again or return home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -74,20 +74,19 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            Tentar de novo
+            Try again
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-full border border-input bg-background px-5 py-2.5 text-sm font-medium text-foreground hover:bg-accent"
           >
-            Ir pra home
+            Go home
           </a>
         </div>
       </div>
     </div>
   );
 }
-
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -97,20 +96,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "viewport",
         content: "width=device-width, initial-scale=1, viewport-fit=cover",
       },
-      { title: "Amaneat — Faxina em Ipatinga pelo chat" },
+      { title: "Amaneat — Cleaning in Tampa by chat" },
       {
         name: "description",
         content:
-          "Amaneat é uma faxina com IA em Ipatinga, MG. Orçamento e agendamento em 60 segundos — casas, Airbnbs e mudanças. Sem formulário, só chat.",
+          "Amaneat makes it easy to book house cleaning in Tampa, Florida. Get a real quote and available times by chat for homes, Airbnbs, and move-in or move-out cleaning.",
       },
       { name: "theme-color", content: "#FF6B57" },
-      { property: "og:title", content: "Amaneat — Faxina em Ipatinga pelo chat" },
+      { property: "og:title", content: "Amaneat — Cleaning in Tampa by chat" },
       {
         property: "og:description",
         content:
-          "Faxina com IA para casas, aluguéis e mudanças em Ipatinga. Orçamento e agendamento em uma conversa.",
+          "House cleaning for homes, rentals, and moves in Tampa, FL. Get a quote and book in one conversation.",
       },
-
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL },
       { name: "twitter:card", content: "summary_large_image" },
@@ -161,9 +159,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       ...(TIKTOK_PIXEL_ID ? [{ children: tiktokPixelSnippet(TIKTOK_PIXEL_ID) }] : []),
     ],
   }),
-
-
-
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -174,7 +169,7 @@ const THEME_INIT = `(function(){try{var t=localStorage.getItem('tidly_theme');va
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="en-US" suppressHydrationWarning>
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
@@ -186,7 +181,6 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
-
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -211,7 +205,6 @@ function ConsentBannerLazy() {
   if (!mounted) return null;
   return <ConsentBanner />;
 }
-
 
 import { InstallPrompt } from "@/components/tidly/InstallPrompt";
 import { Footer } from "@/components/tidly/Footer";

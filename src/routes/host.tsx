@@ -4,14 +4,14 @@ import { Nav } from "@/components/tidly/Nav";
 export const Route = createFileRoute("/host")({
   head: () => ({
     meta: [
-      { title: "Amaneat for Airbnb Hosts — Turnover cleaning in Ipatinga" },
+      { title: "Amaneat for Airbnb Hosts — Turnover cleaning in Tampa" },
       {
         name: "description",
         content:
-          "Automated Airbnb turnover cleaning in Ipatinga. Photo reports, linen restock, damage alerts. Book from your phone.",
+          "Airbnb and short-term rental turnover cleaning in Tampa, Florida. Photo reports, linen restock, damage alerts, and fast booking by chat.",
       },
-      { property: "og:title", content: "Amaneat for Airbnb hosts" },
-      { property: "og:description", content: "Turnover cleaning built for short-term rentals." },
+      { property: "og:title", content: "Amaneat for Airbnb hosts in Tampa" },
+      { property: "og:description", content: "Turnover cleaning built for Tampa short-term rentals." },
       { property: "og:type", content: "website" },
     ],
   }),
@@ -25,15 +25,15 @@ const BENEFITS = [
   },
   {
     title: "Linen change + restock",
-    body: "Fresh linens, restocked amenities (soap, paper, coffee). We flag low inventory automatically.",
+    body: "Fresh linens and agreed amenities such as soap, paper goods, and coffee can be reset between guests.",
   },
   {
-    title: "Damage & missing item alerts",
-    body: "Cleaner reports issues instantly via the app. You review, we file the Airbnb claim on your behalf.",
+    title: "Damage & low-stock alerts",
+    body: "Your cleaner can flag visible issues or supplies that need attention so you can act before the next guest arrives.",
   },
   {
     title: "Same-day slots",
-    body: "Back-to-back bookings? We prioritize turnovers with tight windows.",
+    body: "Back-to-back bookings? Turnovers with tight windows can be prioritized when availability allows.",
   },
 ];
 
@@ -48,15 +48,16 @@ function HostPage() {
             Turnovers, handled.
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Amaneat is built for Airbnb, VRBO and short-term rental hosts in Ipatinga. Consistent
-            cleaners, photo reports, restock alerts — and one honest price per turnover.
+            Amaneat is built for Airbnb, Vrbo, and short-term rental hosts in Tampa. Consistent
+            cleaning, photo handoffs, restock notes, and clear pricing per turnover.
           </p>
           <div className="mt-6 flex gap-3">
             <Link
               to="/chat"
+              search={{ audience: "rental" }}
               className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
-              Get a quote
+              Get a turnover quote
             </Link>
             <Link
               to="/pricing"
@@ -81,13 +82,14 @@ function HostPage() {
 
         <section className="mt-20 rounded-3xl bg-primary/5 p-8 md:p-12">
           <h2 className="font-serif text-3xl italic tracking-tight text-foreground">
-            Manage from your phone
+            Manage turnovers from your phone
           </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Schedule, get photo reports, message your cleaner and pay — all from the Amaneat app.
+            Import your rental calendar, organize upcoming check-outs, and start a Tampa turnover booking from Amaneat.
           </p>
           <Link
             to="/chat"
+            search={{ audience: "rental" }}
             className="mt-6 inline-flex rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background hover:bg-foreground/85"
           >
             Book your first turnover

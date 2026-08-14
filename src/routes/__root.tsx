@@ -35,7 +35,7 @@ function NotFoundComponent() {
           Page not found
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          This page does not exist yet — or it may have moved.
+          This page doesn't exist yet — or has moved.
         </p>
         <div className="mt-6">
           <Link
@@ -61,10 +61,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page did not load
+          This page didn't load
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong. Try again or return home.
+          Something went wrong. Try again or head back home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -96,18 +96,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "viewport",
         content: "width=device-width, initial-scale=1, viewport-fit=cover",
       },
-      { title: "Amaneat — Cleaning in Tampa by chat" },
+      { title: "Amaneat — Book cleaning in Tampa, FL by chat" },
       {
         name: "description",
         content:
-          "Amaneat makes it easy to book house cleaning in Tampa, Florida. Get a real quote and available times by chat for homes, Airbnbs, and move-in or move-out cleaning.",
+          "Amaneat is an AI-powered cleaning service for Tampa, FL. Get a quote and book in 60 seconds — homes, Airbnbs, and move-in/out. No forms, just chat.",
       },
       { name: "theme-color", content: "#FF6B57" },
-      { property: "og:title", content: "Amaneat — Cleaning in Tampa by chat" },
+      { property: "og:title", content: "Amaneat — Book cleaning in Tampa by chat" },
       {
         property: "og:description",
         content:
-          "House cleaning for homes, rentals, and moves in Tampa, FL. Get a quote and book in one conversation.",
+          "AI-powered cleaning for Tampa homes, rentals, and moves. Quote and book in a single conversation.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL },
@@ -159,6 +159,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       ...(TIKTOK_PIXEL_ID ? [{ children: tiktokPixelSnippet(TIKTOK_PIXEL_ID) }] : []),
     ],
   }),
+
+
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -169,7 +172,7 @@ const THEME_INIT = `(function(){try{var t=localStorage.getItem('tidly_theme');va
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-US" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
@@ -181,6 +184,7 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -205,6 +209,7 @@ function ConsentBannerLazy() {
   if (!mounted) return null;
   return <ConsentBanner />;
 }
+
 
 import { InstallPrompt } from "@/components/tidly/InstallPrompt";
 import { Footer } from "@/components/tidly/Footer";

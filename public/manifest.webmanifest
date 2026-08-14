@@ -1,14 +1,14 @@
 {
   "id": "/?source=pwa",
-  "name": "Amaneat — Faxina em Ipatinga",
+  "name": "Amaneat — Cleaning in Tampa",
   "short_name": "Amaneat",
-  "description": "Agende faxina em Ipatinga pelo chat. Casas, Airbnbs e mudanças.",
+  "description": "Book cleaning in Tampa by chat. Homes, Airbnbs, and moves.",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait",
-  "lang": "pt-BR",
+  "lang": "en-US",
   "dir": "ltr",
   "background_color": "#FAFAF7",
   "theme_color": "#FF6B57",
@@ -31,26 +31,25 @@
   ],
   "shortcuts": [
     {
-      "name": "Agendar faxina",
-      "short_name": "Agendar",
-      "description": "Comece um agendamento pelo chat",
+      "name": "Book a cleaning",
+      "short_name": "Book",
+      "description": "Start a booking by chat",
       "url": "/chat?source=pwa_shortcut",
       "icons": [{ "src": "/icon-512.png", "sizes": "512x512" }]
     },
     {
-      "name": "Minhas reservas",
-      "short_name": "Reservas",
-      "description": "Ver suas próximas faxinas",
+      "name": "My bookings",
+      "short_name": "Bookings",
+      "description": "See your upcoming cleanings",
       "url": "/bookings?source=pwa_shortcut",
       "icons": [{ "src": "/icon-512.png", "sizes": "512x512" }]
     },
     {
-      "name": "Faxineiras",
-      "short_name": "Faxineiras",
-      "description": "Veja as faxineiras verificadas em Ipatinga",
+      "name": "Browse cleaners",
+      "short_name": "Cleaners",
+      "description": "Browse verified cleaners in Tampa",
       "url": "/cleaners?source=pwa_shortcut",
       "icons": [{ "src": "/icon-512.png", "sizes": "512x512" }]
     }
   ]
-
 }

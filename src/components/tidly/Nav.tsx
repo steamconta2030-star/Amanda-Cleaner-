@@ -79,19 +79,19 @@ export function Nav() {
             to="/services"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
-            Serviços
+            Services
           </Link>
           <Link
             to="/faq"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >
-            Dúvidas
+            FAQ
           </Link>
           <Link
             to="/about"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >
-            Sobre
+            About
           </Link>
           <Link
             to="/blog"
@@ -103,26 +103,26 @@ export function Nav() {
             to="/contact"
             className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
           >
-            Contato
+            Contact
           </Link>
           <Link
             to="/cleaners"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
-            Nossas faxineiras
+            Our cleaners
           </Link>
           <Link
             to="/pricing"
             className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline-block"
           >
-            Preços
+            Pricing
           </Link>
           {!isCleaner && (
             <Link
               to="/become-a-cleaner"
               className="hidden text-sm text-muted-foreground hover:text-foreground md:inline-block"
             >
-              Trabalhe com a gente
+              Work with us
             </Link>
           )}
           {isCleaner && (
@@ -130,10 +130,9 @@ export function Nav() {
               to="/cleaner"
               className="hidden rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/15 sm:inline-block"
             >
-              Faxineira
+              Cleaner
             </Link>
           )}
-
           {isAdmin && (
             <Link
               to="/admin"
@@ -144,15 +143,15 @@ export function Nav() {
           )}
           <button
             type="button"
-            aria-label="Alternar tema"
-            title={dark ? "Mudar pra claro" : "Mudar pra escuro"}
+            aria-label="Toggle theme"
+            title={dark ? "Switch to light" : "Switch to dark"}
             onClick={toggleTheme}
             className="rounded-full border border-border bg-background px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
           >
             {dark ? "☀︎" : "☾"}
           </button>
           <select
-            aria-label="Idioma"
+            aria-label="Language"
             value={lang}
             onChange={(e) => changeLang(e.target.value as Lang)}
             className="rounded-full border border-border bg-background px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
@@ -167,18 +166,17 @@ export function Nav() {
             to="/auth"
             className="text-sm text-muted-foreground hover:text-foreground"
           >
-            Entrar
+            Sign in
           </Link>
           <Link
             to="/chat"
             className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/85"
           >
-            Fazer orçamento
+            Get a quote
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>
-
         </nav>
       </div>
     </header>

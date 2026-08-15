@@ -11,7 +11,7 @@ type Props = {
 
 export function NewsletterForm({
   source,
-  title = "Cleaning tips for Ipatinga homes",
+  title = "Cleaning tips for Tampa homes",
   subtitle = "One short email a month. No spam, unsubscribe anytime.",
   variant = "card",
 }: Props) {

@@ -7,17 +7,17 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Amaneat — Cleaning by chat in Ipatinga" },
+      { title: "About Amaneat — Cleaning by chat in Tampa" },
       {
         name: "description",
         content:
-          "Amaneat is a Ipatinga cleaning service built around chat. Real quotes in 60 seconds, photo checklists, and a small team that actually cares.",
+          "Amaneat is a Tampa cleaning service built around chat. Real quotes in 60 seconds, photo checklists, and a small team that actually cares.",
       },
       { property: "og:title", content: "About Amaneat — Cleaning by chat" },
       {
         property: "og:description",
         content:
-          "A tiny Ipatinga cleaning company obsessed with fast quotes and clean handoffs.",
+          "A tiny Tampa cleaning company obsessed with fast quotes and clean handoffs.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/about` }],
@@ -52,10 +52,10 @@ function AboutPage() {
           About
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">
-          A tiny Ipatinga team, obsessed with clean handoffs.
+          A tiny Tampa team, obsessed with clean handoffs.
         </h1>
         <p className="mt-5 text-base text-muted-foreground md:text-lg">
-          Amaneat started because getting a real cleaning quote in Ipatinga was
+          Amaneat started because getting a real cleaning quote in Tampa was
           harder than the clean itself. We built a chat that gives you a
           straight price in about a minute, and a small crew that shows up on
           time with a photo checklist when they're done.
@@ -81,7 +81,7 @@ function AboutPage() {
             Service area
           </p>
           <p className="mt-2 text-sm">
-            Ipatinga, MG and neighboring Vale do Aço. Ask by chat if you
+            Tampa, FL and neighboring Hillsborough County. Ask by chat if you
             live on the edge — we answer honestly.
           </p>
         </div>

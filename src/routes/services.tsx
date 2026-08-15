@@ -25,7 +25,7 @@ export const Route = createFileRoute("/services")({
           "@type": "Service",
           name: s.name,
           description: s.description ?? undefined,
-          areaServed: "Ipatinga, MG",
+          areaServed: "Tampa, FL",
           provider: { "@type": "LocalBusiness", name: "Amaneat" },
           offers: {
             "@type": "Offer",
@@ -38,15 +38,15 @@ export const Route = createFileRoute("/services")({
     };
     return {
       meta: [
-        { title: "Cleaning services & pricing in Ipatinga — Amaneat" },
+        { title: "Cleaning services & pricing in Tampa — Amaneat" },
         {
           name: "description",
           content:
-            "Standard, deep, move-in/out, and short-term rental turnovers in Ipatinga. Transparent starting prices and book by chat.",
+            "Standard, deep, move-in/out, and short-term rental turnovers in Tampa Bay. Transparent starting prices and book by chat.",
         },
         {
           property: "og:title",
-          content: "Cleaning services & pricing in Ipatinga — Amaneat",
+          content: "Cleaning services & pricing in Tampa — Amaneat",
         },
         {
           property: "og:description",
@@ -109,7 +109,7 @@ function ServicesPage() {
           Clean, priced, and booked in one chat.
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          Starting prices for the Ipatinga area. Your final quote depends on
+          Starting prices for the Tampa Bay area. Your final quote depends on
           the size and condition of your place — Amaneat chats with you to nail
           it down in under a minute.
         </p>

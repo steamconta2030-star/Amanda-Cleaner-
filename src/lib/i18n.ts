@@ -1,70 +1,15 @@
-// Minimal i18n for Amaneat. Padrão: pt-BR (sede em Ipatinga/MG).
-export type Lang = "pt" | "en" | "es";
+// Minimal i18n for Amaneat. Auto-detects EN/ES/PT from navigator.
+export type Lang = "en" | "es" | "pt";
 
-export const LANGS: Lang[] = ["pt", "en", "es"];
+export const LANGS: Lang[] = ["en", "es", "pt"];
 
 const DICT = {
-  pt: {
-    nav_how: "Como funciona",
-    nav_services: "Serviços",
-    nav_signin: "Entrar",
-    nav_quote: "Fazer orçamento",
-    hero_badge: "Atendendo Ipatinga e Vale do Aço",
-    hero_title_a: "Agende sua faxina",
-    hero_title_b: "conversando",
-    hero_title_c: ". Sem formulário.",
-    hero_sub:
-      "Conte pra Amaneat como é sua casa — ou mande umas fotos. Você recebe preço real e horários em cerca de 60 segundos.",
-    hero_cta: "Começar orçamento",
-    hero_how: "Como funciona",
-    audience_kicker: "O que a gente limpa?",
-    audience_title: "Escolha o seu caso — o preço se adapta.",
-    home_label: "Minha casa",
-    home_tag: "Famílias",
-    home_tagline: "Semanal, quinzenal ou uma faxina pesada.",
-    rental_label: "Meu aluguel",
-    rental_tag: "Anfitriões",
-    rental_tagline: "Turnover de Airbnb com checklist e fotos.",
-    move_label: "Mudança",
-    move_tag: "Corretores",
-    move_tagline: "Limpeza pós-obra ou pré-entrega da chave.",
-    start_chat: "Abrir chat",
-    how_kicker: "Como funciona",
-    how_title: "Sessenta segundos pra fechar a faxina.",
-    step1_title: "Converse ou mande fotos",
-    step1_body:
-      "Diga endereço, quartos e frequência — ou mande fotos dos cômodos.",
-    step2_title: "Preço na hora",
-    step2_body: "Estimativa real e horários abertos sem esperar retorno.",
-    step3_title: "Confirme em 1 toque",
-    step3_body:
-      "Entre com Google, confirme o horário e a gente chega pronto.",
-    cta_kicker: "Quando quiser",
-    cta_title: "Sua próxima faxina está a uma conversa.",
-    cta_sub:
-      "Atendendo Cariru, Bethânia, Centro e todo o Vale do Aço.",
-    chat_placeholder: "Fale com a Amaneat…",
-    chat_welcome_new:
-      "Oi! Sou a Amaneat. É pra **sua casa**, um **turnover de aluguel** ou uma **mudança**?",
-    chat_welcome_audience: (label: string) =>
-      `Oi! Bora fechar sua faxina de ${label.toLowerCase()}. Qual o endereço (ou bairro) e quantos quartos/banheiros?`,
-    chat_attach: "Anexar fotos",
-    chat_signed_out_hint_a: "Pode começar agora —",
-    chat_signed_out_hint_b: "entre",
-    chat_signed_out_hint_c: "para confirmar a reserva.",
-    install_title: "Instalar Amaneat",
-    install_body: "Adicione à tela inicial e agende em um toque.",
-    install_cta: "Instalar",
-    install_dismiss: "Agora não",
-    install_ios_body:
-      "No Safari, toque Compartilhar e depois Adicionar à Tela de Início.",
-  },
   en: {
     nav_how: "How it works",
     nav_services: "Services",
     nav_signin: "Sign in",
     nav_quote: "Get a quote",
-    hero_badge: "Now booking in Ipatinga",
+    hero_badge: "Now booking in Tampa Bay",
     hero_title_a: "Book a cleaning by",
     hero_title_b: "chatting",
     hero_title_c: ". Not by filling forms.",
@@ -79,10 +24,10 @@ const DICT = {
     home_tagline: "Weekly, bi-weekly, or a one-time deep clean.",
     rental_label: "My rental",
     rental_tag: "Hosts",
-    rental_tagline: "Airbnb turnovers with photo checklist.",
+    rental_tagline: "Airbnb & VRBO turnovers with photo checklist.",
     move_label: "Move in / out",
     move_tag: "Realtors",
-    move_tagline: "Post-construction or handover cleans.",
+    move_tagline: "Deposit-ready cleans on short notice.",
     start_chat: "Start chat",
     how_kicker: "How it works",
     how_title: "Sixty seconds to a booked cleaning.",
@@ -90,19 +35,20 @@ const DICT = {
     step1_body:
       "Tell Amaneat your address, bedrooms, and cadence — or send a few photos of the rooms.",
     step2_title: "See your price instantly",
-    step2_body: "Real quote and open times without a callback.",
+    step2_body:
+      "Get a real estimate and open times without waiting for a callback.",
     step3_title: "Confirm in one tap",
     step3_body:
       "Sign in with Google, confirm the slot, and we'll show up ready.",
     cta_kicker: "Ready when you are",
     cta_title: "Your next cleaning is one conversation away.",
     cta_sub:
-      "Serving Cariru, Bethânia, Centro and greater Vale do Aço.",
+      "Serving Tampa, Westchase, Carrollwood, South Tampa, and greater Hillsborough County.",
     chat_placeholder: "Message Amaneat…",
     chat_welcome_new:
       "Hey! I'm Amaneat. Is this for **your home**, a **rental turnover**, or a **move in/out**?",
     chat_welcome_audience: (label: string) =>
-      `Hey! Let's set up your ${label.toLowerCase()} clean. What's the address and how many bedrooms/bathrooms?`,
+      `Hey! Let's set up your ${label.toLowerCase()} clean. What's the address (or neighborhood) and how many bedrooms/bathrooms?`,
     chat_attach: "Attach photos",
     chat_signed_out_hint_a: "You can start now — you'll",
     chat_signed_out_hint_b: "sign in",
@@ -119,7 +65,7 @@ const DICT = {
     nav_services: "Servicios",
     nav_signin: "Ingresar",
     nav_quote: "Cotizar",
-    hero_badge: "Reservando en Ipatinga",
+    hero_badge: "Reservando en Tampa Bay",
     hero_title_a: "Reserva tu limpieza",
     hero_title_b: "chateando",
     hero_title_c: ". Sin formularios.",
@@ -134,10 +80,10 @@ const DICT = {
     home_tagline: "Semanal, quincenal o una limpieza profunda.",
     rental_label: "Mi renta",
     rental_tag: "Anfitriones",
-    rental_tagline: "Turnover de Airbnb con checklist con fotos.",
+    rental_tagline: "Turnover de Airbnb y VRBO con checklist con fotos.",
     move_label: "Mudanza",
-    move_tag: "Corredores",
-    move_tagline: "Limpieza post-obra o entrega de llaves.",
+    move_tag: "Realtors",
+    move_tagline: "Limpieza lista para depósito, rápida.",
     start_chat: "Iniciar chat",
     how_kicker: "Cómo funciona",
     how_title: "Sesenta segundos para reservar tu limpieza.",
@@ -152,12 +98,12 @@ const DICT = {
     cta_kicker: "Cuando estés listo",
     cta_title: "Tu próxima limpieza está a una conversación.",
     cta_sub:
-      "Atendemos Cariru, Bethânia, Centro y todo el Vale do Aço.",
+      "Servimos Tampa, Westchase, Carrollwood, South Tampa y todo Hillsborough.",
     chat_placeholder: "Escríbele a Amaneat…",
     chat_welcome_new:
       "¡Hola! Soy Amaneat. ¿Es para **tu casa**, un **turnover de renta**, o una **mudanza**?",
     chat_welcome_audience: (label: string) =>
-      `¡Hola! Vamos con tu limpieza de ${label.toLowerCase()}. ¿Dirección y cuántos cuartos/baños?`,
+      `¡Hola! Vamos con tu limpieza de ${label.toLowerCase()}. ¿Dirección (o zona) y cuántos cuartos/baños?`,
     chat_attach: "Adjuntar fotos",
     chat_signed_out_hint_a: "Puedes empezar ya — luego",
     chat_signed_out_hint_b: "ingresa",
@@ -169,19 +115,74 @@ const DICT = {
     install_ios_body:
       "En Safari, toca Compartir y luego Añadir a inicio para instalar Amaneat.",
   },
+  pt: {
+    nav_how: "Como funciona",
+    nav_services: "Serviços",
+    nav_signin: "Entrar",
+    nav_quote: "Cotação",
+    hero_badge: "Agendando em Tampa Bay",
+    hero_title_a: "Reserve sua faxina",
+    hero_title_b: "conversando",
+    hero_title_c: ". Sem formulário.",
+    hero_sub:
+      "Conte pra Amaneat como é sua casa — ou mande umas fotos. Você recebe preço real e horários em cerca de 60 segundos.",
+    hero_cta: "Começar cotação",
+    hero_how: "Como funciona",
+    audience_kicker: "O que a gente limpa?",
+    audience_title: "Escolha o seu caso — o preço se adapta.",
+    home_label: "Minha casa",
+    home_tag: "Famílias",
+    home_tagline: "Semanal, quinzenal ou uma faxina pesada.",
+    rental_label: "Meu aluguel",
+    rental_tag: "Anfitriões",
+    rental_tagline: "Turnover de Airbnb e VRBO com checklist com fotos.",
+    move_label: "Mudança",
+    move_tag: "Corretores",
+    move_tagline: "Limpeza rápida pronta pra devolução.",
+    start_chat: "Abrir chat",
+    how_kicker: "Como funciona",
+    how_title: "Sessenta segundos pra fechar a faxina.",
+    step1_title: "Converse ou mande fotos",
+    step1_body:
+      "Diga endereço, quartos e frequência — ou mande fotos dos cômodos.",
+    step2_title: "Preço na hora",
+    step2_body: "Estimativa real e horários abertos sem esperar retorno.",
+    step3_title: "Confirme em 1 toque",
+    step3_body:
+      "Entre com Google, confirme o horário e a gente chega pronto.",
+    cta_kicker: "Quando quiser",
+    cta_title: "Sua próxima faxina está a uma conversa.",
+    cta_sub:
+      "Atendendo Tampa, Westchase, Carrollwood, South Tampa e todo Hillsborough.",
+    chat_placeholder: "Fale com a Amaneat…",
+    chat_welcome_new:
+      "Oi! Sou a Amaneat. É pra **sua casa**, um **turnover de aluguel** ou uma **mudança**?",
+    chat_welcome_audience: (label: string) =>
+      `Oi! Bora fechar sua faxina de ${label.toLowerCase()}. Qual o endereço (ou bairro) e quantos quartos/banheiros?`,
+    chat_attach: "Anexar fotos",
+    chat_signed_out_hint_a: "Pode começar agora —",
+    chat_signed_out_hint_b: "entre",
+    chat_signed_out_hint_c: "para confirmar a reserva.",
+    install_title: "Instalar Amaneat",
+    install_body: "Adicione à tela inicial e agende em um toque.",
+    install_cta: "Instalar",
+    install_dismiss: "Agora não",
+    install_ios_body:
+      "No Safari, toque Compartilhar e depois Adicionar à Tela de Início.",
+  },
 } as const;
 
 export function detectLang(): Lang {
-  if (typeof navigator === "undefined") return "pt";
+  if (typeof navigator === "undefined") return "en";
   const stored =
     typeof window !== "undefined"
       ? (window.localStorage.getItem("tidly_lang") as Lang | null)
       : null;
   if (stored && LANGS.includes(stored)) return stored;
-  const raw = (navigator.language || "pt").toLowerCase();
+  const raw = (navigator.language || "en").toLowerCase();
+  if (raw.startsWith("pt")) return "pt";
   if (raw.startsWith("es")) return "es";
-  if (raw.startsWith("en")) return "en";
-  return "pt";
+  return "en";
 }
 
 export function setLang(lang: Lang) {

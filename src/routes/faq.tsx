@@ -5,7 +5,7 @@ const SITE_URL = "https://amanda-cleaning.lovable.app";
 
 const FAQ = [
   {
-    q: "How fast can I book a cleaning in Ipatinga?",
+    q: "How fast can I book a cleaning in Tampa?",
     a: "Most quotes take about 60 seconds by chat, and same-week times are usually open.",
   },
   {
@@ -22,7 +22,7 @@ const FAQ = [
   },
   {
     q: "What areas do you serve?",
-    a: "Ipatinga and Vale do Aço, MG. Ask by chat if you're on the edge — we'll say honestly.",
+    a: "Tampa Bay and Hillsborough County, FL. Ask by chat if you're on the edge — we'll say honestly.",
   },
   {
     q: "Can I cancel or reschedule?",
@@ -34,16 +34,16 @@ export const Route = createFileRoute("/faq")({
   component: FaqPage,
   head: () => ({
     meta: [
-      { title: "FAQ — Amaneat cleaning in Ipatinga, MG" },
+      { title: "FAQ — Amaneat cleaning in Tampa, FL" },
       {
         name: "description",
         content:
-          "Answers about pricing, service areas, Airbnb turnovers, move-in/out cleans, and cancellations for Amaneat in Ipatinga.",
+          "Answers about pricing, service areas, Airbnb turnovers, move-in/out cleans, and cancellations for Amaneat in Tampa.",
       },
-      { property: "og:title", content: "FAQ — Amaneat cleaning in Ipatinga" },
+      { property: "og:title", content: "FAQ — Amaneat cleaning in Tampa" },
       {
         property: "og:description",
-        content: "Everything you'd ask before booking a cleaning in Ipatinga.",
+        content: "Everything you'd ask before booking a cleaning in Tampa Bay.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/faq` }],

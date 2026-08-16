@@ -1,58 +1,57 @@
-# 🚀 [Nome do Seu Projeto]
+# Amanda Cleaner
 
-> [Uma frase curta e marcante descrevendo o seu projeto. Ex: "Uma aplicação web moderna para gerenciamento de tarefas do dia a dia."]
+Plataforma web para conectar clientes a profissionais de limpeza, com descoberta de cleaners, agendamentos, comunicação e áreas específicas para operação e administração.
 
-![Demonstração do Projeto](https://via.placeholder.com/800x400?text=Sua+Imagem+ou+GIF+Aqui)
+## Visão do produto
 
----
+A aplicação combina uma experiência pública de descoberta e conteúdo com fluxos autenticados para contratação e gestão dos serviços. Há também uma jornada dedicada para profissionais interessados em entrar na plataforma.
 
-## 📌 Sobre o Projeto
+## Funcionalidades presentes no código
 
-[Escreva um ou dois parágrafos curtos explicando a ideia do projeto, o problema que ele resolve e por que você o desenvolveu.]
+- autenticação de usuários;
+- listagem e perfil individual de profissionais de limpeza;
+- cadastro/jornada para se tornar cleaner;
+- criação e acompanhamento de agendamentos;
+- área autenticada do profissional;
+- painel administrativo;
+- chat;
+- páginas institucionais, FAQ e contato;
+- blog com páginas individuais por slug;
+- integrações de backend via rotas de API.
 
-🔗 **Acesse o projeto online:** [https://seu-projeto.vercel.app](https://seu-projeto.vercel.app)
+## Stack
 
----
+- React 19
+- TypeScript
+- TanStack Start
+- TanStack Router
+- TanStack Query
+- Supabase
+- Tailwind CSS 4
+- Zod
+- AI SDK
+- Vite
 
-## ✨ Funcionalidades
-
-- [ ] Funcionalidade 1 (Ex: Autenticação de usuários)
-- [ ] Funcionalidade 2 (Ex: Dashboard com gráficos dinâmicos)
-- [ ] Funcionalidade 3 (Ex: Layout 100% responsivo para celular e computador)
-- [ ] Funcionalidade 4 (Ex: Modo escuro/claro)
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-Este projeto foi desenvolvido com as seguintes tecnologias:
-
-- **Frontend:** [Ex: React / Next.js / HTML & CSS]
-- **Estilização:** [Ex: Tailwind CSS / Styled Components]
-- **Linguagem:** [Ex: TypeScript / JavaScript]
-- **Hospedagem:** [Vercel](https://vercel.com)
-
----
-
-## 💻 Como Rodar o Projeto Localmente
-
-### Pré-requisitos
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-- [Git](https://git-scm.com)
-- [Node.js](https://nodejs.org/)
-
-### 🧱 Passo a passo
+## Desenvolvimento local
 
 ```bash
-# 1. Clone este repositório
-$ git https://github.com/steamconta2030-star/Amanda-Cleaner-.git
-# 2. Acesse a pasta do projeto
-$ cd seu-repositorio
+git clone https://github.com/steamconta2030-star/Amanda-Cleaner-.git
+cd Amanda-Cleaner-
+npm install
+npm run dev
+```
 
-# 3. Instale as dependências
-$ npm install
+Validação:
 
-# 4. Execute a aplicação em modo de desenvolvimento
-$ npm run dev
+```bash
+npm run lint
+npm run build
+```
 
-# O servidor inciará na porta 3000 (ou similar) - acesse http://localhost:3000
+## Status
+
+Projeto em evolução. Os fluxos de autenticação, agendamento, permissões, comunicação e operações administrativas devem ser testados ponta a ponta antes de uso em produção.
+
+## Segurança
+
+Use variáveis de ambiente para configurações e credenciais. Tokens, chaves privadas e outros segredos não devem ser versionados ou incluídos na documentação.
